@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-lg navbar-light text-light px-3">
             <!-- LOGO AND BRAND -->
             <a class="navbar-brand text-light" href="{% url 'core:homepage' %}">
-                <img src="{% static 'core/img/tu Logo 2.png' %}" class="" height="36px" alt="LOGO"> TURN UP <?php  ?>
+                <img src="{% static 'core/img/tu Logo 2.png' %}" class="" height="36px" alt="LOGO"> TURN UP
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,19 +29,19 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item px-3">
-                        <a class="nav-link text-light" href="events.php">BROWSE EVENT</a>
+                        <a class="nav-link text-light" href="{% url 'core:events_list' %}">BROWSE EVENT</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link text-light" href="help.php">HELP</a>
+                        <a class="nav-link text-light" href="#">HELP</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link text-light" href="create_event.php">CREATE EVENT</a>
+                        <a class="nav-link text-light" href="#">CREATE EVENT</a>
                     </li>
                     <li class="nav-item pl-3">
                         {% if user.is_authenticated %}
                         <div class="dropdown" style="top: 14%; cursor: pointer;">
                             <a class="dropdown-toggle" data-toggle="dropdown">
-                                <span><img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30">' . $_SESSION['db_username'] . '<span>
+                                <span><img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> {{request.user}} <span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                <a class="dropdown-item" href="#">Profile</a>
@@ -51,7 +51,7 @@
                              </div>
                         </div>
                         {% else %}
-                        <a class="nav-link text-light" href="sign_in.php">SIGN IN</a>
+                        <a class="nav-link text-light" href="#">SIGN IN</a>
                         {% endif %}
                     </li>
                 </ul>

@@ -6,18 +6,18 @@ from .models import Event
 
 # @admin.register()
 class EventAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ['name', 'category', 'description'],
-        }),
-        ('Price', {'fields': ['price', 'sale_price']}),
-        ('Location', {'fields': ['location']}),
-        ('Slug', {'fields': ['slug']}),
-        ('Date & Time', {'fields': ['start_time', 'end_time', 'timestamp', 'updated']}),
-        ('Misc', {'fields': ['active', 'featured']}),
-    )
+    # fieldsets = (
+    #     (None, {
+    #         'fields': ['name', 'category', 'description'],
+    #     }),
+    #     ('Price', {'fields': ['price', 'sale_price']}),
+    #     ('Location', {'fields': ['location']}),
+    #     ('Slug', {'fields': ['slug']}),
+    #     ('Date & Time', {'fields': ['start_time', 'end_time', 'updated']}),
+    #     ('Misc', {'fields': ['active', 'featured']}),
+    # )
     
-    list_display = ['name', 'category', 'price', 'timestamp', 'start_time', 'active']
+    list_display = ['name', 'category', 'price', 'start_time', 'active']
     # fields = []
     
 

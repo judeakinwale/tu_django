@@ -9,4 +9,8 @@ class HomeView(TemplateView):
 
 class EventListView(ListView):
     model = Event
-    template_name = "event_list.html"
+    template_name = "core/event_list.html"
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = "core/event_detail.html"

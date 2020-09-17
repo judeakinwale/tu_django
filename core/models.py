@@ -1,4 +1,6 @@
 from django.db import models
+from django.shortcuts import reverse
+from django.utils import timezone
 
 # Create your models here.
 
@@ -43,9 +45,12 @@ class Event(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("event_detail", kwargs={"slug": self.slug})
+        return reverse("core:event_detail", kwargs={"slug": self.slug})
 
     def get_event_duration(self):
-        return self.start_time - self.end_time
+        if self.end_time:
+            return self.start_time - self.end_time
+        else:
+            return "unavailable"
 
     
