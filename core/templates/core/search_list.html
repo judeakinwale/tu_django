@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main class="text-white">
+        <form action="" method="get" role="search">
+            <input type="search" name="q" placeholder="search">
+            <input type="submit" value="save">
+        </form>
+
+        {{search_result}}
+        {{query}}
+        {% for event in search_result %}
+            {{event.name}}
+            {{event.title}}
+        {% endfor %}
+    </main>
+{% endblock content %}

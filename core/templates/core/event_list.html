@@ -6,13 +6,18 @@
     <section class="bg-light">
         <div class="container">
             
-            <div class="input-group pt-3">
+            {% comment %} <div class="input-group pt-3">
                 <input type="search" class="form-control" aria-label="Search Input" placeholder="Search Events">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
                     
                 </div>
-            </div>
+            </div> {% endcomment %}
+
+            <form action="{% url 'core:search' %}" method="GET" role="search">
+                <input type="search" name="q" placeholder="search">
+                <input type="submit" value="Search">
+            </form>
             <nav>
 
             </nav>
@@ -50,7 +55,7 @@
                         </div>
                     </div> {% endcomment %}
 
-                    {% for event in object_list %}
+                    {% comment %} {% for event in object_list %}
                         {{event.name}}
                         {{event.category}}
                         {{event.description}}
@@ -74,7 +79,7 @@
                         {{event.get_event_duration}}
                         {{event.get_absolute_url}}
 
-                    {% endfor %}
+                    {% endfor %} {% endcomment %}
 
                     {% for event in object_list %}
                     <div class="col-md-4">
