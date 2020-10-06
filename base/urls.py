@@ -20,6 +20,4 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include('core.urls'), name="core"),
-    # path("s/", views.SearchListView.as_view(), name="search"),
-    # path("s/", views.search, name="search")
 ]

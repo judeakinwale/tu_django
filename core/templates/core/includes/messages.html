@@ -1,0 +1,47 @@
+{% if messages %}
+    {% for message in messages %}
+        
+        {% comment %} <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+            <!-- Position it -->
+            <div style="position: absolute; top: 0; right: 0;"> {% endcomment %}
+            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-end">
+
+            <!-- Then put toasts within -->
+            {% if message.tags == "success" %}
+                <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            {% elif message.tags == "info" %}
+                <div class="toast bg-info text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            {% elif message.tags == "warning" %}
+                <div class="toast bg-warning text-dark" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            {% elif message.tags == "error" %}
+                <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                    <div class="toast-body">
+                        {{message}}
+                    </div>
+                </div>
+            {% endif %}
+
+            </div>
+            
+            {% comment %} </div>
+        </div> {% endcomment %}
+        
+        <!-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+            <div class="toast-body">
+                {{message}}
+            </div>
+        </div> -->
+    {% endfor %}
+{% endif %}

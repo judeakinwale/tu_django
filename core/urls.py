@@ -7,7 +7,9 @@ app_name = 'core'
 
 urlpatterns = [
     path("", views.HomeView.as_view(), name="homepage"),
-    # path("s/", views.SearchListView.as_view(), name="search"),
+    path("register/", views.register, name="register"),
+    path("logout/", views.logout_request, name="logout"),
+    path("login/", views.login_request, name="login"),
     path("s/", views.search, name="search"),
     path("events/", views.EventListView.as_view(), name="events_list"),
     path("e/<slug>/", views.EventDetailView.as_view(), name="event_detail"),

@@ -2,27 +2,8 @@
 {% load static %}
 
 {% block content %}
-    <!-- SEARCH -->
-    <section class="bg-light">
-        <div class="container">
-            
-            {% comment %} <div class="input-group pt-3">
-                <input type="search" class="form-control" aria-label="Search Input" placeholder="Search Events">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    
-                </div>
-            </div> {% endcomment %}
-
-            <form action="{% url 'core:search' %}" method="GET" role="search">
-                <input type="search" name="q" placeholder="search">
-                <input type="submit" value="Search">
-            </form>
-            <nav>
-
-            </nav>
-        </div>
-    </section>
+    
+    {% include "core/includes/search.html" %}
 
     <!-- EVENTS -->
     <section>
@@ -54,32 +35,6 @@
                             </div>
                         </div>
                     </div> {% endcomment %}
-
-                    {% comment %} {% for event in object_list %}
-                        {{event.name}}
-                        {{event.category}}
-                        {{event.description}}
-
-                        {% if event.sale_price %}
-                            {{event.sale_price}}
-                        {% else %}
-                            {{event.price}}
-                        {% endif %}
-
-                        {% if event.location %}
-                            {{event.location}}
-                        {% endif %}
-                        
-                        {{event.start_time}}
-
-                        {% if event.end_time %}
-                            {{event.end_time}}
-                        {% endif %}
-                        
-                        {{event.get_event_duration}}
-                        {{event.get_absolute_url}}
-
-                    {% endfor %} {% endcomment %}
 
                     {% for event in object_list %}
                     <div class="col-md-4">
@@ -128,135 +83,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>{% endcomment %}
         
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div> {% endcomment %}
+                    
                 </div>
             </div>
         
