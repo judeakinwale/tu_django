@@ -22,6 +22,9 @@ def search(request):
         context = {'query': query, 'search_list': 'Sorry, that event does not exist or has take place'}
     return render(request, template_name, context)
 
+def faq(request):
+    return render(request, "core/help.html")
+
 class EventListView(ListView):
     model = Event
     paginate_by = 9

@@ -20,8 +20,9 @@ EVENT_CHOICES = {
 
 class Event(models.Model):
     name = models.CharField(max_length=250)
-    category = models.CharField(choices=EVENT_CHOICES, max_length=3, blank=True, null=True)
+    # category = models.CharField(choices=EVENT_CHOICES, max_length=3, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    category = models.ForeignKey("EventCategory", verbose_name="Category", default=1, on_delete=models.SET_DEFAULT)
     # image = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
     location = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
@@ -36,10 +37,6 @@ class Event(models.Model):
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
-    
-
-    class Meta:
-        pass
 
     def __str__(self):
         return self.name
@@ -54,3 +51,14 @@ class Event(models.Model):
             return "unavailable"
 
     
+class EventCategory(models.Model):
+    category = models.CharField(max_length=250)
+    summary = models.CharField(max_length=250)
+    slug = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.category
+        
