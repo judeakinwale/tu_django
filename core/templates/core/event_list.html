@@ -53,7 +53,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+                                        <a href="{% url 'cart:add_to_cart' event.slug %}"><button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button></a>
                                     </div>
                                     <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
                                 </div>
@@ -94,15 +94,33 @@
                 <div class="container pt-3">
                     <nav aria-label="Page navigation example text-dark">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+                            {% if object_list.has_previous %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                            {% endif %}
+                            {% if object_list.has_previous %}
+                                <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.previous_page_number}}">{{object_list.previous_page_number}}</a></li>
+                            {% endif %}
+
+                            <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.number}}">{{object_list.number}}</a></li>
+
+                            {% if object_list.has_next %}
+                                <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.next_page_number}}">{{object_list.next_page_number}}</a></li>
+                            {% endif %}
+                            {% if object_list.has_next %}
+                                <a class="page-link text-dark" href="?page={{object_list.paginator.num_pages}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            {% endif %}
+
+                            {% comment %} <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
                             <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
                             <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
                             <li class="page-item">
                                 <a class="page-link text-dark" href="#">Next</a>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                     </nav>
                 </div>
