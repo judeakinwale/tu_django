@@ -53,7 +53,10 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <a href="{% url 'cart:add_to_cart' event.slug %}"><button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button></a>
+                                        <form class="form-inline" action="{% url 'cart:add_to_cart' event.slug %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+                                        </form>
                                     </div>
                                     <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
                                 </div>

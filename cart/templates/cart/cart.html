@@ -15,13 +15,13 @@
                     <th scope="col">Quantity</th>
                     <th scope="col"></th>
                 </thead>
-                {{cart.cartitem_set.all}}
+                {% comment %} {{cart.cartitem_set.all}} {% endcomment %}
                 {% for item in cart.cartitem_set.all %}
                 <tr>
                     <td scope="row">{{item.event}}</td>
                     <td>{{item.event.price}}</td>
                     <td>{{item.quantity}}</td>
-                    <td><a href="{% url 'remove_from_cart' item.id%}">Remove</a></td>
+                    <td><a href="{% url 'cart:remove_from_cart' item.id%}">Remove</a></td>
                 </tr>
                 {% endfor %}
                 <tfoot>

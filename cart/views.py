@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import Cart, CartItem
 from core.models import Event
 
@@ -47,14 +48,14 @@ def add_to_cart(request, slug):
         pass
     
     if request.method == 'POST':
-        quantity =  request.POST['qty']
-        for item in request.POST:
-            key = item
-            value = request.POST[key]
+        # quantity =  request.POST['qty']
+        # for item in request.POST:
+        #     key = item
+        #     value = request.POST[key]
         cart_item = CartItem.objects.create(cart=cart, event=event)
-        cart_item.quantity = quantity
+        # cart_item.quantity = quantity
         cart_item.save()
-    return redirect('cart:view_cart')
+    return HttpResponseRedirect('/cart')
     
 
 def remove_from_cart(request):
@@ -62,12 +63,14 @@ def remove_from_cart(request):
         the_id = request.session['cart_id']
         cart = Cart.objects.get(id=the_id)
     except:
-        return redirect('cart: iew_cart')
+        return HttpResponseRedirect('/cart')
 
     try:
         cartitem = CartItem.objects.get(id=the_id)
         cartitem.cart = None
+        cartitem = None
         cartitem.save()
-        return redirect('cart:view_cart')
+
+        return HttpResponseRedirect('/cart')
     except:
-        return redirect('cart:view_cart')
+        return HttpResponseRedirect('/cart')
