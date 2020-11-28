@@ -55,6 +55,7 @@ def add_to_cart(request, slug):
         cart_item = CartItem.objects.create(cart=cart, event=event)
         # cart_item.quantity = quantity
         cart_item.save()
+    # NOTE: you can use redirect instead of httpresponseredirect. It even allows url names
     return HttpResponseRedirect('/cart')
     
 

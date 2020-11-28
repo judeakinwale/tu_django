@@ -1,0 +1,6 @@
+base/__pycache__/
+cart/__pycache__/
+cart/migrations/__pycache__/
+core/__pycache__/
+core/migrations/__pycache__/
+order/
