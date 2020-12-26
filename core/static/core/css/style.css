@@ -1,5 +1,4 @@
 /* body{font-family: 'Montserrat', sans-serif !important;} */
-body{font-family: 'Poppins', sans-serif !important;}
 #bg-img {
   position: relative;
   background-image: url(../img/background-image-purple.jpg);
@@ -29,8 +28,14 @@ body{font-family: 'Poppins', sans-serif !important;}
 .bg-purple {
   background-color: rgb(86, 1, 134);
 }
+.bg-dark-purple{
+  background-color: rgb(19, 12, 22);
+}
 .text-purple {
   color: #560186;
+}
+.text-dark-purple{
+  color: rgb(50, 32, 59);
 }
 .text-transparent-70 {
   color: rgb(255, 255, 255);

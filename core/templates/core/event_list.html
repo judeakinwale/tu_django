@@ -36,100 +36,71 @@
                         </div>
                     </div> {% endcomment %}
 
-                    {% for event in object_list %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <a href="{{event.get_absolute_url}}">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            </a>
-                            <div class="card-body">
-                                <a href="{{event.get_absolute_url}}"><h5 class="card-title">{{event.name}}</h5></a>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <form class="form-inline" action="{% url 'cart:add_to_cart' event.slug %}" method="POST">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                        </form>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                                <small>{{event.timestamp}}</small>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
 
-                    {% comment %} <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                                role="img" aria-label="Placeholder: Thumbnail">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
-                                    dy=".3em">Thumbnail</text>
-                            </svg>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
-                                    </div>
-                                    <small class="text-muted"><a class="text-muted" href="">Add to Wishlist</a></small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>{% endcomment %}
-        
-                    
+<main>
+  <div class="container my-5">
+    <div class="row">
+      <div class="card-deck">
+        {% for event in object_list %}
+        <div class="col-md-4">
+          <div class="card mx-0 my-5">
+            <a href="event.html">
+              <!-- <img src="img/new/img 3.jpeg" class="card-img-top" alt="..."> -->
+              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+              <div class="card-img-overlay">
+                <span class="px-2 py-1 bg-white rounded-sm text-dark">N 8000</span>
+              </div>
+            </a>
+            <a class="text-decoration-none" href="event.html">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-3 col-md-4 col-lg-2">
+                    <h6 class="card-title mb-1 font-weight-bold text-center text-dark">SEP</h6>
+                  </div>
+                  <div class="col-9 col-sm-8 col-lg-10">
+                    <h6 class="card-title mb-1 font-weight-bold text-center text-dark">Music Festival</h6>
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col-3 col-md-4 col-lg-2">
+                    <p class="card-text mb-1 text-center text-dark">18</p>
+                  </div>
+                  <div class="col-9 col-sm-8 col-lg-10">
+                    <p class="card-text mb-1 pl-2 text-dark">Landmark center</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="card-footer bg-transparent border-0 pl-3 mt-n3">
+              <small class="text-muted">Extra: Free drinks for all ladies</small>
             </div>
-        
-            <!-- PAGINATION -->
-            <section class=" bg-light">
-                <div class="container pt-3">
-                    <nav aria-label="Page navigation example text-dark">
-                        <ul class="pagination justify-content-center">
-                            {% if object_list.has_previous %}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                            {% endif %}
-                            {% if object_list.has_previous %}
-                                <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.previous_page_number}}">{{object_list.previous_page_number}}</a></li>
-                            {% endif %}
-
-                            <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.number}}">{{object_list.number}}</a></li>
-
-                            {% if object_list.has_next %}
-                                <li class="page-item"><a class="page-link text-dark" href="?page={{object_list.next_page_number}}">{{object_list.next_page_number}}</a></li>
-                            {% endif %}
-                            {% if object_list.has_next %}
-                                <a class="page-link text-dark" href="?page={{object_list.paginator.num_pages}}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            {% endif %}
-
-                            {% comment %} <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link text-dark" href="#">Next</a>
-                            </li> {% endcomment %}
-                        </ul>
-                    </nav>
-                </div>
-            </section>
-        
+          </div>
         </div>
-    </section>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- pagination -->
+    <div class="my-5 pb-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination rounded-sm">
+          <li class="page-item">
+            <a class="page-link text-dark-purple" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link bg-purple btn-outline-purple text-light" href="#">1</a></li>
+          <li class="page-item"><a class="page-link text-dark-purple" href="#">2</a></li>
+          <li class="page-item"><a class="page-link text-dark-purple" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link text-dark-purple" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</main>
 
 {% endblock content %}

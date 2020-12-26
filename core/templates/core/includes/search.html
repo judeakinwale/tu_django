@@ -1,5 +1,5 @@
 <!-- SEARCH -->
-<section class="bg-light">
+<!-- <section class="bg-light">
     <div class="container pt-3">
         <form class="" action="{% url 'core:search' %}" method="GET" role="search">
             <div class="input-group">
@@ -8,11 +8,69 @@
                     <span><input class="btn btn-outline-purple rounded-sm" type="submit" value="Search"></span>
                 </div>
             </div>
-            <!-- <input class="form-control mr-sm-2" type="search" name="q" placeholder="search" aria-label="search"> -->
-            <!-- <input class="btn btn-outline-purple" type="submit" value="Search"> -->
         </form>
         <nav>
 
         </nav>
     </div>
+</section> -->
+<section class="sticky-top bg-white">
+  <div class="container">
+    <form class="" action="{% url 'core:search' %}" method="GET" role="search">
+      <div class="row">
+      
+        <div class="col-md-8 pl-0 my-3">
+          <div class="input-group pr-3">
+            <input type="search" class="form-control form-control-sm" name="q" placeholder="Search..."
+              aria-label="Enter search query" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-outline-purple" type="submit" id="button-addon2">Search</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-md-4 pr-0 my-3">
+          <nav class="nav justify-content-between">
+            <li class="nav-item dropdown">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">Location</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">Event Type</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">Category</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="cart.html" class="btn btn-sm">Cart</a>
+            </li>
+          </nav>
+        </div>
+      
+      </div>
+    </form>
+  </div>
 </section>

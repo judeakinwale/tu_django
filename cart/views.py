@@ -66,12 +66,13 @@ def remove_from_cart(request):
     except:
         return HttpResponseRedirect('/cart')
 
-    try:
-        cartitem = CartItem.objects.get(id=the_id)
-        cartitem.cart = None
-        cartitem = None
-        cartitem.save()
+    # try:
+    #     cartitem = CartItem.objects.get(id=the_id)
+    #     print(cart.cartitem_set.all())
+    #     cartitem.cart = None
+    #     cartitem = None
+    #     cartitem.save()
 
-        return HttpResponseRedirect('/cart')
-    except:
-        return HttpResponseRedirect('/cart')
+    #     return HttpResponseRedirect('/cart')
+    # except:
+    #     return HttpResponseRedirect('/cart')
