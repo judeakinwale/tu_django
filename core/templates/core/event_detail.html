@@ -2,7 +2,76 @@
 {% load static %}
 
 {% block content %}
-    {{event.name}}
-    {{event.description}}
-    {{event.location}}
+<main>
+  <div class="container my-5">
+    <div class="card bg-dark text-white">
+      <img src="{% static 'core/img/new/img 3.jpeg' %}" class="card-img" alt="event image">
+      <div class="card-img-overlay px-3 pb-0  ">
+        <div class="row h-75 align-items-center justify-content-end">
+          <div class="col-md-4 mr-n5 bg-white h-50 rounded text-center py-5">
+            <h4 class="text-dark">Date and Time</h4>
+            <p class="text-dark">{{event.start_time|time:""}}</p>
+            <p class="text-dark">{{event.start_time|date:""}}</p>
+            <a href="" class="btn btn-lg w-75 btn-purple">Purchase Ticket</a>
+          </div>
+        </div>
+        <div class="row h-25 align-items-end">
+          <div class="card-group w-100">
+            <div class="col-md-3 bg-purple border border-top-0 border-bottom-0 border-left-0">
+              <div class="card bg-transparent text-light border-0">
+                <div class="card-body">
+                  <div class="card-text"><h6 class="text-light mt-2">Event</h6></div>
+                  <div class="card-title"><h5 class="text-white mt-4">{{event.name}}</h5></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 bg-purple border border-top-0 border-bottom-0">
+              <div class="card bg-transparent text-light border-0">
+                <div class="card-body">
+                  <div class="card-text"><h6 class="text-light mt-2">Venue</h6></div>
+                  <div class="card-title"><h5 class="text-white mt-4">{{event.location}}</h5></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 bg-purple border border-top-0 border-bottom-0">
+              <div class="card bg-transparent text-light border-0">
+                <div class="card-body">
+                  <div class="card-text"><h6 class="text-light mt-2">Price</h6></div>
+
+                    {% if event.sale_price %}
+                    <div class="card-title"><h5 class="text-white mt-4">{{event.sale_price}}</h5></div>
+                    {% else %}
+                    <div class="card-title"><h5 class="text-white mt-4">N {{event.price}}</h5></div>
+                    {% endif %}
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 bg-purple border border-top-0 border-bottom-0 border-right-0">
+              <div class="card bg-transparent text-light border-0">
+                <div class="card-body">
+                  <div class="card-text"><h6 class="text-light mt-2">State</h6></div>
+                  <div class="card-title"><h5 class="text-white mt-4">Lagos</h5></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <h5 class="card-title border border-danger">Card title</h5>
+          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+            This content is a little bit longer.</p>
+          <p class="card-text">Last updated 3 mins ago</p> -->
+        <!-- <span class="align-text-bottom">Lorem, ipsum dolor.</span> -->
+      </div>
+    </div>
+    <!-- <div class="event-img">
+        <img src="img/new/img 3.jpeg" alt="">
+      </div> -->
+  </div>
+  <div class="container my-5">
+    <div class="row">
+      <p class="px-3">{{event.description}}</p>
+    </div>
+  </div>
+</main>
 {% endblock content %}

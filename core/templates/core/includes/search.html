@@ -1,25 +1,10 @@
-<!-- SEARCH -->
-<!-- <section class="bg-light">
-    <div class="container pt-3">
-        <form class="" action="{% url 'core:search' %}" method="GET" role="search">
-            <div class="input-group">
-                <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search ..." aria-label="search">
-                <div class="input-group-prepend">
-                    <span><input class="btn btn-outline-purple rounded-sm" type="submit" value="Search"></span>
-                </div>
-            </div>
-        </form>
-        <nav>
-
-        </nav>
-    </div>
-</section> -->
+<!-- search -->
 <section class="sticky-top bg-white">
   <div class="container">
     <form class="" action="{% url 'core:search' %}" method="GET" role="search">
       <div class="row">
       
-        <div class="col-md-8 pl-0 my-3">
+        <div class="col-md-8 pl-md-0 my-3">
           <div class="input-group pr-3">
             <input type="search" class="form-control form-control-sm" name="q" placeholder="Search..."
               aria-label="Enter search query" aria-describedby="button-addon2">
@@ -29,9 +14,9 @@
           </div>
         </div>
       
-        <div class="col-md-4 pr-0 my-3">
+        <div class="col-md-4 pr-md-0 my-3">
           <nav class="nav justify-content-between">
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mb-2">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">Location</button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -42,7 +27,7 @@
                 <a class="dropdown-item" href="#"><small>Separated link</small></a>
               </div>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mb-2">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">Event Type</button>
               <div class="dropdown-menu dropdown-menu-right">

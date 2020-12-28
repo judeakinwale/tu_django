@@ -2,8 +2,21 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+
+{% block extra_head %}
+<style>
+  .login-bg {
+    /* background-image: url(img/new/img\ 3\ 1.png); */
+    background-image: url({% static 'core/img/new/img_3_1.png' %});
+    height: 100vh;
+    position: relative;
+    background-size: cover;
+  }
+</style>
+{% endblock extra_head %}
+    
 {% block content %}
-    <section class="container py-5">
+    <!-- <section class="container py-5">
         <form action="" method="post">
             {% csrf_token %}
             {{form| crispy}}
@@ -11,6 +24,37 @@
         </form>
         <br>
         <p class="text-center"><small>If you don't already have an account <a href="/register"><strong>register</strong></a> instead</small></p>    
-    </section>
-    
+    </section> -->
+
+<main>
+  <div class="container-fluid my-5 pt-2">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mx-auto text-center bg-white rounded-sm my-5 border">
+        <h4 class="font-weight-bold my-5">Login</h4>
+        <form action="/" method="POST" class="px-md-4 px-lg-5">
+          {% csrf_token %}
+          {{form|crispy}}
+          {% comment %} <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            {{form.username}}
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <!-- <input type="password" class="form-control" id="exampleInputPassword1"> -->
+            {{form.password}}
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+          </div> {% endcomment %}
+          <button type="submit" class="btn btn-purple w-50 mt-3 ">Sign In</button>
+        </form>
+        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'core:register' %}">Register</a></small></p>
+        <p class="mb-5"><a class="text-muted" href="{% url 'core:forgot_password' %}"><small>Forgot password</small></a></p>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock content %}

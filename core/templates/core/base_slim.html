@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
   <link rel="shortcut icon" href="{% static 'core/img/tu Logo 2.png' %} " type="image/x-icon">
-  <title>TURN UP</title>
+  <title>Turn up</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
@@ -18,8 +18,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+  {% block extra_head %}    
+  {% endblock extra_head %}
+
 </head>
-<body>
+<body class="login-bg">
 
     {% include "core/includes/header.html" %}
     

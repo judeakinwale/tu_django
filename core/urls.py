@@ -10,6 +10,7 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("logout/", views.logout_request, name="logout"),
     path("login/", views.login_request, name="login"),
+    path("forgot_password/", TemplateView.as_view(template_name='core/forgot_password.html'), name="forgot_password"),
     path("s/", views.search, name="search"),
     path("events/", views.EventListView.as_view(), name="event_list"),
     path("e/<slug>/", views.EventDetailView.as_view(), name="event_detail"),

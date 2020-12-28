@@ -2,8 +2,21 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block extra_head %}
+<style>
+  .login-bg {
+    /* background-image: url(img/new/img\ 3\ 1.png); */
+    background-image: url("{% static 'core/img/new/img_9_bg.png' %}");
+    height: 100vh;
+    position: relative;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    }
+</style>
+{% endblock extra_head %}
+
 {% block content %}
-    <section class="container py-5">
+    <!-- <section class="container py-5">
         <form action="" method="post">
             {% csrf_token %}
             {{form| crispy}}
@@ -11,6 +24,45 @@
         </form>
         <br>
         <p class="text-center"><small>If you already have an account <a href="/login"><strong>login</strong></a> instead</small></p>    
-    </section>
-    
+    </section> -->
+
+<main>
+  <div class="container-fluid my-5 pt-2">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mx-auto text-center bg-white rounded-sm my-5 border">
+        <h4 class="font-weight-bold my-5">Register</h4>
+        <form action="/" method="POST" class="px-md-5">
+          {% csrf_token %}
+          {{form|crispy}}
+          {% comment %} <div class="form-group">
+            <label for="username">Name</label>
+            <!-- <input type="text" class="form-control" id="username"> -->
+            {{form.username}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"> -->
+            {{form.email}}
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <!-- <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordlHelp"> -->
+            {{form.password1}}
+            <small id="passwordHelp" class="form-text text-muted">Password must have at least 8 characters.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <!-- <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordlHelp"> -->
+            {{form.password2}}
+            <small id="passwordHelp" class="form-text text-muted">Enter the same password as before, for verification.</small>
+          </div> {% endcomment %}
+          <button type="submit" class="btn btn-purple w-50 mt-5 ">Register</button>
+        </form>
+        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'core:login' %}">Sign In</a></small></p>
+        <p class="mb-5"><a class="text-muted" href="{% url 'core:forgot_password' %}"><small>Forgot password</small></a></p>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock content %}
