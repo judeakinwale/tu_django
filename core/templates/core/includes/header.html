@@ -56,7 +56,7 @@
           {% endif %}
 
           <li class="nav-item bg-purple rounded">
-            <a class="nav-link text-white font-weight-bold mx-3" href="account.html">My Account</a>
+            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'core:account' %}">My Account</a>
           </li>
         {% else %}
           {% if "login" in request.path %}
