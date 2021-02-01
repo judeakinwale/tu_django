@@ -1,33 +1,50 @@
 from django.db import models
-from django.shortcuts import redirect, reverse
+from django.contrib.auth.models import User
 from core.models import Event
+from payment.models import BillingAddress, Payment
 
 # Create your models here.
 
-
 class CartItem(models.Model):
-    cart = models.ForeignKey("Cart", on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    guest_user_session_id =  models.CharField(max_length=200, null=True, blank=True)
+    item = models.ForeignKey(Event, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    line_total = models.DecimalField(default=0.00, max_digits=5, decimal_places=2)
-    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-    updated = models.DateTimeField(auto_now=False, auto_now_add=True)
+    ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        try:
-            return str(self.cart.id)
-        except:
-            return self.event.name
+        return f"{self.quantity} of {self.item.name}"
 
-    # def get_absolute_url(self):
-    #     return reverse("Cart_detail", kwargs={"pk": self.pk})
+    def get_total_item_price(self):
+        return self.quantity * self.item.price
+
+    def get_total_item_sale_price(self):
+        return self.quantity * self.item.sale_price
+
+    def get_amount_saved(self):
+        return self.get_total_item_price() - self.get_total_item_sale_price()
+
+    def get_final_price(self):
+        if self.item.sale_price:
+            return self.get_total_item_sale_price()
+        return self.get_total_item_price()     
+
 
 class Cart(models.Model):
-    total = models.DecimalField(default=0.00, max_digits=7, decimal_places=2)
-    active = models.BooleanField(default=True)
-    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-    updated = models.DateTimeField(auto_now=False, auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    guest_user_session_id =  models.CharField(max_length=200, null=True, blank=True)
+    items = models.ManyToManyField("CartItem")
+    start_date = models.DateTimeField(auto_now=False, auto_now_add=True)    
+    ordered_date = models.DateTimeField(auto_now=True, null=True, blank=True)
+    ordered = models.BooleanField(default=False)
+    billing_address = models.ForeignKey(BillingAddress,  on_delete=models.CASCADE, blank=True, null=True)
+    payment = models.ForeignKey(Payment,  on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return f"Cart Id: {self.id}"
-    
+        return f"{self.id}"
+
+    def get_total(self):
+        total = 0
+        for cart_item in self.items.all():
+            total += cart_item.get_final_price( )
+        return total

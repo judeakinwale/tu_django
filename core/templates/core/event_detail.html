@@ -12,7 +12,8 @@
             <h4 class="text-dark">Date and Time</h4>
             <p class="text-dark">{{event.start_time|time:""}}</p>
             <p class="text-dark">{{event.start_time|date:""}}</p>
-            <a href="{% url 'core:cart' %}" class="btn btn-lg w-75 btn-purple">Purchase Ticket</a>
+            <a href="{% url 'core:add_to_cart' event.slug %}" class="btn btn-lg w-25 rounded-0 shadow-none">Cart</a>
+            <a href="{% url 'core:cart' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase Ticket</a>
           </div>
         </div>
         <div class="row h-25 align-items-end">
