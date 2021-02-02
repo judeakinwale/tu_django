@@ -14,9 +14,9 @@
         <div class="col-lg-4 col-md-6">
           <div class="card mx-0 my-5">
             <a href="{{event.get_absolute_url}}">
-              <!-- <img src="img/new/img 3.jpeg" class="card-img-top" alt="..."> -->
-              <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+              <img src="{{event.image.url}}" class="card-img-top" alt="event image", aria-label="Placeholder: Thumbnail">
+              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> -->
               <div class="card-img-overlay">
                 {% if sale_price %}
                   {% if sale_price == 0.00 %}

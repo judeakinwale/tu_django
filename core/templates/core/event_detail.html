@@ -5,15 +5,15 @@
 <main>
   <div class="container my-5">
     <div class="card bg-dark text-white">
-      <img src="{% static 'core/img/new/img 3.jpeg' %}" class="card-img" alt="event image">
+      <img src="{{event.image.url}}" class="card-img" alt="event image">
       <div class="card-img-overlay px-3 pb-0  ">
         <div class="row h-75 align-items-center justify-content-end">
           <div class="col-md-4 mr-n5 bg-white h-50 rounded text-center py-5">
             <h4 class="text-dark">Date and Time</h4>
             <p class="text-dark">{{event.start_time|time:""}}</p>
             <p class="text-dark">{{event.start_time|date:""}}</p>
-            <a href="{% url 'core:add_to_cart' event.slug %}" class="btn btn-lg w-25 rounded-0 shadow-none">Cart</a>
-            <a href="{% url 'core:cart' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase Ticket</a>
+            <a href="{% url 'cart:add_to_cart' event.slug %}" class="btn btn-lg w-25 rounded-0 shadow-none">Cart</a>
+            <a href="{% url 'cart:view_cart' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase Ticket</a>
           </div>
         </div>
         <div class="row h-25 align-items-end">

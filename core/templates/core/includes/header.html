@@ -56,21 +56,21 @@
           {% endif %}
 
           <li class="nav-item bg-purple rounded">
-            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'core:account' %}">My Account</a>
+            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'registeration:account' %}">My Account</a>
           </li>
         {% else %}
           {% if "login" in request.path %}
           <li class="nav-item active">
-            <a class="nav-link mx-3 text-purple" href="{% url 'core:login' %}">Sign In <span class="sr-only">(current)</span></a>
+            <a class="nav-link mx-3 text-purple" href="{% url 'registeration:login' %}">Sign In <span class="sr-only">(current)</span></a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link mx-3" href="{% url 'core:login' %}">Sign In</a>
+            <a class="nav-link mx-3" href="{% url 'registeration:login' %}">Sign In</a>
           </li>
           {% endif %}
 
           <li class="nav-item bg-purple rounded">
-            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'core:register' %}">Register</a>
+            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'registeration:register' %}">Register</a>
           </li>
         {% endif %}
           

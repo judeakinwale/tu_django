@@ -8,7 +8,7 @@ from .models import Event, EventCategory
 class EventAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ['name', 'category', 'description'],
+            'fields': ['name', 'category', 'description', 'image'],
         }),
         ('Price', {'fields': ['price', 'sale_price']}),
         ('Location', {'fields': ['location']}),
