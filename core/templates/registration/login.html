@@ -1,4 +1,4 @@
-{% extends 'core/base_slim.html' %}
+{% extends 'base_slim.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col-11 col-md-6 col-lg-4 mx-auto text-center bg-white rounded-sm my-5 border">
         <h4 class="font-weight-bold my-5">Sign In</h4>
-        <form action="/" method="POST" class="px-md-4 px-lg-5">
+        <form action="" method="POST" class="px-md-4 px-lg-5">
           {% csrf_token %}
           {{form|crispy}}
           {% comment %} <div class="form-group">
@@ -51,8 +51,8 @@
           </div> {% endcomment %}
           <button type="submit" class="btn btn-purple w-50 mt-3 ">Sign In</button>
         </form>
-        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'core:register' %}">Register</a></small></p>
-        <p class="mb-5"><a class="text-muted" href="{% url 'core:forgot_password' %}"><small>Forgot password</small></a></p>
+        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'registration:register' %}">Register</a></small></p>
+        <p class="mb-5"><a class="text-muted" href="{% url 'registration:forgot_password' %}"><small>Forgot password</small></a></p>
       </div>
     </div>
   </div>

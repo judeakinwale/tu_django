@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView, View
 from .forms import NewUserForm
@@ -20,7 +22,7 @@ def register(request):
                 messages.error(request, f"{msg}:{form.error_messages[msg]}")
 
     form = NewUserForm
-    return render(request, "core/register.html", {"form": form})
+    return render(request, "registration/register.html", {"form": form})
 
 def logout_request(request):
     logout(request)
@@ -44,6 +46,8 @@ def login_request(request):
                 messages.error(request, "Invalid Username or Password")
         else:
             messages.error(request, "Invalid Username or Password")
+    else:
+        messages.error(request, "Unable to login")
     
     form = AuthenticationForm()
-    return render(request, "core/login.html", {"form":form})
+    return render(request, "registration/login.html", {"form":form})

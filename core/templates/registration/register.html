@@ -1,6 +1,7 @@
-{% extends 'core/base_slim.html' %}
+{% extends 'base_slim.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+
 
 {% block extra_head %}
 <style>
@@ -59,8 +60,8 @@
           </div> {% endcomment %}
           <button type="submit" class="btn btn-purple w-50 mt-5 ">Register</button>
         </form>
-        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'core:login' %}">Sign In</a></small></p>
-        <p class="mb-5"><a class="text-muted" href="{% url 'core:forgot_password' %}"><small>Forgot password</small></a></p>
+        <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'registration:login' %}">Sign In</a></small></p>
+        <p class="mb-5"><a class="text-muted" href="{% url 'registration:forgot_password' %}"><small>Forgot password</small></a></p>
       </div>
     </div>
   </div>

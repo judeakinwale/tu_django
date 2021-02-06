@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, TemplateView, View
 from .models import Event
-from registeration.forms import NewUserForm
+from registration.forms import NewUserForm
 
 # Create your views here.
 
