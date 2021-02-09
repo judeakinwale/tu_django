@@ -1,5 +1,6 @@
 {% extends 'base_slim.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <main>
@@ -38,13 +39,19 @@
               <div class="card bg-transparent text-light border-0">
                 <div class="card-body">
                   <div class="card-text"><h6 class="text-light mt-2">Price</h6></div>
-
-                    {% if event.sale_price %}
-                    <div class="card-title"><h5 class="text-white mt-4">{{event.sale_price}}</h5></div>
+                  {% if event.sale_price %}
+                    {% if event.sale_price == 0.00 %}
+                    <div class="card-title"><h5 class="text-white mt-4">Free</h5></div>
                     {% else %}
-                    <div class="card-title"><h5 class="text-white mt-4">N {{event.price}}</h5></div>
+                    <div class="card-title"><h5 class="text-white mt-4">N {{event.sale_price | intcomma}}</h5></div>
                     {% endif %}
-                  
+                  {% else %}
+                    {% if event.price == 0.00 %}
+                    <div class="card-title"><h5 class="text-white mt-4">Free</h5></div>
+                    {% else %}
+                    <div class="card-title"><h5 class="text-white mt-4">N {{event.price | intcomma}}</h5></div>
+                    {% endif %}
+                  {% endif %}
                 </div>
               </div>
             </div>
