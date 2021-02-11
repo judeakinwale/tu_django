@@ -1,6 +1,10 @@
 {% extends 'base_slim.html' %}
 {% load static %}
+{% load cart_tag %}
 
+Total Length :: {{request.session.cart|length}}
+
+Cart Detail:
 
 {% block content %}
 <main>
@@ -10,7 +14,7 @@
       <div class="col-md-8">
         <h4 class="text-purple mb-5 text-center font-weight-bold">Cart</h4>
 
-        {% for object in object_list %}
+        {% for key,value in request.session.cart.items %}
         <div class="card mb-5 border-0 shadow-sm">
           <div class="row my-2 no-gutters">
             <div class="col-md-3">
@@ -19,22 +23,22 @@
             </div>
             <div class="col-md-7">
               <div class="card-body my-0">
-                <h6 class="card-title mb-1">{{object.item.name}}</h6>
+                <h6 class="card-title mb-1">{{value.name}}</h6>
                 
-                {% if object.item.sale_price %}
-                  <p class="card-text text-purple">N{{object.item.sale_price}}</p>
+                {% if value.sale_price %}
+                  <p class="card-text text-purple">N{{value.sale_price}}</p>
                 {% else %}
-                  <p class="card-text text-purple">N{{object.item.price}}</p>
+                  <p class="card-text text-purple">N{{value.price}}</p>
                 {% endif %}
                   
               </div>
             </div>
             <div class="col-md-2">
               <ul class="nav flex-column">
-                <a class="nav-link py-0 text-center" href="{% url 'cart:add_to_cart' object.item.slug %}"><img src="{% static 'core/img/new/positive sq.svg' %}" alt=""
+                <a class="nav-link py-0 text-center" href="{% url 'core:item_increment' value.product_id %}"><img src="{% static 'core/img/new/positive sq.svg' %}" alt=""
                     class="rounded-circle shadow" height="24px"></a>
-                <a class="nav-link py-1 text-center">{{object.quantity}}</a>
-                <a class="nav-link py-0 text-center" href="{% url 'cart:remove_from_cart' object.item.slug %}"><img src="{% static 'core/img/new/negative sq.svg' %}" alt=""
+                <a class="nav-link py-1 text-center">{{value.quantity}}</a>
+                <a class="nav-link py-0 text-center" href="{% url 'core:item_decrement' value.product_id %}"><img src="{% static 'core/img/new/negative sq.svg' %}" alt=""
                     class="rounded-circle shadow" height="24px"></a>
               </ul>
             </div>
@@ -46,7 +50,7 @@
     </div>
     <div class="row">
       <div class="col-md-2 my-3">
-        <a href="{% url 'cart:delete_cart' %}" class="text-danger"><img src="img/new/trash.jpeg" alt="" class="mt-2 float-left" width="36px"><span
+        <a href="{% url 'core:cart_clear' %}" class="text-danger"><img src="img/new/trash.jpeg" alt="" class="mt-2 float-left" width="36px"><span
             class="mt-3 ml-2 font-weight-bolder float-left">Clear All</span> </a>
       </div>
       <div class="col-md-8 my-3">

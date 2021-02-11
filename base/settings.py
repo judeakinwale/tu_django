@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'core',
     'registration',
+    
+    # For django-shopping-cart
     'cart',
+
     'payment',
     'location',
     'transportation',
@@ -70,6 +73,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # For django-shopping-cart
+                'cart.context_processor.cart_total_amount',
             ],
         },
     },
@@ -136,4 +141,8 @@ STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# For django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# For django-shopping-cart
+CART_SESSION_ID = 'cart'
