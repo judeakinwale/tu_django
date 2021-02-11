@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, TemplateView, View
 from .models import Event
+from .forms import EventForm
 from cart.cart import Cart
 from registration.forms import NewUserForm
 
@@ -36,6 +37,22 @@ class EventListView(ListView):
 class EventDetailView(DetailView):
     model = Event
     template_name = "core/event_detail.html"
+
+
+# class CreateEventView(TemplateView):
+#     form = EventForm
+#     template_name = "core/create_event.html"
+
+def create_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = EventForm()
+    template_name = "core/create_event.html"
+    context = {'form': form}
+    return render(request, template_name, context)
 
 # From django-shopping-cart
 @login_required(login_url="/login")
