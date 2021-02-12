@@ -1,0 +1,79 @@
+{% load paystack %}
+<!-- <form  id="paymentForm">
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <button type="button" onclick="makePayment()"> Pay </button>
+</form>
+
+<script>
+  //const paymentForm = document.getElementById('paymentForm');
+  //paymentForm.addEventListener("submit", makePayment, false);
+  function makePayment() {    
+    var handler = PaystackPop.setup({
+      key = 'pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc', //public key from your paystack
+      email: 'user@email.com',
+      amount: 300 * 100,
+      currency: 'NGN',
+      ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+      callback: function(response) {
+        alert('success. transaction ref is ' + response.reference);
+      },
+      onClose: function() {
+        alert('window closed');
+      }
+    });
+  handler.openIframe();
+  }
+  window.onload = makePayment()
+</script> -->
+
+
+{% paystack_button amount=3000 email="j@example.com" %}
+
+
+<!-- Written by
+Tosin Ayoola
+stubborn, easy going Python and Js Enthusiast, Angular and django developer, and i luv my life and my career -->
+
+<!-- <script>
+  var paymentForm = document.getElementById('paymentForm');
+
+    paymentForm.addEventListener('submit', payWithPaystack, false);
+
+    function payWithPaystack() {
+
+      var handler = PaystackPop.setup({
+
+        key: 'YOUR_PUBLIC_KEY', // Replace with your public key
+
+        email: document.getElementById('email-address').value,
+
+        amount: document.getElementById('amount').value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+
+        currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+
+        ref: 'YOUR_REFERENCE', // Replace with a reference you generated
+
+        callback: function (response) {
+
+          //this happens after the payment is completed successfully
+
+          var reference = response.reference;
+
+          alert('Payment complete! Reference: ' + reference);
+
+          // Make an AJAX call to your server with the reference to verify the transaction
+
+        },
+
+        onClose: function () {
+
+          alert('Transaction was not completed, window closed.');
+
+        },
+
+      });
+
+      handler.openIframe();
+
+    }
+</script> -->

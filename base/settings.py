@@ -41,13 +41,16 @@ INSTALLED_APPS = [
     'crispy_forms',
     'core',
     'registration',
-    
+
     # For django-shopping-cart
     'cart',
-
     'payment',
     'location',
     'transportation',
+
+    # for pypaystack
+    'paystack',
+    # "paystack.frameworks.django",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +149,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # For django-shopping-cart
 CART_SESSION_ID = 'cart'
+
+# For pypaystack
+PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
+PAYSTACK_SECRET_KEY='sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
