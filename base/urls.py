@@ -28,7 +28,7 @@ urlpatterns = [
     path("transport/", include('transportation.urls')),
 
     # From pypaystack
-    path("paystack/", include(('paystack.urls', 'paystack'), namespace='paystack')),
+    path("paystack/", include(('paystack.frameworks.django.urls', 'paystack'), namespace='paystack')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

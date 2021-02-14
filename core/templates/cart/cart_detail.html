@@ -13,19 +13,17 @@ Cart Detail:
         
       <div class="col-md-8">
         <h4 class="text-purple mb-5 text-center font-weight-bold">Cart</h4>
-
         {% for key,value in request.session.cart.items %}
         <div class="card mb-5 border-0 shadow-sm">
           <div class="row my-2 no-gutters">
             <div class="col-md-3">
               <!-- <img src="img/new/img 2.jpeg" class="card-img mx-auto my-3 d-block" alt="..." style="height: 100px; width: 100px; border-radius: 50%;"> -->
-              <img src="{% static 'core/img/new/img 6-no filter.png' %}" alt="" class="card-img px-5 ml-4">
+              <img src="{{value.image}}" alt="" class="card-img px-5 ml-4 rounded-circle" style="height: 100%; width:100%">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="card-body my-0">
                 <h6 class="card-title mb-1">{{value.name}}</h6>
-                
-                {% if value.sale_price %}
+                {% if value.sale_price != "None" %}
                   <p class="card-text text-purple">N{{value.sale_price}}</p>
                 {% else %}
                   <p class="card-text text-purple">N{{value.price}}</p>
@@ -42,6 +40,9 @@ Cart Detail:
                     class="rounded-circle shadow" height="24px"></a>
               </ul>
             </div>
+            <div class="col-md-1 align-self-center">
+              <a class="nav-link py-0 text-center" href="{% url 'core:item_clear' value.product_id %}"><p class="text-danger">Del</p></a>
+            </div>
           </div>
         </div>
         {% endfor %}
@@ -55,8 +56,7 @@ Cart Detail:
       </div>
       <div class="col-md-8 my-3">
         <!-- <h5><span class="float-right pr-3">N13,000</span></h5> -->
-        <h5 class="mt-3"><span class="float-right pr-3">N{{total}}</span><span
-            class="font-weight-bold float-right pr-3">Total:</span></h5>
+        <h5 class="mt-3"><span class="float-right pr-3">N{{cart_total_amount}}</span><span class="font-weight-bold float-right pr-3">Total:</span></h5>
       </div>
       <div class="col-md-2 my-3">
         <a href="{% url 'payment:checkout' %}" class="btn btn-lg btn-purple w-100 ">Checkout</a>

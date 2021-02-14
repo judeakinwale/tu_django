@@ -9,6 +9,7 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("logout/", views.logout_request, name="logout"),
     path("login/", views.login_request, name="login"),
-    path("forgot_password/", TemplateView.as_view(template_name='registration/forgot_password.html'), name="forgot_password"),
-    path("account/", TemplateView.as_view(template_name='registration/account.html'), name="account"),
+    path("forgot-password/", views.forgot_password, name="forgot_password"),
+    path("account/", views.user_account, name="account"),
+    path("delete-all-user_events/", views.delete_all_user_events, name="delete_all_user_events")
 ]

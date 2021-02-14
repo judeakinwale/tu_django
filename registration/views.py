@@ -4,6 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView, View
 from .forms import NewUserForm
+from core.models import Event
+from cart.cart import Cart
+from payment.models import Payment
 
 # Create your views here.
 
@@ -47,7 +50,28 @@ def login_request(request):
         else:
             messages.error(request, "Invalid Username or Password")
     else:
-        messages.error(request, "Unable to login")
-    
-    form = AuthenticationForm()
+        form = AuthenticationForm()
+        # messages.error(request, "Unable to login")
+
     return render(request, "registration/login.html", {"form":form})
+
+
+def user_account(request):
+    user_events = Event.objects.filter(creator=request.user)
+    template_name = "registration/account.html"
+    context = {
+        'object_list': user_events,
+    }
+    return render(request, template_name, context)
+
+def delete_all_user_events(request):
+    user_events = Event.objects.filter(creator=request.user)
+    for event in user_events:
+        event.delete()
+    return redirect("registration:account")
+
+
+def forgot_password(request):
+    template_name = "registration/forgot_password.html"
+    context = {}
+    return render(request, template_name, context)

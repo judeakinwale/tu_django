@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'transportation',
 
     # for pypaystack
-    'paystack',
-    # "paystack.frameworks.django",
+    # 'paystack',
+    "paystack.frameworks.django",
 ]
 
 MIDDLEWARE = [
@@ -79,6 +79,9 @@ TEMPLATES = [
                 # For django-shopping-cart
                 'cart.context_processor.cart_total_amount',
             ],
+            'libraries': {
+                'paystack': 'paystack.frameworks.django.templatetags.paystack',
+            },
         },
     },
 ]
@@ -146,6 +149,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # For django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# For login
+# LOGIN_REDIRECT_URL = "/events/"
 
 # For django-shopping-cart
 CART_SESSION_ID = 'cart'

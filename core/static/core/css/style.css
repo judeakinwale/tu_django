@@ -31,6 +31,9 @@
 .bg-dark-purple{
   background-color: rgb(19, 12, 22);
 }
+.bg-light-purple {
+  background-color: rgb(111, 44, 150);
+}
 .text-purple {
   color: #560186;
 }
@@ -109,7 +112,7 @@
   user-select: none;
 }
 .logo {
-  width: 36px;
+  width: 32px;
 }
 .copyright-text {
   font-size: 10px;
@@ -121,13 +124,7 @@
   background-color: #4e4e4e;
   background-color: #0000004f !important;
 }
-.jumbotron-image {
-  background-image: url(../img/02.png);
-  height: 500px;
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 .w-75p {
   width: 75%;
 }
@@ -173,7 +170,7 @@
     margin-top: 15% !important;
   }
   .logo {
-    width: 60px;
+    width: 40px;
   }
 }
 @media (min-width: 992px) {

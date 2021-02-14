@@ -20,6 +20,7 @@ from django.utils import timezone
 
 
 class Event(models.Model):
+    creator =  models.ForeignKey(User, default=1, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     # category = models.CharField(choices=EVENT_CHOICES, max_length=3, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -62,3 +63,12 @@ class EventCategory(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class FAQ(models.Model):
+    title = models.CharField(max_length=200)
+    solution = models.TextField()
+
+    def __str__(self):
+        return self.title
+

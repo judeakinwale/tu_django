@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <!-- FONTS -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> -->
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+
 </head>
 <body id="bg-img">
     <header class="bg-purple">
@@ -31,16 +35,16 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item px-3">
-                        <a class="nav-link text-light" href="{% url 'core:event_list' %}">BROWSE EVENT</a>
+                        <a class="nav-link text-light" href="{% url 'core:event_list' %}">Events</a>
                     </li>
                     <li class="nav-item px-3">
-                        <a class="nav-link text-light" href="#">HELP</a>
+                        <a class="nav-link text-light" href="{% url 'core:faq' %}">FAQ</a>
                     </li>
                     <li class="nav-item px-3">
                         {% if user.is_authenticated %}
-                        <a class="nav-link text-light" href="#">CREATE EVENT</a>
+                        <a class="nav-link text-light" href="{% url 'core:create_event' %}">Create Event</a>
                         {% else %}
-                        <a class="nav-link text-light" href="{% url 'registration:register' %}">REGISTER</a>
+                        <a class="nav-link text-light" href="{% url 'registration:register' %}">Register</a>
                         {% endif %}
                     </li>
                     <li class="nav-item pl-3">
@@ -49,14 +53,14 @@
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 <span><img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> Welcome, {{request.user}}<span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right bg-purple border-0 rounded-sm" aria-labelledby="navbarDropdown">
-                               <a class="nav-link text-light" href="#">Profile</a>
-                               <a class="nav-link text-light" href="#">Something</a>
+                            <div class="dropdown-menu dropdown-menu-right bg-purple rounded-sm" aria-labelledby="navbarDropdown">
+                               <a class="nav-link text-light text-center" href="{% url 'registration:account' %}">Profile</a>
+                               <!-- <a class="nav-link text-light" href="#">Something</a> -->
                                <div class="dropdown-divider"></div>
-                               <a class="nav-link text-light" href="{% url 'registration:logout' %}">Logout</a>
+                               <a class="nav-link text-light text-center" href="{% url 'registration:logout' %}">Logout</a>
                             </div>
                         {% else %}
-                        <a class="nav-link text-light" href="{% url 'registration:login' %}">SIGN IN</a>
+                        <a class="nav-link text-light" href="{% url 'registration:login' %}">Sign In</a>
                         </div>
                         {% endif %}        
                     </li>
@@ -75,7 +79,7 @@
         <div class="row">
             <div class="col-12 col-md pt-3 px-5">
                 <ul class="nav float-lg-left justify-content-center">
-                    <a href="" class="text-light"><small>Lorem ipsum dolor sit amet.</small></a>
+                    <a href="mailto:info@tekksoftware.xyz" class="text-light"><small>info@tekksoftware.xyz</small></a>
                 </ul>
             </div>
             <!-- SOCIAL -->
@@ -101,7 +105,7 @@
             <div class="w-100"></div>
             <!-- COPYRIGHT -->
             <div class="col justify-content-center">
-                <p class="copyright-text text-center text-light">&copy; 2019 TURN UP, RIGHTS RESERVED </p>
+                <p class="copyright-text text-center text-light">&copy; 2021 TURN UP, RIGHTS RESERVED </p>
             </div>
         </div>
     </footer>

@@ -6,7 +6,7 @@ from . import views
 app_name = 'core'
 
 urlpatterns = [
-    path("", views.HomeView.as_view(), name="homepage"),
+    path("", views.home, name="homepage"),
     # path("register/", views.register, name="register"),
     # path("logout/", views.logout_request, name="logout"),
     # path("login/", views.login_request, name="login"),
@@ -16,7 +16,7 @@ urlpatterns = [
     path("events/", views.EventListView.as_view(), name="event_list"),
     path("e/<slug>/", views.EventDetailView.as_view(), name="event_detail"),
     path("about/", TemplateView.as_view(template_name='core/about.html'), name="about"),
-    path("faq/", views.faq, name="faq"),
+    path("faq/", views.FAQListView.as_view(), name="faq"),
     # path("create-event/", views.CreateEventView.as_view(), name="create_event"),
     path("create-event/", views.create_event, name="create_event"),
     # path("payment-confirmation/", TemplateView.as_view(template_name='core/payment_confirmation.html'), name="payment_confirmation"),

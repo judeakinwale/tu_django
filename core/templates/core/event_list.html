@@ -8,17 +8,17 @@
 
 <!-- events -->
 <main>
-  <div class="container my-5">
+  <div class="container mb-3">
     <div class="row">
       <div class="card-deck">
         {% for event in object_list %}
         <div class="col-lg-4 col-md-6">
-          <div class="card mx-0 my-5">
+          <div class="card mx-0 my-4 shadow-anim">
             <a href="{{event.get_absolute_url}}">
               <img src="{{event.image.url}}" class="card-img-top" alt="event image", aria-label="Placeholder: Thumbnail">
               <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> -->
-              <div class="card-img-overlay">
+              <div class="card-img-overlay font-weight-bold">
                 {% if event.sale_price %}
                   {% if event.sale_price == 0.00 %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
@@ -49,7 +49,7 @@
                     <p class="card-text mb-1 text-center text-dark">{{event.start_time|date:"d"}}</p>
                   </div>
                   <div class="col-9 col-sm-8 col-lg-9">
-                    <p class="card-text mb-1 pl-2 text-dark">{{event.location}}</p>
+                    <p class="card-text mb-1 pl-2 text-center text-dark text-truncate">{{event.location}}</p>
                   </div>
                 </div>
               </div>
