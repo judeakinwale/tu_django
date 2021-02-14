@@ -24,9 +24,9 @@ Cart Detail:
               <div class="card-body my-0">
                 <h6 class="card-title mb-1">{{value.name}}</h6>
                 {% if value.sale_price != "None" %}
-                  <p class="card-text text-purple">N{{value.sale_price}}</p>
+                  <p class="card-text text-purple">₦{{value.sale_price}}</p>
                 {% else %}
-                  <p class="card-text text-purple">N{{value.price}}</p>
+                  <p class="card-text text-purple">₦{{value.price}}</p>
                 {% endif %}
                   
               </div>
@@ -56,7 +56,7 @@ Cart Detail:
       </div>
       <div class="col-md-8 my-3">
         <!-- <h5><span class="float-right pr-3">N13,000</span></h5> -->
-        <h5 class="mt-3"><span class="float-right pr-3">N{{cart_total_amount}}</span><span class="font-weight-bold float-right pr-3">Total:</span></h5>
+        <h5 class="mt-3"><span class="float-right pr-3">₦{{cart_total_amount}}</span><span class="font-weight-bold float-right pr-3">Total:</span></h5>
       </div>
       <div class="col-md-2 my-3">
         <a href="{% url 'payment:checkout' %}" class="btn btn-lg btn-purple w-100 ">Checkout</a>

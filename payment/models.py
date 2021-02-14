@@ -13,6 +13,7 @@ class Order(models.Model):
     timestamp = models.DateTimeField(default=datetime.now())
     billing_address = models.ForeignKey("BillingAddress", on_delete=models.CASCADE, blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.CASCADE, blank=True, null=True)
+    is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{user} : {cart_id}"

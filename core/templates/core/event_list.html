@@ -23,13 +23,13 @@
                   {% if event.sale_price == 0.00 %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
                   {% else %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{event.sale_price | intcomma}}</span>
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{event.sale_price | intcomma}}</span>
                   {% endif %}
                 {% else %}
                   {% if event.price == 0.00 %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
                   {% else %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{event.price | intcomma}}</span>
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{event.price | intcomma}}</span>
                   {% endif %}
                 {% endif %}
               </div>

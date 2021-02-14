@@ -11,15 +11,15 @@
         <div class="row h-75 align-items-center justify-content-end">
           <div class="col-md-4 mr-n5 bg-white h-50 rounded text-center py-5">
             <h4 class="text-dark">Date and Time</h4>
-            <p class="text-dark">{{event.start_time|time:""}}</p>
-            <p class="text-dark">{{event.start_time|date:""}}</p>
+            <p class="text-dark">{{event.start_time|time:"h:i a"}}</p>
+            <p class="text-dark">{{event.start_time|date:"jS F Y"}}</p>
             <a href="{% url 'core:cart_add' event.id %}" class="btn btn-lg w-25 rounded-0 shadow-none">Cart</a>
-            <a href="{% url 'core:cart_detail' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase Ticket</a>
+            <a href="{% url 'core:cart_detail' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase</a>
           </div>
         </div>
         <div class="row h-25 align-items-end">
           <div class="card-group w-100">
-            <div class="col-md-3 bg-purple border border-top-0 border-bottom-0 border-left-0">
+            <div class="col-md-4 bg-purple border border-top-0 border-bottom-0 border-left-0">
               <div class="card bg-transparent text-light border-0">
                 <div class="card-body">
                   <div class="card-text"><h6 class="text-light mt-2">Event</h6></div>
@@ -27,7 +27,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-5 bg-purple border border-top-0 border-bottom-0">
+            <div class="col-md-4 bg-purple border border-top-0 border-bottom-0">
               <div class="card bg-transparent text-light border-0">
                 <div class="card-body">
                   <div class="card-text"><h6 class="text-light mt-2">Venue</h6></div>
@@ -43,13 +43,13 @@
                     {% if event.sale_price == 0.00 %}
                     <div class="card-title"><h5 class="text-white mt-4">Free</h5></div>
                     {% else %}
-                    <div class="card-title"><h5 class="text-white mt-4">N {{event.sale_price | intcomma}}</h5></div>
+                    <div class="card-title"><h5 class="text-white mt-4">₦{{event.sale_price | intcomma}}</h5></div>
                     {% endif %}
                   {% else %}
                     {% if event.price == 0.00 %}
                     <div class="card-title"><h5 class="text-white mt-4">Free</h5></div>
                     {% else %}
-                    <div class="card-title"><h5 class="text-white mt-4">N {{event.price | intcomma}}</h5></div>
+                    <div class="card-title"><h5 class="text-white mt-4">₦{{event.price | intcomma}}</h5></div>
                     {% endif %}
                   {% endif %}
                 </div>
