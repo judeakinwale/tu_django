@@ -139,4 +139,4 @@ def cart_clear(request):
 
 @login_required(login_url="/login")
 def cart_detail(request):
-    return render(request, 'cart/cart_detail.html', {'total': total})
+    return render(request, 'cart/cart_detail.html')

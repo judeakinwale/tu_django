@@ -1,7 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
+from cart.context_processor import cart_total_amount
 
 # Create your models here.
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_phone = models.IntegerField(blank=True, null=True)
+    cart_id = models.CharField(max_length=50)
+    total_price = models.FloatField()
+    timestamp = models.DateTimeField(default=datetime.now())
+    billing_address = models.ForeignKey("BillingAddress", on_delete=models.CASCADE, blank=True, null=True)
+    payment = models.ForeignKey("Payment", on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return f"{user} : {cart_id}"
 
 class BillingAddress(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
