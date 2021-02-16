@@ -1,9 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, TemplateView, View
+from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
 from .models import Payment, BillingAddress, Order
 from core.models import Event
+from location.models import Listing
+from transportation.models import Transportation
+from cart.context_processor import cart_total_amount
 from paystack.api.signals import payment_verified, event_signal
 from django.dispatch import receiver
 
@@ -24,13 +27,31 @@ def customer_info(request):
 
 
 def checkout(request):
-    order_qs = Order.filter(user=request.user, is_ordered=False)
+    order_qs = Order.objects.filter(user=request.user, is_ordered=False)
     # for key, value in request.session['cart'].items():
     #     if Event.objects.filter(slug=value.slug):
     #         event = Event.objects.filter(slug=value.slug)
     #         date_time_value = event.slug
+    total_amount = cart_total_amount(request)["cart_total_amount"]
+    # print(total_amount)
     template_name = "payment/checkout.html"
-    return render(request, template_name)
+    context = {'total': total_amount, 'email': request.user.email}
+    return render(request, template_name, context)
+
+def direct_checkout(request, target, item_id):
+    
+    if target == 'location':
+        query = Listing.objects.filter(id=item_id)
+        
+    elif target == 'transport':
+        query = Transportation.objects.filter(id= item_id)
+
+    else:
+        messages.error(request, "Invalid option for direct checkout")
+
+    template_name = "payment/direct_checkout.html"
+    context = {'object': query}
+    return render(request, template_name, context)
 
 # Paystack Signals
 @receiver(payment_verified)
@@ -39,6 +60,7 @@ def on_payment_verified(sender, ref,amount, **kwargs):
     ref: paystack reference sent back.
     amount: amount in Naira.
     """
+    
     pass
 
 

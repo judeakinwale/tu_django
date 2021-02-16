@@ -25,6 +25,20 @@
   filter: blur(3px);
   z-index: -1;
 }
+
+#django-paystack-button{
+  float: right;
+  background-color: rgb(255, 146, 57);
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  border-radius: 7px;
+  padding: .65rem 2rem;
+  margin: 3rem 2rem;
+  border: none;
+}
+
+
 .bg-purple {
   background-color: rgb(86, 1, 134);
 }

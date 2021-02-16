@@ -19,7 +19,8 @@
               <img src="{{value.image}}" class="card-img-top rounded" alt="...">
               <div class="card-body px-0">
                 <h5 class="card-title my-1">{{value.name}}</h5>
-                <p class="card-text text-purple my-1">N{{value.price}} <span class="float-right font-weight-bold">x{{value.quantity}}</span> </p>
+                <p class="card-text text-purple my-1">N{{value.price}} <span
+                    class="float-right font-weight-bold">x{{value.quantity}}</span> </p>
               </div>
             </div>
           </div>
@@ -46,7 +47,7 @@
         <a href="{% url 'core:cart_detail' %}" class="btn btn-outline-purple">Return to Cart</a>
       </div>
       <div class="col-md-4 pt-5 pt-md-0">
-        
+
         <form action="{% url 'payment:checkout' %}" class="pt-5 pt-md-0">
           <!-- <div class="form-row">
               <div class="form-group col-md-6">
@@ -60,11 +61,13 @@
             </div> -->
           <div class="form-group rounded-lg shadow py-2">
             <label for="inputAddress" class="px-3">Email</label>
-            
+
             {% if request.user.is_authenticated %}
-              <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress" value="{{request.user.email}}">
+            <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress"
+              value="{{request.user.email}}">
             {% else %}
-              <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress" placeholder="user@example.com">
+            <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress"
+              placeholder="user@example.com">
             {% endif %}
 
           </div>
@@ -72,46 +75,46 @@
             <label for="inputAddress" class="px-3">Ticket Information</label>
             <div class="input-group mb-2 border-bottom">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/img 3.png' %}" alt=""
-                    class="img-fluid" height="32px"></span>
+                <span class="input-group-text bg-white border-0 id=" basic-addon"><img
+                    src="{% static 'core/img/new/img 3.png' %}" alt="" class="img-fluid" height="32px"></span>
               </div>
-              
+
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center" id="inputAddress"
-                  value="{{request.user.first_name}} {{request.user.last_name}}">
+              <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center"
+                id="inputAddress" value="{{request.user.first_name}} {{request.user.last_name}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center" id="inputAddress"
-                  placeholder="Please enter your name" >
+              <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center"
+                id="inputAddress" placeholder="Please enter your name">
               {% endif %}
-                
+
               <!-- <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 bg-white text-center"
                 id="inputAddress" placeholder="Sharon Obasi" disabled> -->
             </div>
-            
+
             {% for key, value in request.session.cart.items %}
             <h6 class="text-center">{{value.name}}</h6>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/location.jpeg' %}"
-                    alt="" class="" height="28px"></span>
+                <span class="input-group-text bg-white border-0 id=" basic-addon"><img
+                    src="{% static 'core/img/new/location.jpeg' %}" alt="" class="" height="28px"></span>
               </div>
               <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 bg-white" id="inputAddress"
                 placeholder="{{value.location}}, {{value.city}}" disabled>
             </div>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/stopwatch.jpeg' %}"
-                    alt="" class="" height="28px"></span>
+                <span class="input-group-text bg-white border-0 id=" basic-addon"><img
+                    src="{% static 'core/img/new/stopwatch.jpeg' %}" alt="" class="" height="28px"></span>
               </div>
               <span>{{value.start_time}}</span>
               <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 bg-white" id="inputAddress"
                 placeholder="{{value.date}} ({{value.time}})" disabled>
             </div>
-            
+
             {% if not forloop.last %}
-              <hr>
+            <hr>
             {% endif %}
-              
+
             {% endfor %}
             <!-- <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 bg-white" id="inputAddress" placeholder="Sharon Obasi" disabled>
               <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 bg-white" id="inputAddress" placeholder="7, Aletuji Close, Lekki Phase One" disabled>
