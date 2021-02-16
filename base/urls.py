@@ -23,9 +23,9 @@ urlpatterns = [
     path("", include('core.urls')),
     path("", include('registration.urls')),
     # path("cart/", include('cart.urls')),
-    path("p/", include('payment.urls')),
-    path("l/", include('location.urls')),
-    path("t/", include('transportation.urls')),
+    path("", include('payment.urls')),
+    path("", include('location.urls')),
+    path("", include('transportation.urls')),
 
     # From pypaystack
     path("paystack/", include(('paystack.frameworks.django.urls', 'paystack'), namespace='paystack')),
