@@ -1,0 +1,19 @@
+{% extends 'base_slim.html' %}
+{% load static %}
+
+
+{% block content %}
+<main>
+  <div class="container my-5">
+    <div class="row py-5">
+      <div class="col-md-4 mx-auto text-center">
+        <img src="{% static 'core/img/new/img 3 lg.png' %}" class="img-fluid" alt="">
+        <h5 class="text-dark-purple mt-5 mb-4 font-weight-bold">Payment Confirmed</h5>
+        <p class="mb-5">The ticket has been sent to your mail</p>
+        <a href="{% url 'core:event_list' %}" class="btn btn-purple">Browse Events</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+  

@@ -37,9 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'crispy_forms',
     'core',
+    'registration',
+
+    # For django-shopping-cart
     'cart',
+    'payment',
+    'location',
+    'transportation',
+
+    # for pypaystack
+    # 'paystack',
+    "paystack.frameworks.django",
 ]
 
 MIDDLEWARE = [
@@ -65,7 +76,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # For django-shopping-cart
+                'cart.context_processor.cart_total_amount',
             ],
+            'libraries': {
+                'paystack': 'paystack.frameworks.django.templatetags.paystack',
+            },
         },
     },
 ]
@@ -120,6 +136,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles'
+]
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
+
+# Media files, for uploaded images
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# For django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# For login
+# LOGIN_REDIRECT_URL = "/events/"
+
+# For django-shopping-cart
+CART_SESSION_ID = 'cart'
+
+# For pypaystack
+PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
+PAYSTACK_SECRET_KEY='sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'

@@ -1,5 +1,4 @@
 /* body{font-family: 'Montserrat', sans-serif !important;} */
-body{font-family: 'Poppins', sans-serif !important;}
 #bg-img {
   position: relative;
   background-image: url(../img/background-image-purple.jpg);
@@ -26,11 +25,34 @@ body{font-family: 'Poppins', sans-serif !important;}
   filter: blur(3px);
   z-index: -1;
 }
+
+#django-paystack-button{
+  float: right;
+  background-color: rgb(255, 146, 57);
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  border-radius: 7px;
+  padding: .65rem 2rem;
+  margin: 3rem 2rem;
+  border: none;
+}
+
+
 .bg-purple {
   background-color: rgb(86, 1, 134);
 }
+.bg-dark-purple{
+  background-color: rgb(19, 12, 22);
+}
+.bg-light-purple {
+  background-color: rgb(111, 44, 150);
+}
 .text-purple {
   color: #560186;
+}
+.text-dark-purple{
+  color: rgb(50, 32, 59);
 }
 .text-transparent-70 {
   color: rgb(255, 255, 255);
@@ -104,7 +126,7 @@ body{font-family: 'Poppins', sans-serif !important;}
   user-select: none;
 }
 .logo {
-  width: 36px;
+  width: 32px;
 }
 .copyright-text {
   font-size: 10px;
@@ -116,13 +138,7 @@ body{font-family: 'Poppins', sans-serif !important;}
   background-color: #4e4e4e;
   background-color: #0000004f !important;
 }
-.jumbotron-image {
-  background-image: url(../img/02.png);
-  height: 500px;
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
 .w-75p {
   width: 75%;
 }
@@ -168,7 +184,7 @@ body{font-family: 'Poppins', sans-serif !important;}
     margin-top: 15% !important;
   }
   .logo {
-    width: 60px;
+    width: 40px;
   }
 }
 @media (min-width: 992px) {

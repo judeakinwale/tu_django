@@ -1,0 +1,95 @@
+{% extends 'base_slim.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{% include "partials/_search.html" %}
+
+<!-- listings -->
+<main>
+  <div class="container my-5">
+    <div class="row">
+      <div class="card-deck">
+        {% for listing in object_list %}
+        <div class="col-lg-4 col-md-6">
+          <div class="card mx-0 my-5">
+            <a href="{{listing.get_absolute_url}}">
+              <img src="{{listing.photo_main.url}}" class="card-img-top" alt="listing image" ,
+                aria-label="Placeholder: Thumbnail">
+              <div class="card-img-overlay">
+                <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{listing.price | intcomma}}</span>
+              </div>
+            </a>
+            <a class="text-decoration-none" href="{{listing.get_absolute_url}}">
+              <div class="card-body">
+                <div class="text-center">
+                  <h4 class="text-purple">{{listing.name}}</h4>
+                  <p class="text-dark">
+                    <i class="fas fa-map-marker text-secondary"></i> {{listing.city}}, {{listing.state}}
+                  </p>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary text-center">
+                  <div class="col-12">
+                    <i class="fas"></i> Capacity: {{listing.capacity}} Seats
+                  </div>
+                  {% if listing.is_booked == True %}
+                  <div class="col-12 text-danger">
+                    <i class="fas"></i> UNAVAILABLE
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <!-- pagination -->
+    {% if object_list.is_paginated %}
+    <div class="my-5 pb-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination rounded-sm">
+
+          {% if object_list.has_previous %}
+          <li class="page-item">
+            <a class="page-link text-dark-purple" href="?page=1" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+
+          {% if object_list.has_previous %}
+          <li class="page-item"><a class="page-link bg-purple btn-outline-purple text-light"
+              href="?page={{object_list.previous_page_number}}">{{object_list.previous_page_number}}</a></li>
+          {% endif %}
+
+          <li class="page-item"><a class="page-link text-dark-purple"
+              href="?page={{object_list.number}}">{{object_list.number}}</a></li>
+
+          {% if object_list.has_next %}
+          <li class="page-item"><a class="page-link text-dark-purple"
+              href="?page={{object_list.next_page_number}}">{{object_list.next_page_number}}</a></li>
+          {% endif %}
+
+          {% if object_list.has_next %}
+          <li class="page-item">
+            <a class="page-link text-dark-purple" href="?page={{object_list.paginator.num_pages}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
+
+  </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,61 @@
+<!-- search -->
+<section class="sticky-top bg-white mt-1">
+  <div class="container">
+    <form class="" action="{% url 'core:search' %}" method="GET" role="search">
+      <div class="row">
+      
+        <div class="col-md-8 pl-md-0 mt-3 mb-2">
+          <div class="input-group pr-3">
+            <input type="search" class="form-control form-control-sm" name="q" placeholder="Search..."
+              aria-label="Enter search query" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-outline-purple" type="submit" id="button-addon2">Search</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-md-4 pr-md-0 mt-3 mb-2">
+          <nav class="nav justify-content-between">
+            <li class="nav-item dropdown mb-2">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">City</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item dropdown mb-2">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">State</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
+                aria-haspopup="true" aria-expanded="false">Category</button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><small>Action</small></a>
+                <a class="dropdown-item" href="#"><small>Another action</small></a>
+                <a class="dropdown-item" href="#"><small>Something else here</small></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><small>Separated link</small></a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'core:cart_detail' %}" class="btn btn-sm">Cart</a>
+            </li>
+          </nav>
+        </div>
+      
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,131 @@
+{% extends 'base_slim.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<main>
+  <section id="showcase-inner" class="py-5 text-dark">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{object.name}}</h1>
+          <p class="lead">
+            <i class="fas fa-map-marker"></i>{{object.city}}, {{object.state}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <a href="{% url 'transportation:transportation_list' %}" class="btn btn-light mb-4">Back To Listings</a>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Home Main Image -->
+        <img src="{{object.photo_main.url}}" alt="" class="img-main img-fluid mb-3">
+        <!-- Thumbnails -->
+        <div class="row mb-5 thumbs">
+          {% if object.photo_1 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_1.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_1.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_2 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_2.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_2.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_3 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_3.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_3.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_4 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_4.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_4.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_5 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_5.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_5.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_6 %}
+          <div class="col-md-2">
+            <a href="{{object.photo_6.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_6.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Fields -->
+        <div class="row mb-5 fields">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-money-bill-alt"></i> Asking Price:
+                <span class="float-right">${{object.price | intcomma}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-chair"></i> Capacity:
+                <span class="float-right">{{object.capacity}} Seats</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-bath"></i> Vehicle type:
+                <span class="float-right">{{object.category}}</span>
+              </li>
+              <!-- <li class="list-group-item text-secondary">
+                <i class="fas fa-car"></i> Pools:
+                <span class="float-right">{{object.pools}}</span>
+              </li> -->
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-dark">
+                <i class="fas fa-th-large"></i> Contact Information:
+                <!-- <span class="float-right">3200</span> -->
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-square"></i> Phone No:
+                <span class="float-right">{{object.phone}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-calendar"></i> Email:
+                <span class="float-right">{{object.email}}</span>
+              </li>
+              <!-- <li class="list-group-item text-secondary">
+                <i class="fas fa-bed"></i> Realtor:
+                <span class="float-right">{{object.realtor}}
+                </span>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+        <!-- Description -->
+        {% if object.description %}
+        <div class="row mb-5">
+          <div class="col-md-12">
+            {{object.description}}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

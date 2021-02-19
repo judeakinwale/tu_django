@@ -1,5 +1,19 @@
-{% extends 'core/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
+
+
+{% block extra_head %}
+    <style>
+        .jumbotron-image {
+            background-image: url({{featured_object.image.url}});
+            height: 500px;
+            background-position: right;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+{% endblock extra_head %}
+    
 
 {% block content %}
     <main class="container-fluid">
@@ -14,13 +28,13 @@
                         <div class="row">
                             <!-- EVENT DETAILS -->
                             <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
-                                <h1 class="display-4 font-weight-bold"><a href="./single_event.php" class="nav-link text-light">LAGOS CARNIVAL</a></h1>
-                                <h3 class="lead"><a href="" class="nav-link text-light">TBS Lagos Island</a></h3>
+                                <h1 class="display-4 font-weight-bold"><a href="{{featured_object.get_absolute_url}}" class="nav-link text-light">{{featured_object.name|upper}}</a></h1>
+                                <h3 class="lead"><a href="" class="nav-link text-light">{{featured_object.location}}</a></h3>
                             </div>
                             <div class="w-100"></div>
                             <!-- GET TICKETS BUTTON -->
                             <div class="col-12 py-md-5 py-3 m-md-5 m-3">
-                                <a href="./checkout.php" class="btn btn-lg btn-outline-w bg-purple">GET TICKETS</a>
+                                <a href="{% url 'payment:checkout' %}" class="btn btn-lg btn-outline-w bg-purple">GET TICKETS</a>
                             </div>
                             <!-- <button type="button" class="btn btn-lg btn-dark border bg-purple m-md-5 m-3">GET TICKETS</button> -->
 
@@ -32,20 +46,35 @@
         </section>
 
         <!-- EVENTS -->
-        <section>
+        <section>   
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-9 col-12">
                     <div class="row justify-content-between">
+                        {% for object in featured_object_list %}
+                        <!-- <div class="col-sm-4 my-3">
+                            <a href="{{object.get_absolute_url}}"><img src="{{object.image.url}}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
+                        </div> -->
                         <div class="col-sm-4 my-3">
+                            <div class="card bg-dark text-white rounded-xl shadow-anim-black">
+                                <a href="{{object.get_absolute_url}}">
+                                    <img src="{{object.image.url}}" class="card-img rounded-xl" alt="{{object.name}}">
+                                </a>
+                                <div class="card-img-overlay transparent-dark rounded-xl">
+                                    <h5 class="card-title">{{object.name}}</h5>
+                                    <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+                                        This content is a little bit longer.</p> -->
+                                    <p class="card-text text-truncate">{{object.location}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- <div class="col-sm-4 my-3">
                             <a href=""><img src="{% static 'core/img/02.png' %}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
                         </div>
                         <div class="col-sm-4 my-3">
                             <a href=""><img src="{% static 'core/img/02.png' %}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
-                        </div>
-                        <div class="col-sm-4 my-3">
-                            <a href=""><img src="{% static 'core/img/02.png' %}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

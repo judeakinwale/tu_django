@@ -1,0 +1,8 @@
+{% load paystack %}
+{% load cart_tag %}
+
+
+1
+{% paystack_button amount=3000 email="j@example.com" %}
+2
+{% comment %} {% paystack_button amount=cart_total_amount email=request.user.email %} {% endcomment %}

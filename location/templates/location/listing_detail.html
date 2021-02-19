@@ -1,0 +1,136 @@
+{% extends 'base_slim.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<main>
+  <section id="showcase-inner" class="py-5 text-dark">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">{{object.address}}</h1>
+          <p class="lead">
+            <i class="fas fa-map-marker"></i>{{object.city}}, {{object.state}}
+              {% if object.zipcode %}
+                , {{object.zipcode}}
+              {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <a href="{% url 'location:location_list' %}" class="btn btn-light mb-4">Back To Listings</a>
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Home Main Image -->
+        <img src="{{object.photo_main.url}}" alt="" class="img-main img-fluid mb-3">
+        <!-- Thumbnails -->
+        <div class="row mb-5 thumbs">
+          {% if object.photo_1.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_1.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_1.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_2.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_2.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_2.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_3.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_3.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_3.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_4.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_4.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_4.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_5.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_5.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_5.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+          
+          {% if object.photo_6.exists %}
+          <div class="col-md-2">
+            <a href="{{object.photo_6.url}}" data-lightbox="home-images">
+              <img src="{{object.photo_6.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Fields -->
+        <div class="row mb-5 fields">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-money-bill-alt"></i> Asking Price:
+                <span class="float-right">${{object.price | intcomma}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-bed"></i> Bedrooms:
+                <span class="float-right">{{object.bedrooms}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-bath"></i> Bathrooms:
+                <span class="float-right">{{object.bathrooms}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-car"></i> Pools:
+                <span class="float-right">{{object.pools}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-th-large"></i> Square Feet:
+                <span class="float-right">3200</span>
+              </li>
+              {% if object.lot_size %}
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-square"></i> Lot Size:
+                <span class="float-right">{{object.lot_size}} Acres</span>
+              </li>
+              {% endif %}
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-calendar"></i> Listing Date:
+                <span class="float-right">{{object.list_date | date:"SHORT_DATE_FORMAT"}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-bed"></i> Realtor:
+                <span class="float-right">{{object.realtor}}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Description -->
+        {% if listing.description %}
+        <div class="row mb-5">
+          <div class="col-md-12">
+            {{object.description}}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
