@@ -26,7 +26,7 @@ SECRET_KEY = '40@dp8=s&5r++)y-)2!2graxlcjqid!o8!n%@$yvu0t1n3_rz6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'fathomless-everglades-23401.herokuapp.com']
 
 
 # Application definition
