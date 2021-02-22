@@ -1,3 +1,5 @@
+{% load static %}
+
 <!-- search -->
 <section class="sticky-top bg-white mt-1">
   <div class="container">
@@ -50,10 +52,10 @@
               </div>
             </li>
             <li class="nav-item">
-              <a href="{% url 'core:cart_detail' %}" class="btn btn-sm">Cart</a>
+              <a href="{% url 'core:cart_detail' %}" class="btn btn-sm text-secondary" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
             </li>
           </nav>
-        </div>
+        </div> 
       
       </div>
     </form>

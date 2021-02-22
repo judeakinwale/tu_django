@@ -14,7 +14,7 @@
             <h4 class="text-dark">Date and Time</h4>
             <p class="text-dark">{{event.start_time|time:"h:i a"}}</p>
             <p class="text-dark">{{event.start_time|date:"jS F Y"}}</p>
-            <a href="{% url 'core:cart_add' event.id %}" class="btn btn-lg w-25 rounded-0 shadow-none">Cart</a>
+            <a href="{% url 'core:cart_add' event.id %}" class="btn btn-lg w-25 rounded-0 shadow-none"><i class="fas fa-cart-plus"></i></a>
             <a href="{% url 'core:cart_detail' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase</a>
           </div>
         </div>
