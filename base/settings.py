@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '40@dp8=s&5r++)y-)2!2graxlcjqid!o8!n%@$yvu0t1n3_rz6'
+# SECRET_KEY = '40@dp8=s&5r++)y-)2!2graxlcjqid!o8!n%@$yvu0t1n3_rz6'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1', 'fathomless-everglades-23401.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'turnup-development.herokuapp.com']
 
 
 # Application definition
@@ -100,6 +103,18 @@ DATABASES = {
     }
 }
 
+# For postgresql
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'turnup',
+#         'USER': 'jude',
+#         'PASSWORD': '0000',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -137,12 +152,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'staticfiles',
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'staticfiles',
+# ]
 STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR / 'static'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Media files, for uploaded images
@@ -161,3 +176,6 @@ CART_SESSION_ID = 'cart'
 # For pypaystack
 PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
 PAYSTACK_SECRET_KEY='sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
