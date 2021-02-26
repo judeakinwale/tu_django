@@ -10,7 +10,7 @@
     <h4 class="text-purple mb-5 text-center font-weight-bold">Checkout</h4>
     <div class="row">
 
-      <div class="col-md-8 px-5 pr-md-5">
+      <div class="col-lg-8 col-md-6 px-5 pr-md-5">
         <h5 class="text-purple my-5 text-center font-weight-bold">My Cart</h5>
         <div class="row">
           {% for key,value in request.session.cart.items %}
@@ -45,7 +45,7 @@
         </div>
         <a href="{% url 'core:cart_detail' %}" class="btn btn-outline-purple">Return to Cart</a>
       </div>
-      <div class="col-md-4 pt-5 pt-md-0">
+      <div class="col-lg-4 col-md-6 pt-5 pt-md-0">
         
         <form action="{% url 'payment:checkout' %}" class="pt-5 pt-md-0">
           <!-- <div class="form-row">
@@ -60,27 +60,28 @@
             </div> -->
           <div class="form-group rounded-lg shadow py-2">
             <label for="inputAddress" class="px-3">Email</label>
-            
-            {% if request.user.is_authenticated %}
-              <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress" value="{{request.user.email}}">
-            {% else %}
-              <input type="text" class="form-control form-control-sm pl-3 border-0 " id="inputAddress" placeholder="user@example.com">
-            {% endif %}
-
+              <div class="input-group">
+              {% if request.user.is_authenticated %}
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 my-2 rounded-sm bg-white border-purple" id="inputAddress" value="{{request.user.email}}" placeholder="{{request.user.email}}">
+              {% else %}
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 border border-purple " id="inputAddress" placeholder="user@example.com">
+              {% endif %}
+              </div>
           </div>
           <div class="form-group rounded-lg shadow py-2">
-            <label for="inputAddress" class="px-3">Ticket Information</label>
+            <h5 class="px-3 my-3">Ticket Information</h5>
+            <label for="inputAddress" class="px-3">Name</label>
             <div class="input-group mb-2 border-bottom">
-              <div class="input-group-prepend">
+              <!-- <div class="input-group-prepend">
                 <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/img 3.png' %}" alt=""
                     class="img-fluid" height="32px"></span>
-              </div>
+              </div> -->
               
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
                   value="{{request.user.first_name}} {{request.user.last_name}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 my-2 border-0 rounded-0 bg-white text-center" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
                   placeholder="Please enter your name" >
               {% endif %}
                 
@@ -89,7 +90,7 @@
             </div>
             
             {% for key, value in request.session.cart.items %}
-            <h6 class="text-center">{{value.name}}</h6>
+            <h6 class="text-center my-4">{{value.name}}</h6>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/location.jpeg' %}"
