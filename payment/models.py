@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from datetime import datetime
 from cart.context_processor import cart_total_amount
 
@@ -10,7 +11,7 @@ class Order(models.Model):
     user_phone = models.IntegerField(blank=True, null=True)
     cart_id = models.CharField(max_length=50)
     total_price = models.FloatField()
-    timestamp = models.DateTimeField(default=datetime.now())
+    timestamp = models.DateTimeField(default=timezone.now)
     billing_address = models.ForeignKey("BillingAddress", on_delete=models.CASCADE, blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.CASCADE, blank=True, null=True)
     is_ordered = models.BooleanField(default=False)

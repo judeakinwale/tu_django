@@ -8,7 +8,7 @@
       
         <div class="col-md-8 pl-md-0 mt-3 mb-2">
           <div class="input-group pr-3">
-            <input type="search" class="form-control form-control-sm" name="q" placeholder="Search..."
+            <input type="search" class="form-control form-control-sm border-purple" name="query" placeholder="Search..."
               aria-label="Enter search query" aria-describedby="button-addon2">
             <div class="input-group-append">
               <button class="btn btn-sm btn-outline-purple" type="submit" id="button-addon2">Search</button>
@@ -18,7 +18,7 @@
       
         <div class="col-md-4 pr-md-0 mt-3 mb-2">
           <nav class="nav justify-content-between">
-            <li class="nav-item dropdown mb-2">
+            <!-- <li class="nav-item dropdown mb-2">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">City</button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -28,8 +28,35 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"><small>Separated link</small></a>
               </div>
+            </li> -->
+            <li class="nav-item mb-2">
+              <label class="sr-only">City</label>
+              <select name="city" class="form-control form-control-sm border-purple">
+                <option selected="true" disabled="disabled">City</option>
+                {% for item in cities %}
+                <option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+              </select>
             </li>
-            <li class="nav-item dropdown mb-2">
+            <li class="nav-item mb-2">
+              <label class="sr-only">State</label>
+              <select name="state" class="form-control form-control-sm border-purple">
+                <option selected="true" disabled="disabled">State</option>
+                {% for item in states %}
+                <option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <li class="nav-item mb-2">
+              <label class="sr-only">Category</label>
+              <select name="category" class="form-control form-control-sm border-purple">
+                <option selected="true" disabled="disabled">Category</option>
+                {% for item in categories %}
+                <option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <!-- <li class="nav-item dropdown mb-2">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">State</button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -39,8 +66,8 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"><small>Separated link</small></a>
               </div>
-            </li>
-            <li class="nav-item dropdown">
+            </li> -->
+            <!-- <li class="nav-item dropdown">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
                 aria-haspopup="true" aria-expanded="false">Category</button>
               <div class="dropdown-menu dropdown-menu-right">
@@ -50,7 +77,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#"><small>Separated link</small></a>
               </div>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a href="{% url 'core:cart_detail' %}" class="btn btn-sm text-secondary" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
             </li>

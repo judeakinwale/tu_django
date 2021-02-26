@@ -117,6 +117,9 @@
 .form-control:focus {
   box-shadow: 0 0 0 0.2rem rgba(85, 1, 134, 0.44) !important;
 }
+.border-purple {
+  border-color: #560186 !important;
+}
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;

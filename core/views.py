@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
-from .models import Event, FAQ
+from .models import Event, EventCategory, EventCity, EventState, FAQ
 # from .forms import EventForm
 from cart.cart import Cart
 from registration.forms import NewUserForm
@@ -42,13 +42,50 @@ class HomeView(TemplateView):
 
 
 def search(request):
+    queryset_list = Event.objects.order_by('-timestamp')
+
+    # Keywords
+    if 'query' in request.GET:
+        query = request.GET['query']
+        if query:
+            queryset_list = queryset_list.filter(name__icontains=query)
+
+    # City
+    if 'city' in request.GET:
+        city = request.GET['city']
+        if city:
+            city_id = EventCity.objects.get(name__iexact=city).id
+            queryset_list = queryset_list.filter(city=city_id)
+    
+    # State
+    if 'state' in request.GET:
+        state = request.GET['state']
+        if state:
+            # print (EventState.objects.get(name__iexact=state))
+            state_id = EventState.objects.get(name__iexact=state).id
+            # print (EventState.objects.filter(name__iexact=state))
+            queryset_list = queryset_list.filter(state=state_id)
+
+    # Category
+    if 'category' in request.GET:
+        category = request.GET['category']
+        if category:
+            category_id = EventCategory.objects.get(name__iexact=category).id
+            queryset_list = queryset_list.filter(category=category_id)
+
+
+    # try:
+    #     query = request.GET.get('q')
+    #     events = Event.objects.filter(name__icontains=query)
+    #     context = {'query': query, 'search_result': events}
+    # except:
     template_name = 'core/search_list.html'
-    try:
-        query = request.GET.get('q')
-        events = Event.objects.filter(name__icontains=query)
-        context = {'query': query, 'search_result': events}
-    except:
-        context = {'query': query, 'search_list': 'Sorry, that event does not exist or has take place'}
+    context = { 'query': request.GET['query'], 
+                'search_list': queryset_list,
+                'categories' : EventCategory.objects.all(),
+                'cities' : EventCity.objects.all(),
+                'states' : EventState.objects.all(),
+                }
     return render(request, template_name, context)
 
 
@@ -56,9 +93,19 @@ class EventListView(ListView):
     model = Event
     paginate_by = 9
     # template_name = "core/event_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = EventCategory.objects.all()
+        context['cities'] = EventCity.objects.all()
+        context['states'] = EventState.objects.all()
+        return context
+    
+
 
 class EventDetailView(DetailView):
     model = Event
+    # print(Event.objects.get(id=1).start_time)
     # template_name = "core/event_detail.html"
 
 

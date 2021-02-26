@@ -8,8 +8,8 @@
     <div class="card bg-dark text-white">
       <img src="{{event.image.url}}" class="card-img" alt="event image">
       <!-- Is visible only in desktop view -->
-      <div class="card-img-overlay px-3 pb-0 d-none d-md-block">
-        <div class="row h-75 align-items-center justify-content-end">
+      <div class="card-img-overlay px-3 pb-0 d-none d-lg-block">
+        <div class="row align-items-center justify-content-end">
           <div class="col-md-4 mr-n5 bg-white h-50 rounded text-center py-5">
             <h4 class="text-dark">Date and Time</h4>
             <p class="text-dark">{{event.start_time|time:"h:i a"}}</p>
@@ -18,7 +18,7 @@
             <a href="{% url 'core:cart_detail' %}" class="btn btn-lg w-75 btn-purple float-right">Purchase</a>
           </div>
         </div>
-        <div class="row h-25 align-items-end">
+        <div class="row h-25 align-items-end" style="margin-top:15%;">
           <div class="card-group w-100">
             <div class="col-md-4 bg-purple border border-top-0 border-bottom-0 border-left-0">
               <div class="card bg-transparent text-light border-0">
@@ -79,7 +79,7 @@
   </div>
   <div class="container mt-4 mt-md-5 mb-5">
     <!-- Is visible only in mobile view -->
-    <div class="row d-block d-md-none">
+    <div class="row d-block d-lg-none">
       <div class="col-sm-6 text-center">
         <h5 class="">{{event.name}}</h5>
         <h6 class="">{{event.location}} {% if event.city %}, {{event.city}} {% endif %} {% if event.state %}, {{event.state}} {% endif %}</h6>
@@ -125,7 +125,8 @@
       </div>
     </div>
 
-    <p class="px-3 mt-5">{{event.description}}</p>
+    <h3 class="px-3 pt-5 my-4">About this event</h3>
+    <p class="px-3 mt-4">{{event.description}}</p>
 
   </div>
 </main>

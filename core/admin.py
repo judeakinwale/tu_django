@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventCategory, FAQ
+from .models import Event, EventCategory, EventCity, EventState, FAQ
 
 # Register your models here.
 
@@ -11,7 +11,7 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ['creator','name', 'category', 'description', 'image'],
         }),
         ('Price', {'fields': ['price', 'sale_price']}),
-        ('Location', {'fields': ['location']}),
+        ('Location', {'fields': ['location', 'city', 'state', 'country']}),
         ('Slug', {'fields': ['slug']}),
         ('Date & Time', {'fields': ['start_time', 'end_time']}),
         ('Misc', {'fields': ['active', 'featured']}),
@@ -24,5 +24,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(EventCategory)
+admin.site.register(EventCity)
+admin.site.register(EventState)
 admin.site.register(Event, EventAdmin)
 admin.site.register(FAQ)

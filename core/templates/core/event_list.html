@@ -6,64 +6,71 @@
     
 {% include "partials/_search.html" %}
 
-<!-- events -->
 <main>
   <div class="container mb-3">
-    <div class="row">
-      <div class="card-deck">
-        {% for event in object_list %}
-        <div class="col-lg-4 col-md-6">
-          <div class="card mx-0 my-4 shadow-anim">
-            <a href="{{event.get_absolute_url}}">
-              <img src="{{event.image.url}}" class="card-img-top" alt="event image", aria-label="Placeholder: Thumbnail">
-              <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+    {% if object_list.exists %}
+      <!-- events -->
+      <div class="row">
+        <div class="card-deck">
+          {% for event in object_list %}
+          <div class="col-lg-4 col-md-6">
+            <div class="card mx-0 my-4 shadow-anim">
+              <a href="{{event.get_absolute_url}}">
+                <img src="{{event.image.url}}" class="card-img-top" alt="event image" ,
+                  aria-label="Placeholder: Thumbnail">
+                <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> -->
-              <div class="card-img-overlay font-weight-bold">
-                {% if event.sale_price %}
+                <div class="card-img-overlay font-weight-bold">
+                  {% if event.sale_price %}
                   {% if event.sale_price == 0.00 %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
                   {% else %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{event.sale_price | intcomma}}</span>
                   {% endif %}
-                {% else %}
+                  {% else %}
                   {% if event.price == 0.00 %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
                   {% else %}
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{event.price | intcomma}}</span>
                   {% endif %}
-                {% endif %}
-              </div>
-            </a>
-            <a class="text-decoration-none" href="{{event.get_absolute_url}}">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-3 col-md-4 col-lg-3">
-                    <h6 class="card-title mb-1 font-weight-bold text-center text-dark text-uppercase">{{event.start_time|date:"M"}}</h6>
+                  {% endif %}
+                </div>
+              </a>
+              <a class="text-decoration-none" href="{{event.get_absolute_url}}">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-3 col-md-4 col-lg-3 px-2">
+                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark text-uppercase">
+                        {{event.start_time|date:"M"}}</h6>
+                    </div>
+                    <div class="col-9 col-sm-8 col-lg-9 px-2">
+                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark">{{event.name}}</h6>
+                    </div>
                   </div>
-                  <div class="col-9 col-sm-8 col-lg-9">
-                    <h6 class="card-title mb-1 font-weight-bold text-center text-dark">{{event.name}}</h6>
+                  <div class="row">
+                    <div class="col-3 col-md-4 col-lg-3 px-2">
+                      <p class="card-text mb-1 text-center text-dark">{{event.start_time|date:"d"}}</p>
+                    </div>
+                    <div class="col-9 col-sm-8 col-lg-9 px-2">
+                      <p class="card-text mb-1 pl-2 text-center text-dark text-truncate">{{event.location}}</p>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-3 col-md-4 col-lg-3">
-                    <p class="card-text mb-1 text-center text-dark">{{event.start_time|date:"d"}}</p>
-                  </div>
-                  <div class="col-9 col-sm-8 col-lg-9">
-                    <p class="card-text mb-1 pl-2 text-center text-dark text-truncate">{{event.location}}</p>
-                  </div>
-                </div>
+              </a>
+              {% if extra %}
+              <div class="card-footer bg-transparent border-0 pl-3 mt-n3">
+                <small class="text-muted">Extra: Free drinks for all ladies</small>
               </div>
-            </a>
-            {% if extra %}
-            <div class="card-footer bg-transparent border-0 pl-3 mt-n3">
-              <small class="text-muted">Extra: Free drinks for all ladies</small>
+              {% endif %}
             </div>
-            {% endif %}
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
-    </div>
+    {% else %}
+      <h1 class="text-center text-dark" style="padding-top: 20%; padding-bottom: 20%;">There are no events at this time</h1>
+    {% endif %}
+    
     <!-- pagination -->
     {% if object_list.is_paginated %}
     <div class="my-5 pb-3">
