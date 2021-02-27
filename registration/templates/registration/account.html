@@ -20,10 +20,10 @@
             <a class="nav-link my-3 shadow-sm rounded-sm text-purple active" href="#">
               <h6>Tickets Purchased <span class="badge badge-secondary">2</span></h6>
             </a>
-            <a class="nav-link my-3 shadow-sm rounded-sm text-purple" href="#">
+            <a class="nav-link my-3 shadow-sm rounded-sm text-purple" href="{% url 'location:location_create' %}">
               <h6>Upload Event Location</h6>
             </a>
-            <a class="nav-link my-3 shadow-sm rounded-sm text-purple" href="#">
+            <a class="nav-link my-3 shadow-sm rounded-sm text-purple" href="{% url 'transportation:transportation_create' %}">
               <h6>Upload Transportation</h6>
             </a>
             <a class="nav-link my-3 shadow-sm rounded-sm text-purple" href="{% url 'core:create_event' %}">
