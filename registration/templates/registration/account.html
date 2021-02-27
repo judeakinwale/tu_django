@@ -49,9 +49,9 @@
                 <img src="{{object.image.url}}" class="card-img-top" alt="...">
               </a>
               <div class="card-body">
-                <h6 class="mb-0"><a href="" class="text-muted"><small class="">Edit</small></a></h6>
+                <h6 class="mb-0"><a href="{% url 'core:update_event' object.slug %}" class="text-muted"><small class="">Edit</small></a></h6>
                 <h6 class="card-title mb-1 font-weight-bold text-center text-dark">{{object.name}}</h6>
-                <h6 class="text-right mb-0"><a href="" class="text-danger"><small class="">Delete</small></a></h6>
+                <h6 class="text-right mb-0"><a href="{% url 'core:delete_event' object.slug %}" class="text-danger"><small class="">Delete</small></a></h6>
               </div>
             </div>
           </div>

@@ -2,10 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
+from .forms import EventForm
 from .models import Event, EventCategory, EventCity, EventState, FAQ
 # from .forms import EventForm
 from cart.cart import Cart
@@ -116,17 +119,41 @@ class FAQListView(ListView):
 
 class EventCreateView(CreateView):
     model = Event
-    fields = '__all__'
+    form_class = EventForm
+    # fields = ['name', 'description', 'category', 'image', 'price', 'sale_price', 'slug'] 
+    # fields = '__all__'
     # template_name = "core/event_create.html"
 
+@login_required(login_url="/login")
+def create_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        print (form)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.slug = slugify(post.name)
+            # handle_uploaded_file(request.Files['image'])
+            post.save()
+            return redirect('core:event_list')
+    else:
+        form = EventForm()
+
+    template_name = 'core/event_form.html'
+    context = {
+        'title': 'Create Event',
+        'form': form,
+    }
+    return render(request, template_name, context)
 
 class EventUpdateView(UpdateView):
     model = Event
-    fields = '__all__'
+    form_class = EventForm
+    # fields = '__all__'
     # template_name = "TEMPLATE_NAME"
 
 
-class EventDeleteView(DeleteView):
+class EventDeleteView(LoginRequiredMixin, DeleteView):
     model = Event
     success_url = reverse_lazy('registration:account')
     # template_name = "core/event_confirm_delete.html"
