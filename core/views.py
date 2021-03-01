@@ -159,6 +159,10 @@ class EventDeleteView(LoginRequiredMixin, DeleteView):
     # template_name = "core/event_confirm_delete.html"
 
 
+def contact_us(request):
+    template_name = 'core/contact_us.html'
+    return render(request, template_name)
+
 # def create_event(request):
 #     if request.method == 'POST':
 #         form = EventForm(request.POST)

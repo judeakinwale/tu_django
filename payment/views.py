@@ -38,19 +38,26 @@ def checkout(request):
     context = {'total': total_amount, 'email': request.user.email}
     return render(request, template_name, context)
 
-def direct_checkout(request, target, item_id):
+def direct_checkout(request, target, id):
     
     if target == 'location':
-        query = Listing.objects.filter(id=item_id)
+        query = Listing.objects.get(id=id)
         
     elif target == 'transport':
-        query = Transportation.objects.filter(id= item_id)
+        query = Transportation.objects.get(id=id)
+    
+    elif target == 'event':
+        query = Event.objects.get(id=id)
 
     else:
         messages.error(request, "Invalid option for direct checkout")
 
+    print(query.price)
     template_name = "payment/direct_checkout.html"
-    context = {'object': query}
+    context = {
+        'object': query,
+        'total': query.price,
+    }
     return render(request, template_name, context)
 
 # Paystack Signals

@@ -17,7 +17,8 @@ class EventAdmin(admin.ModelAdmin):
         ('Misc', {'fields': ['active', 'featured']}),
     )
 
-    list_display = ['name', 'category', 'price', 'start_time', 'active']
+    list_display = ['name', 'category', 'price', 'start_time', 'active', 'featured']
+    list_editable = ['active', 'featured']
     prepopulated_fields = {'slug': ('name',)}
     # fields = []
 

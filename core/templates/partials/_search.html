@@ -6,8 +6,8 @@
     <form class="" action="{% url 'core:search' %}" method="GET" role="search">
       <div class="row">
       
-        <div class="col-md-8 pl-md-0 mt-3 mb-2">
-          <div class="input-group pr-3">
+        <div class="col-md-8 pl-md-0 mt-1 mt-md-3 mb-1 mb-md-2">
+          <div class="input-group">
             <input type="search" class="form-control form-control-sm border-purple" name="query" placeholder="Search..."
               aria-label="Enter search query" aria-describedby="button-addon2">
             <div class="input-group-append">
@@ -16,7 +16,7 @@
           </div>
         </div>
       
-        <div class="col-md-4 pr-md-0 mt-3 mb-2">
+        <div class="col-md-4 pr-md-0 mt-1 mt-md-3 mb-0 mb-md-2">
           <nav class="nav justify-content-between">
             <!-- <li class="nav-item dropdown mb-2">
               <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
@@ -79,7 +79,7 @@
               </div>
             </li> -->
             <li class="nav-item">
-              <a href="{% url 'core:cart_detail' %}" class="btn btn-sm text-secondary" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
+              <a href="{% url 'core:cart_detail' %}" class="btn btn-sm text-purple" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
             </li>
           </nav>
         </div> 
