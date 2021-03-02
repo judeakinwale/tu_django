@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
 from cart.context_processor import cart_total_amount
+from core.models import Event
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Order(models.Model):
     user_phone = models.IntegerField(blank=True, null=True)
     cart_id = models.CharField(max_length=50)
     total_price = models.FloatField()
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=datetime.now)
     billing_address = models.ForeignKey("BillingAddress", on_delete=models.CASCADE, blank=True, null=True)
     payment = models.ForeignKey("Payment", on_delete=models.CASCADE, blank=True, null=True)
     is_ordered = models.BooleanField(default=False)
@@ -36,7 +37,7 @@ class BillingAddress(models.Model):
 
 
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     session_id = models.CharField(max_length=150)
     charge_id = models.CharField(max_length=100)
     amount_due = models.FloatField()
@@ -51,3 +52,26 @@ class CustomerInfo(models.Model):
     email = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=50)
     address = models.CharField(max_length=150)
+
+
+class UserOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    order_items = models.ManyToManyField(Event, blank=True)
+    cart_id = models.CharField(max_length=200, blank=True, null=True)
+    order_item_qty = models.IntegerField(default=1, blank=True, null=True)
+    amount_due = models.FloatField(blank=True, null=True)
+    is_ordered = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+
+class PaymentConfirmation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user_order = models.ForeignKey(UserOrder, on_delete=models.CASCADE, blank=True, null=True)
+    reference = models.CharField(max_length=200, blank=True, null=True)
+    amount = models.FloatField(blank=True, null=True)
+    raw_request = models.TextField(blank=True, null=True)
+    event = models.CharField(max_length=200, blank=True, null=True)
+    data = models.CharField(max_length=500, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)

@@ -46,8 +46,11 @@
         <a href="{% url 'core:cart_detail' %}" class="btn btn-outline-purple">Return to Cart</a>
       </div>
       <div class="col-lg-4 col-md-6 pt-5 pt-md-0">
-        
-        <form action="{% url 'payment:checkout' %}" class="pt-5 pt-md-0">
+        {% if total == 0.00 %}
+        <form action="{% url 'payment:payment_confirmation' %}" class="pt-5 pt-md-0">
+        {% else %}
+        <form action="{% url 'payment:checkout' %}" class="pt-5 pt-md-0"></form>
+        {% endif %}
           <!-- <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
@@ -76,10 +79,10 @@
                 <span class="input-group-text bg-white border-0 id=" basic-addon"><img src="{% static 'core/img/new/img 3.png' %}" alt=""
                     class="img-fluid" height="32px"></span>
               </div> -->
-              
+
               {% if request.user.is_authenticated %}
                 <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
-                  value="{{request.user.first_name}} {{request.user.last_name}}">
+                  placeholder="{{request.user.first_name}} {{request.user.last_name}}" value="{{request.user.first_name}} {{request.user.last_name}}">
               {% else %}
                 <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
                   placeholder="Please enter your name" >
@@ -133,7 +136,9 @@
             <h6 class="px-3 my-2  ">Total: <a class="float-right">₦{{cart_total_amount}}</a></h6>
           </div>
           <button type="submit" class="btn btn-lg btn-purple float-right my-5 w-50">Confirm</button>
-          {% paystack_button amount=total email=email %}
+          {% if total != 0.00 %}
+            {% paystack_button amount=total email=email %}
+          {% endif %}
         </form>
       </div>
     </div>

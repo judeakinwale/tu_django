@@ -2,11 +2,12 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
-from .models import Payment, BillingAddress, Order
+from .models import Payment, BillingAddress, Order, UserOrder, PaymentConfirmation
 from core.models import Event
 from location.models import Listing
 from transportation.models import Transportation
 from cart.context_processor import cart_total_amount
+from cart.cart import Cart
 from paystack.api.signals import payment_verified, event_signal
 from django.dispatch import receiver
 
@@ -39,20 +40,37 @@ def checkout(request):
     return render(request, template_name, context)
 
 def direct_checkout(request, target, id):
-    
+
     if target == 'location':
         query = Listing.objects.get(id=id)
-        
+
     elif target == 'transport':
         query = Transportation.objects.get(id=id)
-    
+
     elif target == 'event':
         query = Event.objects.get(id=id)
 
     else:
         messages.error(request, "Invalid option for direct checkout")
 
-    print(query.price)
+    # print(query.price)
+    # print (request.session['cart'].keys()[0])
+    cart_dict = request.session['cart']
+    # print (cart_dict[cart_dict.keys()[0]])
+    # cart_keys = cart_dict.keys()
+    cart_key = next(iter(cart_dict))
+    print(cart_dict[cart_key])
+    # for key, value in request.session['cart'].items().first():
+    # print (key)
+
+
+
+    # items = Event.objects.filter()
+    user_order = UserOrder()
+    user_order.user = request.user
+
+
+
     template_name = "payment/direct_checkout.html"
     context = {
         'object': query,
@@ -67,7 +85,7 @@ def on_payment_verified(sender, ref,amount, **kwargs):
     ref: paystack reference sent back.
     amount: amount in Naira.
     """
-    
+
     pass
 
 
