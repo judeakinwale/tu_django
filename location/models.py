@@ -10,6 +10,7 @@ class Listing(models.Model):
     realtor = models.ForeignKey("Realtor", on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
+    category = models.ForeignKey("ListingCategory", verbose_name="Category", on_delete=models.DO_NOTHING, blank=True, null=True)
     address = models.CharField(max_length=300)
     city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
     state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
@@ -48,8 +49,7 @@ class ListingCategory(models.Model):
 
     class Meta:
         verbose_name = "Category"
-
-    verbose_name_plural = "Categories"
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name

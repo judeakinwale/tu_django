@@ -59,7 +59,7 @@ def search(request):
         if city:
             city_id = EventCity.objects.get(name__iexact=city).id
             queryset_list = queryset_list.filter(city=city_id)
-    
+
     # State
     if 'state' in request.GET:
         state = request.GET['state']
@@ -83,7 +83,7 @@ def search(request):
     #     context = {'query': query, 'search_result': events}
     # except:
     template_name = 'core/search_list.html'
-    context = { 'query': request.GET['query'], 
+    context = { 'query': request.GET['query'],
                 'search_list': queryset_list,
                 'categories' : EventCategory.objects.all(),
                 'cities' : EventCity.objects.all(),
@@ -96,14 +96,14 @@ class EventListView(ListView):
     model = Event
     paginate_by = 9
     # template_name = "core/event_list.html"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = EventCategory.objects.all()
         context['cities'] = EventCity.objects.all()
         context['states'] = EventState.objects.all()
         return context
-    
+
 
 
 class EventDetailView(DetailView):
@@ -117,10 +117,10 @@ class FAQListView(ListView):
     template_name = "core/help.html"
 
 
-class EventCreateView(CreateView):
+class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
-    # fields = ['name', 'description', 'category', 'image', 'price', 'sale_price', 'slug'] 
+    # fields = ['name', 'description', 'category', 'image', 'price', 'sale_price', 'slug']
     # fields = '__all__'
     # template_name = "core/event_create.html"
 
@@ -157,17 +157,18 @@ def create_event(request):
     }
     return render(request, template_name, context)
 
-class EventUpdateView(UpdateView):
+
+class EventUpdateView(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventForm
     # fields = '__all__'
     # template_name = "TEMPLATE_NAME"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Update'
         return context
-    
+
 
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
