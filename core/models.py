@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.utils import timezone
 
@@ -28,8 +28,8 @@ class Event(models.Model):
     image = models.ImageField(upload_to="images/%Y/%m/%d/", blank=True, null=True)
     location = models.CharField(max_length=500)
     price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-    sale_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True) 
-    country = models.CharField(max_length=200, blank=True, null=True) 
+    sale_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
     # state = models.CharField(max_length=200, blank=True, null=True)
     # city = models.CharField(max_length=200, blank=True, null=True)
     state = models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
@@ -54,10 +54,17 @@ class Event(models.Model):
         else:
             return "unavailable"
 
-    
+    def get_price(self):
+        if self.sale_price:
+            return self.sale_price
+        else:
+            return self.price
+
+
 class EventCategory(models.Model):
     name = models.CharField(max_length=250, unique=True)
     summary = models.TextField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = 'Category'
@@ -71,6 +78,7 @@ class EventCity(models.Model):
     name = models.CharField(max_length=250, unique=True)
     state =  models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = 'City'
@@ -83,6 +91,7 @@ class EventCity(models.Model):
 class EventState(models.Model):
     name = models.CharField(max_length=250, unique=True)
     summary = models.TextField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = 'State'
@@ -95,7 +104,8 @@ class EventState(models.Model):
 class FAQ(models.Model):
     title = models.CharField(max_length=200)
     solution = models.TextField()
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
+    updated = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
         return self.title
-

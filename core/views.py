@@ -124,6 +124,17 @@ class EventCreateView(CreateView):
     # fields = '__all__'
     # template_name = "core/event_create.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Create'
+        return context
+
+    def form_valid (self, form):
+        form.instance.user = self.request.user
+        form.instance.slug = slugify(form.instance.name)
+        self.object = form.save()
+        return super().form_valid(form)
+
 @login_required(login_url="/login")
 def create_event(request):
     if request.method == 'POST':
@@ -141,7 +152,7 @@ def create_event(request):
 
     template_name = 'core/event_form.html'
     context = {
-        'title': 'Create Event',
+        'title': 'Create',
         'form': form,
     }
     return render(request, template_name, context)
@@ -151,6 +162,12 @@ class EventUpdateView(UpdateView):
     form_class = EventForm
     # fields = '__all__'
     # template_name = "TEMPLATE_NAME"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Update'
+        return context
+    
 
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):

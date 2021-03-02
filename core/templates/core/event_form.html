@@ -22,7 +22,7 @@
     <!-- <h4 class="text-purple my-5 text-center text-white font-weight-bold">Create Event</h4> -->
     <div class="row py-5 px-3">
       <div class="col-md-6 bg-white rounded-sm">
-        <h4 class="text-dark-purple my-5 text-center font-weight-bold">Create Event</h4>
+        <h4 class="text-dark-purple my-5 text-center font-weight-bold">{{title}} Event</h4>
 
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -33,7 +33,7 @@
 
           <!-- <input id="input-b1" name="input-b1" type="file" class="file w-100" data-browse-on-zone-click="true"> -->
 
-          <button type="submit" class="btn btn-purple w-50 my-4">Create</button>
+          <button type="submit" class="btn btn-purple w-50 my-4">{{update}}</button>
         </form>
       </div>
       <!-- <div class="col-md-5 offset-md-1 mb-5">
@@ -42,4 +42,11 @@
     </div>
   </div>
 </main>
+
+<script>
+  document.getElementById('id_start_time_0').type = 'date';
+  document.getElementById('id_start_time_1').type = 'time';
+  document.getElementById('id_end_time_0').type = 'date';
+  document.getElementById('id_end_time_1').type = 'time';
+</script>
 {% endblock content %}  
