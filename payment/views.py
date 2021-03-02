@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
@@ -39,6 +40,8 @@ def checkout(request):
     context = {'total': total_amount, 'email': request.user.email}
     return render(request, template_name, context)
 
+
+@login_required(login_url="/login")
 def direct_checkout(request, target, id):
 
     if target == 'location':
@@ -53,21 +56,60 @@ def direct_checkout(request, target, id):
     else:
         messages.error(request, "Invalid option for direct checkout")
 
-    # print(query.price)
-    # print (request.session['cart'].keys()[0])
-    cart_dict = request.session['cart']
-    # print (cart_dict[cart_dict.keys()[0]])
-    # cart_keys = cart_dict.keys()
-    cart_key = next(iter(cart_dict))
-    print(cart_dict[cart_key])
-    # for key, value in request.session['cart'].items().first():
-    # print (key)
+    # if request.session['cart']:
+    #     # print(query.price)
+    #     # print (request.session['cart'].keys()[0])
+    #     cart_dict = request.session['cart']
+    #     # print (cart_dict[cart_dict.keys()[0]])
+    #     # cart_keys = cart_dict.keys()
+    #     cart_key = next(iter(cart_dict))
+    #     print(cart_dict[cart_key])
+    #     # for key, value in request.session['cart'].items().first():
+    #     # print (key)
+
+    if not UserOrder.objects.filter(user=request.user, is_ordered=False):
+        Cart(request).clear()
+
+    Cart(request).add(query)
+
+    if request.session['cart']:
+        cart_dict = request.session['cart']
+        cart_keys = cart_dict.keys()
+        cart_key = next(iter(cart_dict))
+        cart_query = cart_dict[cart_key]
+        print(cart_query)
+        cart_arr = []
+        cart_item_qty = []
+        cart_events = []
+
+        if UserOrder.objects.filter(user=request.user):
+            user_order = UserOrder.objects.filter(user=request.user).first()
+
+        else:
+            # Cart(request).clear()
+            user_order = UserOrder()
+
+            user_order.user = request.user
+
+        for key in cart_keys:
+            cart_arr.append(key)
+            cart_events.append(Event.objects.get(id=key))
+            # user_order.order_items.set(Event.objects.filter(id=key))
+            cart_item_qty.append(cart_dict[key]['quantity'])
+            print(key)
+
+        print(cart_arr)
 
 
-
-    # items = Event.objects.filter()
-    user_order = UserOrder()
-    user_order.user = request.user
+        # user_order.order_items.set(query)
+        user_order.cart_id = cart_arr
+        user_order.order_item_qty = cart_item_qty
+        user_order.amount_due = cart_total_amount(request)["cart_total_amount"]
+        user_order.save()
+        user_order.order_items.clear()
+        for key in cart_keys:
+            user_order.order_items.add(Event.objects.get(id=key))
+        user_order.save()
 
 
 
@@ -85,7 +127,9 @@ def on_payment_verified(sender, ref,amount, **kwargs):
     ref: paystack reference sent back.
     amount: amount in Naira.
     """
-
+    confirmation = PaymentConfirmation()
+    confirmation.user = request.user
+    confirmation.amount = cart_total_amount(request)["cart_total_amount"]
     pass
 
 

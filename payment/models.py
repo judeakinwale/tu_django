@@ -58,7 +58,7 @@ class UserOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     order_items = models.ManyToManyField(Event, blank=True)
     cart_id = models.CharField(max_length=200, blank=True, null=True)
-    order_item_qty = models.IntegerField(default=1, blank=True, null=True)
+    order_item_qty = models.CharField(max_length=200, blank=True, null=True)
     amount_due = models.FloatField(blank=True, null=True)
     is_ordered = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
