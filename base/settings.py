@@ -168,7 +168,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # For login
-# LOGIN_REDIRECT_URL = "/events/"
+LOGIN_REDIRECT_URL = "/events/"
+
+# For sending mail #DataFlair
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'akinwalejude@gmail.com'
+EMAIL_HOST_PASSWORD = 'profjude'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
 
 # For django-shopping-cart
 CART_SESSION_ID = 'cart'
