@@ -8,7 +8,7 @@ from core.models import EventState, EventCity
 
 
 class Transportation(models.Model):
-    operator = models.ForeignKey("Operator", on_delete=models.DO_NOTHING)
+    operator = models.ForeignKey("Operator", default=1, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=200)
     category = models.ForeignKey("TransportationCategory", verbose_name="Category", on_delete=models.DO_NOTHING, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
