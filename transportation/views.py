@@ -1,22 +1,11 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from .models import Transportation, TransportationCategory
+from .forms import TransportationForm, OperatorForm
+from .models import Transportation, TransportationCategory, Operator
 from core.models import EventCity, EventState
 
-
 # Create your views here.
-
-# def search(request):
-#     template_name = 'core/search_list.html'
-#     try:
-#         query = request.GET.get('q')
-#         transport = Transportation.objects.filter(name__icontains=query)
-#         context = {'query': query, 'search_result': transport}
-#     except:
-#         context = {'query': query, 'search_list': 'Sorry, that event does not exist or has take place'}
-#     return render(request, template_name, context)
-
 
 def search(request):
     queryset_list = Transportation.objects.order_by('-timestamp')
@@ -62,35 +51,37 @@ def search(request):
 class TransportationListView(ListView):
     model = Transportation
     paginate_by = 9
-    # template_name = "transportation/listingtransportation_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = TransportationCategory.objects.all()
+        context['cities'] = EventCity.objects.all()
+        context['states'] = EventState.objects.all()
+        return context
 
 
 class TransportationDetailView(DetailView):
     model = Transportation
-    # template_name = "transportation/transportation_detail.html"
 
 
 class TransportationCreateView(LoginRequiredMixin, CreateView):
     model = Transportation
-    fields = '__all__'
-    # template_name = "transportation/transportation_form.html"
+    form_class = TransportationForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create'
         return context
 
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     form.instance.slug = slugify(form.instance.name)
-    #     self.object = form.save()
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.realtor = Operator.objects.get(user=self.request.user)
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 class TransportationUpdateView(LoginRequiredMixin, UpdateView):
     model = Transportation
-    fields = '__all__'
-    # template_name = "transportation/transportation_form.html"
+    form_class = TransportationForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

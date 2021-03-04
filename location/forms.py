@@ -13,5 +13,5 @@ class ListingForm(forms.ModelForm):
 class RealtorForm(forms.ModelForm):
 
     class Meta:
-        model = Listing
+        model = Realtor
         fields = '__all__'
