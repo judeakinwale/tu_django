@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+# DEBUG = os.environ.get('DJANGO_DEBUG') != 'False'
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1', 'turnup-development.herokuapp.com']
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # For django-shopping-cart
     'cart',
+
     'payment',
     'location',
     'transportation',
@@ -55,6 +56,9 @@ INSTALLED_APPS = [
     # for pypaystack
     # 'paystack',
     "paystack.frameworks.django",
+
+    # For django-storages - for aws s3 storage
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +100,7 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# Original database for sqlite3
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -153,7 +158,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 # STATICFILES_DIRS = [
-#     BASE_DIR / 'staticfiles',
+#     BASE_DIR / 'static',
 # ]
 STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR / 'static'
@@ -186,6 +191,20 @@ CART_SESSION_ID = 'cart'
 # For pypaystack
 PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
 PAYSTACK_SECRET_KEY='sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
+
+# For AWS s3 storage
+AWS_ACCESS_KEY_ID = 'AKIA2NQEUH4WHATJ3JSD'
+AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'sibtc-static'
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_LOCATION = 'static'
+
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'base.storage_backends.MediaStorage'  # <-- here is where we reference it
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
