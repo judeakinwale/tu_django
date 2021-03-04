@@ -7,10 +7,10 @@ from core.models import EventCity, EventState
 # Create your models here.
 
 class Listing(models.Model):
-    realtor = models.ForeignKey("Realtor", on_delete=models.DO_NOTHING)
+    realtor = models.ForeignKey("Realtor", on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
-    category = models.ForeignKey("ListingCategory", verbose_name="Category", on_delete=models.DO_NOTHING, blank=True, null=True)
+    category = models.ForeignKey("ListingCategory", on_delete=models.SET_NULL, blank=True, null=True)
     address = models.CharField(max_length=300)
     city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
     state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
@@ -29,7 +29,6 @@ class Listing(models.Model):
     photo_5 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     photo_6 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     list_date = models.DateTimeField(default=datetime.now)
-    # timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
     is_published = models.BooleanField(default=True)
     is_booked = models.BooleanField(default=False)
@@ -44,7 +43,6 @@ class Listing(models.Model):
 class ListingCategory(models.Model):
     name = models.CharField(max_length=200)
     summary = models.TextField(blank=True, null=True)
-    # slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(default=datetime.now)
 
     class Meta:
@@ -63,8 +61,7 @@ class Realtor(models.Model):
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
     is_trusted = models.BooleanField(default=False)
-    join_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
-    # timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
+    join_date = models.DateTimeField(default=datetime.now)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):

@@ -1,20 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
+from .forms import RealtorForm, ListingForm
 from .models import Listing, Realtor, ListingCategory
 from core.models import EventCity, EventState
 
 # Create your views here.
-
-# def search(request):
-#     template_name = 'core/search_list.html'
-#     try:
-#         query = request.GET.get('q')
-#         listing = Listing.objects.filter(name__icontains=query)
-#         context = {'query': query, 'search_result': listing}
-#     except:
-#         context = {'query': query, 'search_list': 'Sorry, that event does not exist or has take place'}
-#     return render(request, template_name, context)
 
 
 def search(request):
@@ -26,6 +17,7 @@ def search(request):
         if query:
             queryset_list = queryset_list.filter(name__icontains=query)
 
+    # get the id of the filter selected in search
     # City
     if 'city' in request.GET:
         city = request.GET['city']
@@ -61,37 +53,37 @@ def search(request):
 class ListingListView(ListView):
     model = Listing
     paginate_by = 9
-    # template_name = "location/listing_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = ListingCategory.objects.all()
+        context['cities'] = EventCity.objects.all()
+        context['states'] = EventState.objects.all()
+        return context
 
 
 class ListingDetailView(DetailView):
     model = Listing
-    # template_name = "location/listing_detail.html"
-
 
 
 class ListingCreateView(LoginRequiredMixin, CreateView):
     model = Listing
-    fields = '__all__'
-    # template_name = "location/listing_form.html"
+    form_class = ListingForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Create'
         return context
 
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     form.instance.slug = slugify(form.instance.name)
-    #     self.object = form.save()
-    #     return super().form_valid(form)
-
+    def form_valid(self, form):
+        form.instance.realtor = Realtor.objects.get(user=self.request.user)
+        self.object = form.save()
+        return super().form_valid(form)
 
 
 class ListingUpdateView(LoginRequiredMixin, UpdateView):
     model = Listing
-    fields = '__all__'
-    # template_name = "location/listing_form.html"
+    form_class = ListingForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,4 +93,3 @@ class ListingUpdateView(LoginRequiredMixin, UpdateView):
 
 class ListingDeleteView(LoginRequiredMixin, DeleteView):
     model = Listing
-    # template_name = "location/listing_confirm_delete.html"
