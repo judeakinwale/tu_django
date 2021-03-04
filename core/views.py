@@ -16,19 +16,6 @@ from registration.forms import NewUserForm
 
 # Create your views here.
 
-# class HomeView(ListView):
-#     model = Event
-#     template_name = "core/index.html"
-
-# def home(request):
-#     featured_events = Event.objects.filter(featured=True)
-#     first_featured = featured_events.first()
-#     other_featured = featured_events[1:4]
-#     template_name = "core/index.html"
-#     context = {"featured_object_list": other_featured, 'featured_object': first_featured}
-#     return render(request, template_name, context)
-
-
 class HomeView(TemplateView):
     template_name = "core/index.html"
 
@@ -42,9 +29,10 @@ class HomeView(TemplateView):
         return context
 
 
-
-
 def search(request):
+    """
+    Search for events and filter search by city, state and category
+    """
     queryset_list = Event.objects.order_by('-timestamp')
 
     # Keywords
@@ -53,6 +41,7 @@ def search(request):
         if query:
             queryset_list = queryset_list.filter(name__icontains=query)
 
+    # get the id of the filter selected in search
     # City
     if 'city' in request.GET:
         city = request.GET['city']
@@ -64,9 +53,7 @@ def search(request):
     if 'state' in request.GET:
         state = request.GET['state']
         if state:
-            # print (EventState.objects.get(name__iexact=state))
             state_id = EventState.objects.get(name__iexact=state).id
-            # print (EventState.objects.filter(name__iexact=state))
             queryset_list = queryset_list.filter(state=state_id)
 
     # Category
@@ -76,12 +63,6 @@ def search(request):
             category_id = EventCategory.objects.get(name__iexact=category).id
             queryset_list = queryset_list.filter(category=category_id)
 
-
-    # try:
-    #     query = request.GET.get('q')
-    #     events = Event.objects.filter(name__icontains=query)
-    #     context = {'query': query, 'search_result': events}
-    # except:
     template_name = 'core/search_list.html'
     context = { 'query': request.GET['query'],
                 'search_list': queryset_list,
@@ -95,7 +76,6 @@ def search(request):
 class EventListView(ListView):
     model = Event
     paginate_by = 9
-    # template_name = "core/event_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,11 +85,8 @@ class EventListView(ListView):
         return context
 
 
-
 class EventDetailView(DetailView):
     model = Event
-    # print(Event.objects.get(id=1).start_time)
-    # template_name = "core/event_detail.html"
 
 
 class FAQListView(ListView):
@@ -120,9 +97,6 @@ class FAQListView(ListView):
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
-    # fields = ['name', 'description', 'category', 'image', 'price', 'sale_price', 'slug']
-    # fields = '__all__'
-    # template_name = "core/event_create.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -130,39 +104,16 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid (self, form):
+        # if the form is valid, create user and slug fields in the EventForm modelform
         form.instance.user = self.request.user
         form.instance.slug = slugify(form.instance.name)
         self.object = form.save()
         return super().form_valid(form)
 
-@login_required(login_url="/login")
-def create_event(request):
-    if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)
-        print (form)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.slug = slugify(post.name)
-            # handle_uploaded_file(request.Files['image'])
-            post.save()
-            return redirect('core:event_list')
-    else:
-        form = EventForm()
-
-    template_name = 'core/event_form.html'
-    context = {
-        'title': 'Create',
-        'form': form,
-    }
-    return render(request, template_name, context)
-
 
 class EventUpdateView(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventForm
-    # fields = '__all__'
-    # template_name = "TEMPLATE_NAME"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -170,28 +121,14 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
-
 class EventDeleteView(LoginRequiredMixin, DeleteView):
     model = Event
     success_url = reverse_lazy('registration:account')
-    # template_name = "core/event_confirm_delete.html"
 
 
-def contact_us(request):
+class ContactUsView(TemplateView):
     template_name = 'core/contact_us.html'
-    return render(request, template_name)
 
-# def create_event(request):
-#     if request.method == 'POST':
-#         form = EventForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#         return redirect("core:homepage")
-#     else:
-#         form = EventForm()
-#         template_name = "core/create_event.html"
-#         context = {'form': form}
-#         return render(request, template_name, context)
 
 # From django-shopping-cart
 @login_required(login_url="/login")
