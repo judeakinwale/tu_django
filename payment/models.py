@@ -56,6 +56,7 @@ class CustomerInfo(models.Model):
 
 class UserOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user_phone = models.IntegerField(blank=True, null=True)
     order_items = models.ManyToManyField(Event, blank=True)
     cart_id = models.CharField(max_length=200, blank=True, null=True)
     order_item_qty = models.CharField(max_length=200, blank=True, null=True)
