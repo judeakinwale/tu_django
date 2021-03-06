@@ -14,7 +14,7 @@ class Transportation(models.Model):
     price = models.DecimalField(verbose_name="Price per day", max_digits=10, decimal_places=2)
     phone = models.CharField(max_length=200, blank=True, null=True)
 
-    # Vehicle details 
+    # Vehicle details
     capacity = models.IntegerField()
     category = models.ForeignKey("TransportationCategory", on_delete=models.DO_NOTHING, blank=True, null=True)
 
@@ -30,7 +30,7 @@ class Transportation(models.Model):
     photo_3 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     photo_4 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
 
-    list_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     # Filters
@@ -68,10 +68,10 @@ class Operator(models.Model):
     description = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
-    
-    join_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-    
+
     is_trusted = models.BooleanField(default=False)
 
     def __str__(self):
