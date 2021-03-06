@@ -49,13 +49,13 @@ class Event(models.Model):
         if self.end_time:
             return self.start_time - self.end_time
         else:
-            return "unavailable"
+            return "Unavailable"
 
     def get_price(self):
         if self.ticket_sale_price and self.ticket_sale_price != 0.00:
             return self.ticket_sale_price
         elif self.ticket_price == 0.00:
-            return 'Free'
+            return "Free"
         else:
             return self.ticket_price
 
@@ -63,7 +63,10 @@ class Event(models.Model):
         if self.ticket_sale_price and self.ticket_sale_price != 0.00:
             return self.ticket_sale_price - self.ticket_sale_price
         else:
-            return none
+            return "None"
+
+    def tickets_remaining(self):
+        return self.ticket_quantity - self.ticket_quantity_sold
 
 
 class EventCategory(models.Model):
