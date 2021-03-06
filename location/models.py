@@ -54,7 +54,7 @@ class Listing(models.Model):
 class ListingCategory(models.Model):
     name = models.CharField(max_length=200)
     summary = models.TextField(blank=True, null=True)
-    timestamp = models.DateTimeField(default=datetime.now)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
         verbose_name = "Category"
@@ -72,7 +72,7 @@ class Realtor(models.Model):
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
     is_trusted = models.BooleanField(default=False)
-    join_date = models.DateTimeField(default=datetime.now)
+    join_date = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
