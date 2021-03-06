@@ -14,14 +14,14 @@ class Listing(models.Model):
     price = models.DecimalField(max_digits=15, decimal_places=2)
 
     category = models.ForeignKey("ListingCategory", on_delete=models.SET_NULL, blank=True, null=True)
-    
+
     # address details
     street_address = models.CharField(max_length=300)
     city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
     state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
     country = models.CharField(max_length=200)
     zipcode = models.CharField(max_length=100, blank=True, null=True)
-    
+
     # Building / apartment details
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=10, decimal_places=1)
@@ -39,7 +39,7 @@ class Listing(models.Model):
 
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-    
+
     # Filters
     is_published = models.BooleanField(default=True)
     is_booked = models.BooleanField(default=False)
@@ -71,9 +71,11 @@ class Realtor(models.Model):
     description = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
-    is_trusted = models.BooleanField(default=False)
-    join_date = models.DateTimeField(auto_now=True, auto_now_add=False)
+    
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
 
+    is_trusted = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.name
