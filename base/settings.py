@@ -160,7 +160,7 @@ USE_TZ = True
 # STATICFILES_DIRS = [
 #     BASE_DIR / 'static',
 # ]
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR / 'static'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -195,16 +195,16 @@ PAYSTACK_SECRET_KEY='sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
 # For AWS s3 storage
 AWS_ACCESS_KEY_ID = 'AKIA2NQEUH4WHATJ3JSD'
 AWS_SECRET_ACCESS_KEY = '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'
-# AWS_STORAGE_BUCKET_NAME = 'sibtc-static'
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_LOCATION = 'static'
+AWS_STORAGE_BUCKET_NAME = 'myturnupawsbucket'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
 
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# DEFAULT_FILE_STORAGE = 'base.storage_backends.MediaStorage'  # <-- here is where we reference it
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'base.storage_backends.MediaStorage'  # <-- here is where we reference it
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
