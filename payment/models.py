@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
 from datetime import datetime
 from cart.context_processor import cart_total_amount
@@ -67,7 +67,7 @@ class UserOrder(models.Model):
 
 
 class PaymentConfirmation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_order = models.ForeignKey(UserOrder, on_delete=models.CASCADE, blank=True, null=True)
     reference = models.CharField(max_length=200, blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)
@@ -76,3 +76,24 @@ class PaymentConfirmation(models.Model):
     data = models.CharField(max_length=500, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+
+class CreatorPayment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # Tickets sold at payment
+    tickets_sold = models.IntegerField()
+    tickets_remaining = models.IntegerField()
+    tickets_paid_for = models.IntegerField()
+    tickets_total = models.IntegerField()
+
+    payment_id = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse("CreatorPayment_detail", kwargs={"pk": self.pk})
+
+    def tickets_to_be_paid_for(self):
+        return self.tickets_sold - tickets_paid_for
