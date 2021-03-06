@@ -15,13 +15,6 @@ class Listing(models.Model):
 
     category = models.ForeignKey("ListingCategory", on_delete=models.SET_NULL, blank=True, null=True)
 
-    # address details
-    street_address = models.CharField(max_length=300)
-    city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
-    state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
-    country = models.CharField(max_length=200)
-    zipcode = models.CharField(max_length=100, blank=True, null=True)
-
     # Building / apartment details
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=10, decimal_places=1)
@@ -36,6 +29,13 @@ class Listing(models.Model):
     photo_4 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     photo_5 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     photo_6 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
+    
+    # address details
+    street_address = models.CharField(max_length=300)
+    city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
+    state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
+    country = models.CharField(max_length=200)
+    zipcode = models.CharField(max_length=100, blank=True, null=True)
 
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
