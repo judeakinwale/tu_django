@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from .forms import TransportationForm, OperatorForm
 from .models import Transportation, TransportationCategory, Operator
@@ -91,4 +92,5 @@ class TransportationUpdateView(LoginRequiredMixin, UpdateView):
 
 class TransportationDeleteView(LoginRequiredMixin, DeleteView):
     model = Transportation
-    template_name = "transportation/transportation_confirm_delete.html"
+    # template_name = "transportation/transportation_confirm_delete.html"
+    success_url = reverse_lazy('registration:account')

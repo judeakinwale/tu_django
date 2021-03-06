@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from .forms import RealtorForm, ListingForm
 from .models import Listing, Realtor, ListingCategory
@@ -93,3 +94,4 @@ class ListingUpdateView(LoginRequiredMixin, UpdateView):
 
 class ListingDeleteView(LoginRequiredMixin, DeleteView):
     model = Listing
+    success_url = reverse_lazy('registration:account')

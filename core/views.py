@@ -127,7 +127,7 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
     model = Event
-    success_url = reverse_lazy('account')
+    success_url = reverse_lazy('registration:account')
 
 
 class ContactUsView(TemplateView):
