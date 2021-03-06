@@ -9,16 +9,16 @@
       <img src="{{event.image.url}}" class="card-img-top rounded-sm shadow-sm" alt="event image">
       <!-- Is visible only in desktop view -->
       <div class="card-img-overlay px-3 pb-0 d-none d-lg-block">
-        <div class="row align-items-center justify-content-end">
+        <div class="row align-items-center h-75 justify-content-end">
           <div class="col-md-4 mr-n5 bg-white h-50 rounded text-center py-5">
             <h4 class="text-dark">Date and Time</h4>
-            <p class="text-dark">{{event.start_time|time:"h:i a"}}</p>
+            <p class="text-dark">{{event.start_time|time:"h:i A"}}</p>
             <p class="text-dark">{{event.start_time|date:"jS F Y"}}</p>
             <a href="{% url 'core:cart_add' event.id %}" class="btn btn-lg w-25 rounded-0 shadow-none"><i class="fas fa-cart-plus"></i></a>
             <a href="{% url 'payment:direct_checkout' 'event' event.id %}" class="btn btn-lg w-75 btn-purple float-right">Purchase</a>
           </div>
         </div>
-        <div class="row h-25 align-items-end" style="margin-top:15%;">
+        <div class="row h-25 align-items-end">
           <div class="card-group w-100">
             <div class="col-md-4 bg-purple border border-top-0 border-bottom-0 border-left-0">
               <div class="card bg-transparent text-light border-0">
@@ -32,7 +32,9 @@
               <div class="card bg-transparent text-light border-0">
                 <div class="card-body">
                   <div class="card-text"><h6 class="text-light mt-2">Venue</h6></div>
-                  <div class="card-title"><h5 class="text-white mt-4">{{event.location}}</h5></div>
+                  <div class="card-title">
+                    <h5 class="text-white mt-4">{{event.street_address}}, {{object.city}}</h5>
+                  </div>
                 </div>
               </div>
             </div>
@@ -40,7 +42,10 @@
               <div class="card bg-transparent text-light border-0">
                 <div class="card-body">
                   <div class="card-text"><h6 class="text-light mt-2">Price</h6></div>
-                  {% if event.sale_price %}
+                  <div class="card-title">
+                    <h5 class="text-white mt-4">{{object.get_price}}</h5>
+                  </div>
+                  <!-- {% if event.sale_price %}
                     {% if event.sale_price == 0.00 %}
                     <div class="card-title"><h5 class="text-white mt-4">Free</h5></div>
                     {% else %}
@@ -52,7 +57,7 @@
                     {% else %}
                     <div class="card-title"><h5 class="text-white mt-4">₦{{event.price | intcomma}}</h5></div>
                     {% endif %}
-                  {% endif %}
+                  {% endif %} -->
                 </div>
               </div>
             </div>

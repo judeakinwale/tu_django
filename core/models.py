@@ -52,10 +52,18 @@ class Event(models.Model):
             return "unavailable"
 
     def get_price(self):
-        if self.ticket_sale_price:
+        if self.ticket_sale_price and self.ticket_sale_price != 0.00:
             return self.ticket_sale_price
+        elif self.ticket_price == 0.00:
+            return 'Free'
         else:
             return self.ticket_price
+
+    def get_price_savings(self):
+        if self.ticket_sale_price and self.ticket_sale_price != 0.00:
+            return self.ticket_sale_price - self.ticket_sale_price
+        else:
+            return none
 
 
 class EventCategory(models.Model):

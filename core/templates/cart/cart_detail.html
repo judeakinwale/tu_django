@@ -27,11 +27,19 @@ Cart Detail:
             <div class="col-7 col-md-5">
               <div class="card-body my-sm-0 mt-4">
                 <h6 class="card-title mb-1">{{value.name}}</h6>
-                {% if value.sale_price != "None" %}
+
+                <p class="card-text text-purple">
+                  {% if value.price == 'Free' %}
+                    Free
+                  {% else %}
+                    ₦{{value.price}}
+                  {% endif %}                  
+                </p>
+                <!-- {% if value.sale_price != "None" %}
                   <p class="card-text text-purple">₦{{value.sale_price}}</p>
                 {% else %}
                   <p class="card-text text-purple">₦{{value.price}}</p>
-                {% endif %}
+                {% endif %} -->
                   
               </div>
             </div>
