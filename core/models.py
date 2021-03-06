@@ -7,24 +7,37 @@ from django.utils import timezone
 
 
 class Event(models.Model):
-    creator =  models.ForeignKey(User, default=1, on_delete=models.CASCADE)
+    creator =  models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
-    category = models.ForeignKey("EventCategory", verbose_name="Category", default=1, on_delete=models.SET_DEFAULT)
     image = models.ImageField(upload_to="images/%Y/%m/%d/", blank=True, null=True)
-    location = models.CharField(max_length=500)
-    price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-    sale_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
-    country = models.CharField(max_length=200, blank=True, null=True)
-    state = models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
+
+    # Create a default category (like Uncategorized or Unknown) as the first category. Deleting it will cause errors
+    category = models.ForeignKey("EventCategory", default=1, on_delete=models.SET_DEFAULT)
+    
+    # Ticket details
+    ticket_price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    ticket_sale_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
+    ticket_quantity = models.IntegerField(verbose_name="Quantity", default=50)
+    ticket_quantity_sold = models.IntegerField(verbose_name="Quantity Sold", default=0)
+
+    # Locaton details
+    street_address = models.CharField(max_length=500)
     city = models.ForeignKey("EventCity", on_delete=models.SET_NULL, blank=True, null=True)
+    state = models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
+    
     slug = models.SlugField(unique=True)
+    
+    # Date and time details
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-    active = models.BooleanField(default=True)
-    featured = models.BooleanField(default=False)
+    
+    is_published = models.BooleanField(default=True)
+    is_featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -39,10 +52,10 @@ class Event(models.Model):
             return "unavailable"
 
     def get_price(self):
-        if self.sale_price:
-            return self.sale_price
+        if self.ticket_sale_price:
+            return self.ticket_sale_price
         else:
-            return self.price
+            return self.ticket_price
 
 
 class EventCategory(models.Model):

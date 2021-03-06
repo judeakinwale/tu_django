@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -10,17 +10,19 @@ from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
 from .forms import EventForm
 from .models import Event, EventCategory, EventCity, EventState, FAQ
-# from .forms import EventForm
 from cart.cart import Cart
 from registration.forms import NewUserForm
 
 # Create your views here.
 
 class HomeView(TemplateView):
+    """
+    Only featured events are on the home page
+    """
     template_name = "core/index.html"
 
     def get_context_data(self, **kwargs):
-        featured_events = Event.objects.filter(featured=True)
+        featured_events = Event.objects.filter(is_featured=True)
         first_item = featured_events.first()
         second_to_fourth_item = featured_events[1:4]
         context = super().get_context_data(**kwargs)
@@ -64,12 +66,13 @@ def search(request):
             queryset_list = queryset_list.filter(category=category_id)
 
     template_name = 'core/search_list.html'
-    context = { 'query': request.GET['query'],
-                'search_list': queryset_list,
-                'categories' : EventCategory.objects.all(),
-                'cities' : EventCity.objects.all(),
-                'states' : EventState.objects.all(),
-                }
+    context = { 
+        'query': request.GET['query'],
+        'search_list': queryset_list,
+        'categories' : EventCategory.objects.all(),
+        'cities' : EventCity.objects.all(),
+        'states' : EventState.objects.all(),
+        }
     return render(request, template_name, context)
 
 
@@ -104,8 +107,9 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid (self, form):
-        # if the form is valid, create user and slug fields in the EventForm modelform
-        form.instance.user = self.request.user
+        # if the form is valid, create and assign a value to the 
+        # user and slug fields in the EventForm modelform
+        form.instance.creator = self.request.user
         form.instance.slug = slugify(form.instance.name)
         self.object = form.save()
         return super().form_valid(form)
@@ -123,7 +127,7 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
     model = Event
-    success_url = reverse_lazy('registration:account')
+    success_url = reverse_lazy('account')
 
 
 class ContactUsView(TemplateView):

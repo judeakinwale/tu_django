@@ -7,21 +7,65 @@ from .models import Event, EventCategory, EventCity, EventState, FAQ
 # @admin.register()
 class EventAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None, {
-            'fields': ['creator','name', 'category', 'description', 'image'],
+        ('Event Details', {
+            'fields': [
+                'creator',
+                'name',
+                'description',
+                'image'
+                ]
         }),
-        ('Price', {'fields': ['price', 'sale_price']}),
-        ('Location', {'fields': ['location', 'city', 'state', 'country']}),
+        ('Category', {
+            'fields': ['category']
+        }),
+        ('Ticket Price', {
+            'fields': [
+                'ticket_price',
+                'ticket_sale_price',
+                'ticket_quantity',
+                'ticket_quantity_sold'
+                ]
+        }),
+        ('Location', {
+            'fields': [
+                'street_address',
+                'city',
+                'state',
+                'country'
+                ]
+        }),
         ('Slug', {'fields': ['slug']}),
-        ('Date & Time', {'fields': ['start_time', 'end_time']}),
-        ('Misc', {'fields': ['active', 'featured']}),
+        ('Date & Time', {
+            'fields': ['start_time', 'end_time']
+        }),
+        ('Filters', {
+            'fields': ['is_published', 'is_featured']
+        }),
     )
 
-    list_display = ['name', 'category', 'price', 'start_time', 'active', 'featured']
-    list_editable = ['active', 'featured']
+    list_display = [
+        'name',
+        'category',
+        'ticket_price',
+        'ticket_price',
+        'city',
+        'state',
+        'start_time',
+        'end_time',
+        'is_published',
+        'is_featured',
+    ]
+
+    search_fields = [
+        'name',
+        'description'
+        'category',
+        'city',
+        'state',
+    ]
+
+    list_editable = ['is_published', 'is_featured']
     prepopulated_fields = {'slug': ('name',)}
-
-
 
 
 admin.site.register(EventCategory)
