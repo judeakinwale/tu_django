@@ -7,13 +7,14 @@
     <link rel="shortcut icon" href="{% static 'core/img/tu Logo 2.png' %} " type="image/x-icon">
     <title>TURN UP</title>
 
-     <!-- CSS -->
-     <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/all.css' %}">
-
-     <!-- For Deployment -->
+    <!-- For Deployment -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/fonts/flaticon/font/flaticon.css ' %}">
     <!-- FONTS -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> -->
 
@@ -52,17 +53,22 @@
                         {% if user.is_authenticated %}                                
                         <div class="dropdown" style="top: 14%; cursor: pointer;">
                             <a class="dropdown-toggle" data-toggle="dropdown">
-                                <span><img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> Welcome, {{request.user}}<span>
+                                <span>
+                                    <!-- <img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> -->
+                                    <i class="fas fa-user"></i>
+                                     Welcome, {{request.user}}
+                                <span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right bg-purple rounded-sm" aria-labelledby="navbarDropdown">
-                               <a class="nav-link text-light text-center" href="{% url 'registration:account' %}">Profile</a>
+                                <a class="nav-link text-light text-center" href="{% url 'core:cart_detail' %}">Cart</a>
+                                <a class="nav-link text-light text-center" href="{% url 'registration:account' %}">Profile</a>
                                <!-- <a class="nav-link text-light" href="#">Something</a> -->
                                <div class="dropdown-divider"></div>
                                <a class="nav-link text-light text-center" href="{% url 'registration:logout' %}">Logout</a>
                             </div>
+                        </div>
                         {% else %}
                         <a class="nav-link text-light" href="{% url 'registration:login' %}">Sign In</a>
-                        </div>
                         {% endif %}        
                     </li>
                 </ul>
@@ -85,7 +91,7 @@
             </div>
             <!-- SOCIAL -->
             <div class="col-12 col-md py-3 px-5 ">
-                <ul class="nav float-lg-right justify-content-center">
+                <!-- <ul class="nav float-lg-right justify-content-center">
                     <li class="">
                         <a href="#">
                             <img class="" src="{% static 'core/img/twitter-white.png' %}" alt="" height="16px">
@@ -101,6 +107,13 @@
                             <img class="" src="{% static 'core/img/facebook-white.png' %}" alt="" height="16px">
                         </a>
                     </li>
+                </ul> -->
+                <ul class="nav justify-content-center justify-content-md-end">
+                    <a class="nav-link px-1 text-light" href="#"><span class="icon-facebook pt-2 pr-2 pb-2 pl-0"></span></a>
+                    <a class="nav-link px-1 text-light" href="#"><span class="icon-twitter p-2"></span></a>
+                    <a class="nav-link px-1 text-light" href="#"><span class="icon-instagram p-2"></span></a>
+                    <a class="nav-link px-1 text-light" href="#"><span class="icon-rss p-2"></span></a>
+                    <a class="nav-link px-1 text-light" href="#"><span class="icon-envelope p-2"></span></a>
                 </ul>
             </div>
             <div class="w-100"></div>

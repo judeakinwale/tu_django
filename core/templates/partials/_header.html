@@ -45,7 +45,7 @@
         </li> -->
         
         {% if user.is_authenticated %}
-          {% if "create-event" in request.path %}
+          {% if "create" in request.path %}
           <li class="nav-item active">
             <a class="nav-link mx-3 text-purple" href="{% url 'core:create_event' %}">Create Event <span class="sr-only">(current)</span></a>
           </li>
@@ -55,23 +55,44 @@
           </li>
           {% endif %}
 
-          <li class="nav-item bg-purple rounded">
+          <!-- <li class="nav-item bg-purple rounded">
             <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'registration:account' %}">My Account</a>
+          </li> -->
+
+          <li class="nav-item">
+            <div class="dropdown nav-link" style="cursor:pointer;">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                <span class="text-purple" >
+                  <!-- <img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> -->
+                  <i class="far fa-user pr-1"></i>
+                   {{request.user}}
+                  <span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right rounded-sm" aria-labelledby="navbarDropdown"  style="z-index: 1030;">
+                <a class="nav-link text-purple text-center" href="{% url 'core:cart_detail' %}"><i class="fas fa-shopping-cart text-purple pr-2"></i>Cart</a>
+                <a class="nav-link text-purple text-center" href="{% url 'registration:account' %}"><i class="fas fa-user text-purple pr-2"></i>Profile</a>
+                <!-- <a class="nav-link text-purple" href="#">Something</a> -->
+                <div class="dropdown-divider"></div>
+                <a class="nav-link text-purple text-center" href="{% url 'registration:logout' %}"><i class="fas fa-sign-out-alt text-purple pr-2"></i>Logout</a>
+              </div>
+            </div>
           </li>
         {% else %}
-          {% if "login" in request.path %}
-          <li class="nav-item active">
-            <a class="nav-link mx-3 text-purple" href="{% url 'registration:login' %}">Sign In <span class="sr-only">(current)</span></a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link mx-3" href="{% url 'registration:login' %}">Sign In</a>
-          </li>
-          {% endif %}
+        
+        {% if "login" in request.path %}
+        <li class="nav-item active">
+          <a class="nav-link mx-3 text-purple" href="{% url 'registration:register' %}">Register <span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link mx-3 text-purple" href="{% url 'registration:register' %}">Register</a>
+        </li>
+        {% endif %}
 
-          <li class="nav-item bg-purple rounded">
-            <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'registration:register' %}">Register</a>
-          </li>
+        <li class="nav-item bg-purple rounded">
+          <a class="nav-link text-white font-weight-bold mx-3" href="{% url 'registration:login' %}">Sign In</a>
+        </li>
+
         {% endif %}
           
       </ul>

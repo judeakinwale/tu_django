@@ -9,55 +9,66 @@ Cart Detail:
 {% block content %}
 <main>
   <div class="container my-5">
+    
+    
+    
+      
     <div class="row justify-content-center">
         
       <div class="col-xl-8 col-lg-10">
         <h4 class="text-purple mb-3 mb-md-5 text-center font-weight-bold">Cart</h4>
-        {% for key,value in request.session.cart.items %}
-        <div class="card mb-5 border-0 shadow-sm">
-          <div class="row my-2 no-gutters">
-            <div class="col-md-3 d-none d-md-block">
-              <!-- <img src="img/new/img 2.jpeg" class="card-img mx-auto my-3 d-block" alt="..." style="height: 100px; width: 100px; border-radius: 50%;"> -->
-              <img src="{{value.image}}" alt="" class="card-img px-md-5 ml-md-4 rounded-circle" style="height: 100%; width:100%">
-            </div>
-            <div class="col-md-3 d-block d-md-none">
-              <!-- <img src="img/new/img 2.jpeg" class="card-img mx-auto my-3 d-block" alt="..." style="height: 100px; width: 100px; border-radius: 50%;"> -->
-              <img src="{{value.image}}" alt="" class="card-img ml-md-4" style="height: 100%; width:100%">
-            </div>
-            <div class="col-7 col-md-5">
-              <div class="card-body my-sm-0 mt-4">
-                <h6 class="card-title mb-1">{{value.name}}</h6>
 
-                <p class="card-text text-purple">
-                  {% if value.price == 'Free' %}
-                    Free
+        {% if request.session.cart.items %}
+          {% for key,value in request.session.cart.items %}
+          <div class="card mb-5 border-0 shadow-sm">
+            <div class="row my-2 no-gutters">
+              <div class="col-md-3 d-none d-md-block">
+                <!-- <img src="img/new/img 2.jpeg" class="card-img mx-auto my-3 d-block" alt="..." style="height: 100px; width: 100px; border-radius: 50%;"> -->
+                <img src="{{value.image}}" alt="" class="card-img px-md-5 ml-md-4 rounded-circle" style="height: 100%; width:100%">
+              </div>
+              <div class="col-md-3 d-block d-md-none">
+                <!-- <img src="img/new/img 2.jpeg" class="card-img mx-auto my-3 d-block" alt="..." style="height: 100px; width: 100px; border-radius: 50%;"> -->
+                <img src="{{value.image}}" alt="" class="card-img ml-md-4" style="height: 100%; width:100%">
+              </div>
+              <div class="col-7 col-md-5">
+                <div class="card-body my-sm-0 mt-4">
+                  <h6 class="card-title mb-1">{{value.name}}</h6>
+
+                  <p class="card-text text-purple">
+                    {% if value.price == 'Free' %}
+                      Free
+                    {% else %}
+                      ₦{{value.price}}
+                    {% endif %}                  
+                  </p>
+                  <!-- {% if value.sale_price != "None" %}
+                    <p class="card-text text-purple">₦{{value.sale_price}}</p>
                   {% else %}
-                    ₦{{value.price}}
-                  {% endif %}                  
-                </p>
-                <!-- {% if value.sale_price != "None" %}
-                  <p class="card-text text-purple">₦{{value.sale_price}}</p>
-                {% else %}
-                  <p class="card-text text-purple">₦{{value.price}}</p>
-                {% endif %} -->
-                  
+                    <p class="card-text text-purple">₦{{value.price}}</p>
+                  {% endif %} -->
+                    
+                </div>
+              </div>
+              <div class="col-3 col-sm-4 col-md-3 pt-4">
+                <ul class="nav flex-column flex-sm-row">
+                  <a class="nav-link py-0 text-center" href="{% url 'core:item_decrement' value.product_id %}"><img src="{% static 'core/img/new/negative sq.svg' %}" alt=""
+                      class="rounded-circle shadow" height="24px"></a>
+                  <a class="nav-link py-1 text-center">{{value.quantity}}</a>
+                  <a class="nav-link py-0 text-center" href="{% url 'core:item_increment' value.product_id %}"><img src="{% static 'core/img/new/positive sq.svg' %}" alt=""
+                      class="rounded-circle shadow" height="24px"></a>
+                </ul>
+              </div>
+              <div class="col-2 col-sm-1 align-self-center">
+                <a class="nav-link py-sm-0 pr-4 pr-md-0 text-right text-md-center pt-5" href="{% url 'core:item_clear' value.product_id %}"><p class="text-danger"><i class="fas fa-times"></i></p></a>
               </div>
             </div>
-            <div class="col-3 col-sm-4 col-md-3 pt-4">
-              <ul class="nav flex-column flex-sm-row">
-                <a class="nav-link py-0 text-center" href="{% url 'core:item_decrement' value.product_id %}"><img src="{% static 'core/img/new/negative sq.svg' %}" alt=""
-                    class="rounded-circle shadow" height="24px"></a>
-                <a class="nav-link py-1 text-center">{{value.quantity}}</a>
-                <a class="nav-link py-0 text-center" href="{% url 'core:item_increment' value.product_id %}"><img src="{% static 'core/img/new/positive sq.svg' %}" alt=""
-                    class="rounded-circle shadow" height="24px"></a>
-              </ul>
-            </div>
-            <div class="col-2 col-sm-1 align-self-center">
-              <a class="nav-link py-sm-0 pr-4 pr-md-0 text-right text-md-center pt-5" href="{% url 'core:item_clear' value.product_id %}"><p class="text-danger"><i class="fas fa-times"></i></p></a>
-            </div>
           </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
+        {% else %}
+        <h1 class="text-center text-dark" style="padding-top: 20%; padding-bottom: 20%;">
+          There are no items in your cart. <br> Check <a href="{% url 'core:event_list' %}">here</a> to add some
+        </h1>
+        {% endif %}
 
       </div>
     </div>
