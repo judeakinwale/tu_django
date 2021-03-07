@@ -169,3 +169,19 @@ def on_event_received(sender, event, data, **kwargs):
     confirmation.event = event
     confirmation.data = data
     confirmation.save()
+
+
+def payment_confirmation(request):
+    """
+    confirm payment and send tickets by mail
+    """
+    user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
+    if user_order:
+        user_order.is_ordered = True
+        Cart(request).clear()
+        user_order.save()
+    template_name = 'paystack/success-page.html'
+    context = {
+
+    }
+    return render(request, template_name, context)
