@@ -8,8 +8,9 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
+from django.views.generic.edit import FormView
 from .forms import EventForm
-from .models import Event, EventCategory, EventCity, EventState, FAQ
+from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs
 from cart.cart import Cart
 from registration.forms import NewUserForm
 
@@ -130,8 +131,22 @@ class EventDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('registration:account')
 
 
-class ContactUsView(TemplateView):
+class ContactUsView(CreateView):
+    model = ContactUs
+    fields = '__all__'
     template_name = 'core/contact_us.html'
+
+
+# class ContactView(FormView):
+#     template_name = 'contact.html'
+#     # form_class = ContactForm
+#     success_url = '/thanks/'
+    
+#     def form_valid(self, form):
+#         # This method is called when valid form data has been POSTed.
+#         # It should return an HttpResponse.
+#         form.send_email()
+#         return super().form_valid(form)
 
 
 # From django-shopping-cart

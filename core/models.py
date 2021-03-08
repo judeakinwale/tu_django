@@ -14,7 +14,7 @@ class Event(models.Model):
 
     # Create a default category (like Uncategorized or Unknown) as the first category. Deleting it will cause errors
     category = models.ForeignKey("EventCategory", default=1, on_delete=models.SET_DEFAULT)
-    
+
     # Ticket details
     ticket_price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     ticket_sale_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
@@ -26,16 +26,16 @@ class Event(models.Model):
     city = models.ForeignKey("EventCity", on_delete=models.SET_NULL, blank=True, null=True)
     state = models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
     country = models.CharField(max_length=200, blank=True, null=True)
-    
+
     slug = models.SlugField(unique=True)
-    
+
     # Date and time details
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
-    
+
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-    
+
     is_published = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
 
@@ -117,3 +117,18 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ContactUs(models.Model):
+    first_name = models.CharField(max_length=250)
+    last_name = models.CharField(max_length=250)
+    email = models.CharField(max_length=250)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    class Meta:
+        verbose_name = "ContactUs"
+        verbose_name_plural = "ContactUs"
+
+    def __str__(self):
+        return f"{self.first_name} {self.first_name} - Contact Query"
