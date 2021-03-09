@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.admin import widgets
 from django.utils.translation import gettext_lazy as _
-from .models import Event
+from .models import Event, ContactUs
 
 
 class EventForm(forms.ModelForm):
@@ -43,3 +43,21 @@ class EventForm(forms.ModelForm):
         # field_classes = {
         #     'slug': MySlugFormField,
         # }
+
+class ContactUsForm(forms.ModelForm):
+ 
+    class Meta:
+        model = ContactUs
+        fields = '__all__'
+
+        widgets = {
+            'email': widgets.AdminEmailInputWidget(attrs={
+                'placeholder': 'user@example.com'
+            }),
+            'message' : widgets.AdminTextareaWidget(attrs={
+                'placeholder': "Write your notes or questions here..."
+            }),
+        }
+
+
+    # TODO: Define form fields here

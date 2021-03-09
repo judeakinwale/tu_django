@@ -131,4 +131,4 @@ class ContactUs(models.Model):
         verbose_name_plural = "ContactUs"
 
     def __str__(self):
-        return f"{self.first_name} {self.first_name} - Contact Query"
+        return f"{self.first_name} {self.last_name} - Contact Query"

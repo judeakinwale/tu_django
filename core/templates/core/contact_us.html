@@ -9,8 +9,41 @@
     <h4 class="text-purple my-5 text-center font-weight-bold">Contact Us</h4>
     <div class="row py-5">
       <div class="col-md-6 mx-auto">
-        <form action="/" class="" method="get">
-          
+        <form action="" class="" method="POST">
+          {% csrf_token %}
+
+          <!-- This allows the form to be crispy -->
+          <!-- {{form|crispy}} -->
+
+          {{ form.non_field_errors }}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              {{form.first_name.errors}}
+              <label class="col-form-label" for="{{form.first_name.id_for_label}}">First Name</label>
+              <!-- <input type="text" class="form-control" id="contact_first_name" name="contact_first_name"> -->
+              {{form.first_name}}
+            </div>
+            <div class="form-group col-md-6">
+              {{form.last_name.errors}}
+              <label class="col-form-label" for="{{form.last_name.id_for_label}}">Last Name</label>
+              <!-- <input type="text" class="form-control" id="contact_last_name" name="contact_last_name"> -->
+              {{form.last_name}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{form.email.errors}}
+            <label class="col-form-label" for="{{form.email.id_for_label}}">Email</label>
+            <!-- <input type="text" class="form-control" id="contact_email" name="contact_email"> -->
+            {{form.email}}
+          </div>
+          <div class="form-group">
+            {{form.message.errors}}
+            <label class="col-form-label" for="{{form.message.id_for_label}}">Message</label>
+            <!-- <textarea name="contact_message" id="contact_message" class="form-control" cols="30" rows="10"
+              placeholder="Write your notes or questions here..."></textarea> -->
+            {{form.message}}
+          </div>
+          {% comment %} <hr><hr><hr>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label class="col-form-label" for="inputEmail4">First Name</label>
@@ -34,7 +67,7 @@
             <textarea name="contact_message" id="contact_message" class="form-control" cols="30"
               rows="10" placeholder="Write your notes or questions here..."></textarea>
             <!-- {{form.message}} -->
-          </div>
+          </div> {% endcomment %}
           <button type="submit" class="btn btn-outline-dark mx-auto">Submit</button>
         </form>
       </div>

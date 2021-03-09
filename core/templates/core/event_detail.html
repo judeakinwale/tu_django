@@ -44,7 +44,7 @@
                   <div class="card-text"><h6 class="text-light mt-2">Price</h6></div>
                   <div class="card-title">
                     <h5 class="text-white mt-4">
-                    {% if event.get_price == Free %}
+                    {% if event.get_price == 'Free' %}
                       Free
                     {% else %}
                       ₦{{event.get_price}}
