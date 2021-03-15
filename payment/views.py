@@ -1,6 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
 from .models import Payment, BillingAddress, Order, UserOrder, PaymentConfirmation
@@ -136,6 +139,8 @@ def direct_checkout(request, target, id):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
+
+
     total_amount = cart_total_amount(request)["cart_total_amount"]
     template_name = "payment/direct_checkout.html"
     context = {'object': query, 'total': total_amount}
@@ -180,6 +185,16 @@ def payment_confirmation(request):
         user_order.is_ordered = True
         Cart(request).clear()
         user_order.save()
+
+    subject = 'Ticket Testing'
+    html_message = render_to_string('mail/mail_template.html', {'context': 'Templating and context works', 'user': f'{request.user.username}'})
+    plain_message = strip_tags(html_message)
+    from_email = 'From <judeakinwale@gmail.com>'
+    to = [f'{request.user.email}']
+    send_mail(subject, plain_message, from_email, to, html_message=html_message)
+
+
+
     template_name = 'paystack/success-page.html'
     context = {
 
