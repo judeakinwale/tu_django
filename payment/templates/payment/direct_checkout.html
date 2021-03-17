@@ -19,7 +19,13 @@
               <img src="{{value.image}}" class="card-img-top rounded" alt="...">
               <div class="card-body px-0">
                 <h5 class="card-title my-1">{{value.name}}</h5>
-                <p class="card-text text-purple my-1">N{{value.price}} <span class="float-right font-weight-bold">x{{value.quantity}}</span> </p>
+                <p class="card-text text-purple my-1">
+                  {% if value.price == 'Free' %}
+                  Free
+                  {% else %}
+                  ₦{{value.price}}
+                  {% endif %}
+                  <span class="float-right font-weight-bold">x{{value.quantity}}</span> </p>
               </div>
             </div>
           </div>
@@ -65,9 +71,9 @@
             <label for="inputAddress" class="px-3">Email</label>
               <div class="input-group">
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 my-2 rounded-sm bg-white border-purple" id="inputAddress" value="{{request.user.email}}" placeholder="{{request.user.email}}">
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 my-2 rounded-sm bg-white border-purple" id="inputAddress" name="user_email" value="{{request.user.email}}" placeholder="{{request.user.email}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 border border-purple " id="inputAddress" placeholder="user@example.com">
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 border border-purple " id="inputAddress" name="user_email" placeholder="user@example.com">
               {% endif %}
               </div>
           </div>
@@ -81,10 +87,10 @@
               </div> -->
 
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress" name="user_name"
                   placeholder="{{request.user.first_name}} {{request.user.last_name}}" value="{{request.user.first_name}} {{request.user.last_name}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress" name="user_name"
                   placeholder="Please enter your name" >
               {% endif %}
                 
@@ -135,6 +141,14 @@
           <div class="form-group rounded-lg shadow py-2">
             <h6 class="px-3 my-2  ">Total: <a class="float-right">₦{{cart_total_amount}}</a></h6>
           </div>
+          <!-- <small class="text-muted">First confirm</small> -->
+
+          
+          {% if request.POST %}
+            {{request.method}}
+          {% endif %}
+            
+
           <button type="submit" class="btn btn-lg btn-purple float-right my-5 w-50">Confirm</button>
           {% if total != 0.00 %}
             {% paystack_button amount=total email=email %}

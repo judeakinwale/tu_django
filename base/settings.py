@@ -192,6 +192,13 @@ CART_SESSION_ID = 'cart'
 PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
 PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY') # 'sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
 
+from django.conf import settings
+from django.shortcuts import reverse
+
+PAYSTACK_SUCCESS_URL = getattr(settings, 'PAYSTACK_SUCCESS_URL',
+                               'payment:payment_confirmation')
+
+
 # For AWS s3 storage
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')  # 'AKIA2NQEUH4WHATJ3JSD'
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')  # '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'

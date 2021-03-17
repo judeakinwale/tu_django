@@ -67,7 +67,8 @@ class UserOrder(models.Model):
 
 
 class PaymentConfirmation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    sender = models.CharField(max_length=200, blank=True, null=True)
     user_order = models.ForeignKey(UserOrder, on_delete=models.CASCADE, blank=True, null=True)
     reference = models.CharField(max_length=200, blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)

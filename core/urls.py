@@ -15,7 +15,7 @@ urlpatterns = [
     path("update/<slug>/", views.EventUpdateView.as_view(), name="update_event"),
     path("delete/<slug>/", views.EventDeleteView.as_view(), name="delete_event"),
     path('contact-us/', views.ContactUsView.as_view(), name='contact_us'),
-    
+
     # From django-shopping-cart
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),
     path('cart/item_clear/<int:id>/', views.item_clear, name='item_clear'),
@@ -24,3 +24,5 @@ urlpatterns = [
     path('cart/cart_clear/', views.cart_clear, name='cart_clear'),
     path('cart/cart-detail/',views.cart_detail,name='cart_detail'),
 ]
+
+handler404 = 'core.views.my_custom_page_not_found_view'

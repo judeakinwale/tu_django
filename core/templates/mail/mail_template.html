@@ -1,9 +1,24 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <main>
     <div class="container">
-        Hello {{user}}.
-        <hr> 
-        Send mail Works.  
-        {{context}}
-
+        <div class="row text-center">
+            Hello {{user}}.
+            <hr>
+            {% for item in order_items %}
+            <p class="text-secondary pt-4">Event name:</p>
+            <h5>{{item.name}}</h5>
+            <img class="img-fluid" src="{{item.img.url}}" alt="">
+            <hr>
+            <div class="pt-3">
+                <span class="pr-2">{{item.street_address}}</span>
+                <span class="pr-2">{{item.city}}</span>
+                <span class="pr-2">{{item.state}}</span>
+            </div>
+            <div class="pt-3">
+                <span class="pr-2">{{item.start_time}}</span>
+                <span class="pr-2">{{item.end_time}}</span>
+            </div>
+            {% endfor %}
+        </div>           
     </div>
 </main>

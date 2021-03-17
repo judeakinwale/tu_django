@@ -204,3 +204,6 @@ def cart_clear(request):
 @login_required(login_url="/login")
 def cart_detail(request):
     return render(request, 'cart/cart_detail.html')
+
+def my_custom_page_not_found_view(request, *args, **kwargs):
+    return render(request, 'core/404.html')

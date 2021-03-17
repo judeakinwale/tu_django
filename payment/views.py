@@ -39,7 +39,7 @@ def checkout(request):
         user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
     else:
         user_order = UserOrder()
-
+        user_order.user = request.user
 
     if request.session['cart']:
         cart_dict = request.session['cart']
@@ -97,6 +97,9 @@ def direct_checkout(request, target, id):
     if not UserOrder.objects.filter(user=request.user, is_ordered=False):
         Cart(request).clear()
 
+    if UserOrder.objects.filter(user=request.user, is_ordered=True):
+        Cart(request).clear()
+
     Cart(request).add(query)
 
     if request.session['cart']:
@@ -139,6 +142,8 @@ def direct_checkout(request, target, id):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
+        return redirect("payment:checkout")
+
 
 
     total_amount = cart_total_amount(request)["cart_total_amount"]
@@ -149,18 +154,20 @@ def direct_checkout(request, target, id):
 
 # Paystack Signals
 @receiver(payment_verified)
-def on_payment_verified(sender, ref,amount, **kwargs):
+def on_payment_verified(sender, ref,amount, *args, **kwargs):
     """
     ref: paystack reference sent back.
     amount: amount in Naira.
     """
     confirmation = PaymentConfirmation()
+    confirmation.sender = sender
     confirmation.raw_request = sender
-    confirmation.amount = cart_total_amount(request)["cart_total_amount"]
-    confirmation.user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
+    # confirmation.user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
     confirmation.reference = ref
     confirmation.amount = amount
     confirmation.save()
+
+
 
 
 @receiver(event_signal)
@@ -175,25 +182,42 @@ def on_event_received(sender, event, data, **kwargs):
     confirmation.data = data
     confirmation.save()
 
+    return redirect("payment:payment_confirmation")
+
 
 def payment_confirmation(request):
     """
     confirm payment and send tickets by mail
     """
     user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
+    print(user_order)
     if user_order:
         user_order.is_ordered = True
         Cart(request).clear()
+        order_items = user_order.order_items.all()
         user_order.save()
 
-    subject = 'Ticket Testing'
-    html_message = render_to_string('mail/mail_template.html', {'context': 'Templating and context works', 'user': f'{request.user.username}'})
-    plain_message = strip_tags(html_message)
-    from_email = 'From <judeakinwale@gmail.com>'
-    to = [f'{request.user.email}']
-    send_mail(subject, plain_message, from_email, to, html_message=html_message)
+        subject = 'Ticket Testing'
+        html_message = render_to_string(
+            'mail/mail_template.html',
+            {
+                'context': 'Templating and context works',
+                'order_items': order_items,
+                'user': request.user.username,
+            })
+        plain_message = strip_tags(html_message)
+        from_email = 'From <judeakinwale@gmail.com>'
+        to = [f'{request.user.email}']
+        send_mail(subject, plain_message, from_email, to, html_message=html_message)
 
+        messages.success(request, 'A ticket has been sent to your mail')
 
+        total_amount = cart_total_amount(request)["cart_total_amount"]
+        # if total_amount != 0.00:
+        #     return redirect("payment:payment_confirmation")
+
+    else:
+        messages.error(request, 'There was an error in your order')
 
     template_name = 'paystack/success-page.html'
     context = {
