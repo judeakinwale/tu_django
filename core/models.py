@@ -132,3 +132,8 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - Contact Query"
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)    
+    phone_number = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)

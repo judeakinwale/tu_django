@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs
+from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs, Profile
 
 # Register your models here.
 
@@ -74,3 +74,4 @@ admin.site.register(EventState)
 admin.site.register(Event, EventAdmin)
 admin.site.register(FAQ)
 admin.site.register(ContactUs)
+admin.site.register(Profile)
