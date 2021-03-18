@@ -47,9 +47,9 @@
             <label for="inputAddress" class="px-3">Email</label>
               <div class="input-group">
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 my-2 rounded-sm bg-white border-purple" id="inputAddress" value="{{request.user.email}}" placeholder="{{request.user.email}}">
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 my-2 rounded-sm bg-white border-purple" name="user_email" id="inputAddress" value="{{request.user.email}}" placeholder="{{request.user.email}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 border border-purple " id="inputAddress" placeholder="user@example.com">
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 border border-purple " name="user_email" id="inputAddress" placeholder="user@example.com">
               {% endif %}
               </div>
           </div>
@@ -63,10 +63,10 @@
               </div> -->
 
               {% if request.user.is_authenticated %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" name="user_name" id="inputAddress"
                   placeholder="{{request.user.first_name}} {{request.user.last_name}}" value="{{request.user.first_name}} {{request.user.last_name}}">
               {% else %}
-                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" id="inputAddress"
+                <input type="text" class="form-control form-control-sm pl-3 mx-3 mt-2 mb-3 rounded-sm bg-white text-center border-purple" name="user_name" id="inputAddress"
                   placeholder="Please enter your name" >
               {% endif %}
                 

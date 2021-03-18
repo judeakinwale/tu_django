@@ -72,6 +72,11 @@ def checkout(request):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
+        # if request.method == "GET":
+        #     user_order.ticket_name = request.GET['user_name']
+        #     user_order.ticket_email = request.GET['user_email']
+        #     user_order.save()
+
     total_amount = cart_total_amount(request)["cart_total_amount"]
     template_name = "payment/checkout.html"
     context = {'total': total_amount, 'email': request.user.email}
@@ -142,6 +147,11 @@ def direct_checkout(request, target, id):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
+        # if request.method == "GET":
+        #     user_order.ticket_name = request.GET['user_name']
+        #     user_order.ticket_email = request.GET['user_email']
+        #     user_order.save()
+
         return redirect("payment:checkout")
 
 
@@ -195,6 +205,9 @@ def payment_confirmation(request):
         user_order.is_ordered = True
         Cart(request).clear()
         order_items = user_order.order_items.all()
+        if request.method == "GET":
+            user_order.ticket_name = request.GET['user_name']
+            user_order.ticket_email = request.GET['user_email']
         user_order.save()
 
         subject = 'Ticket Testing'
@@ -204,10 +217,11 @@ def payment_confirmation(request):
                 'context': 'Templating and context works',
                 'order_items': order_items,
                 'user': request.user.username,
+                'user_order': user_order,
             })
         plain_message = strip_tags(html_message)
         from_email = 'From <judeakinwale@gmail.com>'
-        to = [f'{request.user.email}']
+        to = [f'{user_order.ticket_email}']
         send_mail(subject, plain_message, from_email, to, html_message=html_message)
 
         messages.success(request, 'A ticket has been sent to your mail')

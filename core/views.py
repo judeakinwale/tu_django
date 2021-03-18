@@ -12,6 +12,8 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.views.generic.edit import FormView
 from .forms import EventForm, ContactUsForm
 from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs
+from transportation.models import Transportation as trsp
+from location.models import Listing as loc
 from cart.cart import Cart
 from registration.forms import NewUserForm
 
@@ -25,11 +27,15 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         featured_events = Event.objects.filter(is_featured=True)
+        featured_transport = trsp.objects.filter(is_published=True, is_booked=False).first
+        featured_venue = loc.objects.filter(is_published=True, is_booked=False)
         first_item = featured_events.first()
         second_to_fourth_item = featured_events[1:4]
         context = super().get_context_data(**kwargs)
         context["featured_object"] = first_item
         context["featured_object_list"] = second_to_fourth_item
+        context["featured_venue"] = featured_venue
+        context["featured_transport"] = featured_transport
         return context
 
 
