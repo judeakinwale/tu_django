@@ -35,6 +35,8 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', 'turnup-development.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'registration',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,9 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'crispy_forms',
+    
     'core',
-    'registration',
+    'crispy_forms',
 
     # For django-shopping-cart
     'cart',
