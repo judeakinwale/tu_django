@@ -16,153 +16,127 @@
     
 
 {% block content %}
-    <main class="container-fluid">
+  <main class="container-fluid">
 
-        {% if featured_object %}
-            <!-- FEATURED IMAGE AND EVENT DETAILS -->
-            <section>
-                <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
-                    <div class="row px-md-3">
-                        <div class="col-md-3"></div>
-                        <!-- jumbotron-image is the featured image -->
-                        <div class="col col-md-9 jumbotron-image">
-                            <div class="row">
-                                <!-- EVENT DETAILS -->
-                                <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
-                                    <h1 class="display-4 font-weight-bold"><a
-                                            href="{{featured_object.get_absolute_url}}"
-                                            class="nav-link text-light">{{featured_object.name|upper}}</a></h1>
-                                    <h3 class="lead"><a href="{{featured_object.get_absolute_url}}"
-                                            class="nav-link text-light">{{featured_object.street_address}}</a></h3>
-                                </div>
-                                <div class="w-100"></div>
-                                <!-- GET TICKETS BUTTON -->
-                                <div class="col-12 py-md-5 py-3 m-md-5 m-3">
-                                    <a href="{% url 'payment:direct_checkout' 'event' featured_object.id %}"
-                                        class="btn btn-lg btn-outline-w bg-purple">GET TICKETS</a>
-                                </div>
-                                <!-- <button type="button" class="btn btn-lg btn-dark border bg-purple m-md-5 m-3">GET TICKETS</button> -->
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-            {% if featured_object_list.exists %}
-            <!-- EVENTS -->
-            <section>
+    {% if featured_object %}
+      <!-- FEATURED IMAGE AND EVENT DETAILS -->
+      <section>
+        <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
+          <div class="row px-md-3">
+            <div class="col-md-3"></div>
+            <!-- jumbotron-image is the featured image -->
+            <div class="col col-md-9 jumbotron-image">
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9 col-12">
-                        <div class="row justify-content-between">
-                            {% for object in featured_object_list %}
-                            <!-- <div class="col-sm-4 my-3">
-                            <a href="{{object.get_absolute_url}}"><img src="{{object.image.url}}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
-                        </div> -->
-                            <a href="{{object.get_absolute_url}}">
-                                <div class="col-sm-4 my-3">
-                                    <div class="card bg-dark text-white rounded-xl shadow-anim-black">
-                                        <a href="{{object.get_absolute_url}}">
-                                            <img src="{{object.image.url}}" class="card-img rounded-xl"
-                                                alt="{{object.name}}">
-                                        </a>
-                                        <div class="card-img-overlay transparent-dark rounded-xl">
-                                            <h5 class="card-title">{{object.name}}</h5>
-                                            <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-                                        This content is a little bit longer.</p> -->
-                                            <p class="card-text text-truncate">{{object.street_address}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                            {% endfor %}
-                            <!-- <div class="col-sm-4 my-3">
-                            <a href=""><img src="{% static 'core/img/02.png' %}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
-                        </div>
-                        <div class="col-sm-4 my-3">
-                            <a href=""><img src="{% static 'core/img/02.png' %}" class="rounded-xl img-fluid shadow-anim-black" alt="image" height=""></a>
-                        </div> -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-        {% else %}
-            <h1 class="text-center text-light" style="padding-top: 20%; padding-bottom: 20%;">There are no events at this time</h1>
-        {% endif %}
-            
-        
-        {% if featured_venue %}
-            <!-- FEATURED IMAGE AND EVENT DETAILS -->
-            <section class="my-5">
-                <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
-                    <div class="row px-md-3">
-                        <div class="col-md-3"></div>
-                        <!-- jumbotron-image is the featured image -->
-                        <div class="col col-md-9 jumbotron-image">
-                            <div class="row">
-                                <!-- EVENT DETAILS -->
-                                <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
-                                    <h1 class="display-4 font-weight-bold"><a
-                                            href="{{featured_venue.get_absolute_url}}"
-                                            class="nav-link text-light">{{featured_venue.name|upper}}</a></h1>
-                                    <h3 class="lead"><a href="{{featured_venue.get_absolute_url}}"
-                                            class="nav-link text-light">{{featured_venue.street_address}}</a></h3>
-                                </div>
-                                <div class="w-100"></div>
-                                <!-- GET CONTACT INFO BUTTON -->
-                                <div class="col-12 py-md-5 py-3 m-md-5 m-3">
-                                    <a href="{{featured_venue.get_absolute_url}}"
-                                        class="btn btn-lg btn-outline-w bg-purple">Contact</a>
-                                </div>
-                                <!-- <button type="button" class="btn btn-lg btn-dark border bg-purple m-md-5 m-3">GET TICKETS</button> -->
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </section>            
-        {% endif %}
-            
-        {% if featured_transport %}
-        <!-- FEATURED IMAGE AND EVENT DETAILS -->
-        <section class="my-5">
-            <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
-                <div class="row px-md-3">
-                    <div class="col-md-3"></div>
-                    <!-- jumbotron-image is the featured image -->
-                    <div class="col col-md-9 jumbotron-image">
-                        <div class="row">
-                            <!-- EVENT DETAILS -->
-                            <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
-                                <h1 class="display-4 font-weight-bold"><a href="{{featured_transport.get_absolute_url}}"
-                                        class="nav-link text-light">{{featured_transport.name|upper}}</a></h1>
-                                <h3 class="lead"><a href="{{featured_transport.get_absolute_url}}"
-                                        class="nav-link text-light">{{featured_transport.city}} {{featured_transport.state}}</a></h3>
-                            </div>
-                            <div class="w-100"></div>
-                            <!-- GET CONTACT INFO BUTTON -->
-                            <div class="col-12 py-md-5 py-3 m-md-5 m-3">
-                                <a href="{{featured_transport.get_absolute_url}}"
-                                    class="btn btn-lg btn-outline-w bg-purple">Contact</a>
-                            </div>
-                            <!-- <div class="col-12 py-md-5 py-3 m-md-5 m-3">
-                                <a href="{% url 'payment:direct_checkout' 'event' featured_object.id %}"
-                                    class="btn btn-lg btn-outline-w bg-purple">GET TICKETS</a>
-                            </div> -->
-                            <!-- <button type="button" class="btn btn-lg btn-dark border bg-purple m-md-5 m-3">GET TICKETS</button> -->
-
-                        </div>
-                    </div>
+                  <!-- EVENT DETAILS -->
+                  <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
+                    <h1 class="display-4 font-weight-bold">
+                      <a href="{{featured_object.get_absolute_url}}" class="nav-link text-light">{{featured_object.name|upper}}</a>
+                    </h1>
+                    <h3 class="lead"><a href="{{featured_object.get_absolute_url}}" class="nav-link text-light">{{featured_object.street_address}}</a></h3>
+                  </div>
+                  <div class="w-100"></div>
+                  <!-- GET TICKETS BUTTON -->
+                  <div class="col-12 py-md-5 py-3 m-md-5 m-3">
+                    <a href="{% url 'payment:direct_checkout' 'event' featured_object.id %}" class="btn btn-lg btn-outline-w bg-purple">GET TICKETS</a>
+                  </div>
                 </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-        </section>
-        {% endif %}
-            
-    </main>
+      {% if featured_object_list.exists %}
+      <!-- EVENTS -->
+      <section>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-9 col-12">
+            <div class="row justify-content-between">
+              {% for object in featured_object_list %}
+              <a href="{{object.get_absolute_url}}">
+                <div class="col-sm-4 my-3">
+                  <div class="card bg-dark text-white rounded-xl shadow-anim-black">
+                    <a href="{{object.get_absolute_url}}">
+                      <img src="{{object.image.url}}" class="card-img rounded-xl" alt="{{object.name}}">
+                    </a>
+                    <div class="card-img-overlay transparent-dark rounded-xl">
+                      <h5 class="card-title">{{object.name}}</h5>
+                      <p class="card-text text-truncate">{{object.street_address}}</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              {% endfor %}
+          </div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+    {% else %}
+      <h1 class="text-center text-light" style="padding-top: 20%; padding-bottom: 20%;">There are no events at this time</h1>
+    {% endif %}
+    
+    {% if featured_venue %}
+      <!-- FEATURED IMAGE AND EVENT DETAILS -->
+      <section class="my-5">
+        <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
+          <div class="row px-md-3">
+            <div class="col-md-3"></div>
+            <!-- jumbotron-image is the featured image -->
+            <div class="col col-md-9 jumbotron-image">
+              <div class="row">
+                <!-- EVENT DETAILS -->
+                <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
+                  <h1 class="display-4 font-weight-bold">
+                    <a href="{{featured_venue.get_absolute_url}}" class="nav-link text-light">{{featured_venue.name|upper}}</a>
+                  </h1>
+                  <h3 class="lead">
+                    <a href="{{featured_venue.get_absolute_url}}" class="nav-link text-light">{{featured_venue.street_address}}</a>
+                  </h3>
+                </div>
+                <div class="w-100"></div>
+                <!-- GET CONTACT INFO BUTTON -->
+                <div class="col-12 py-md-5 py-3 m-md-5 m-3">
+                  <a href="{{featured_venue.get_absolute_url}}" class="btn btn-lg btn-outline-w bg-purple">Contact</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>   
+    {% endif %}
+        
+    {% if featured_transport %}
+    <!-- FEATURED IMAGE AND EVENT DETAILS -->
+    <section class="my-5">
+      <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
+        <div class="row px-md-3">
+          <div class="col-md-3"></div>
+          <!-- jumbotron-image is the featured image -->
+          <div class="col col-md-9 jumbotron-image">
+              <div class="row">
+                <!-- EVENT DETAILS -->
+                <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
+                  <h1 class="display-4 font-weight-bold">
+                    <a href="{{featured_transport.get_absolute_url}}" class="nav-link text-light">{{featured_transport.name|upper}}</a>
+                  </h1>
+                  <h3 class="lead">
+                    <a href="{{featured_transport.get_absolute_url}}" class="nav-link text-light">{{featured_transport.city}} {{featured_transport.state}}</a>
+                  </h3>
+                </div>
+                <div class="w-100"></div>
+                <!-- GET CONTACT INFO BUTTON -->
+                <div class="col-12 py-md-5 py-3 m-md-5 m-3">
+                  <a href="{{featured_transport.get_absolute_url}}" class="btn btn-lg btn-outline-w bg-purple">Contact</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+    {% endif %}
+          
+  </main>
 {% endblock content %}

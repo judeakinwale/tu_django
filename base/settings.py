@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import django_heroku
 from pathlib import Path
+from django.conf import settings
+from django.shortcuts import reverse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,7 +37,11 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', 'turnup-development.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'registration',
+    'payment',
+    'location',
+    'transportation',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,23 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    
-    'core',
-    'crispy_forms',
 
-    # For django-shopping-cart
-    'cart',
-
-    'payment',
-    'location',
-    'transportation',
-
-    # for pypaystack
-    # 'paystack',
-    "paystack.frameworks.django",
-
-    # For django-storages - for aws s3 storage
-    'storages',
+    'crispy_forms', # For django-crispy-forms
+    'cart', # For django-shopping-cart
+    'paystack.frameworks.django', # For pypaystack
+    'storages', # For django-storages, for aws s3 storage
 ]
 
 MIDDLEWARE = [
@@ -166,7 +160,6 @@ USE_TZ = True
 # STATIC_ROOT = BASE_DIR / 'static'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
 # Media files, for uploaded images
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -193,15 +186,9 @@ CART_SESSION_ID = 'cart'
 # For pypaystack
 PAYSTACK_PUBLIC_KEY='pk_test_06e276fe707dc1274c7fde492b1878e7994c4bcc'
 PAYSTACK_SECRET_KEY=os.environ.get('PAYSTACK_SECRET_KEY') # 'sk_test_9f8414be1c13fac5e219cfc9e93e9fd7b533ad6f'
+PAYSTACK_SUCCESS_URL = getattr(settings, 'PAYSTACK_SUCCESS_URL', 'payment:payment_confirmation')
 
-from django.conf import settings
-from django.shortcuts import reverse
-
-PAYSTACK_SUCCESS_URL = getattr(settings, 'PAYSTACK_SUCCESS_URL',
-                               'payment:payment_confirmation')
-
-
-# For AWS s3 storage
+# For AWS S3 storage
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')  # 'AKIA2NQEUH4WHATJ3JSD'
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')  # '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'
 AWS_STORAGE_BUCKET_NAME = 'myturnupawsbucket'

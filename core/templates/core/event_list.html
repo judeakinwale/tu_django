@@ -2,6 +2,7 @@
 {% load static %}
 {% load humanize %}
 
+
 {% block content %}
     
 {% include "partials/_search.html" %}
@@ -16,25 +17,9 @@
           <div class="col-12 col-lg-4 col-md-6">
             <div class="card mx-0 my-4 shadow-anim">
               <a href="{{object.get_absolute_url}}">
-                <img src="{{object.image.url}}" class="card-img-top" alt="event image" ,
-                  aria-label="Placeholder: Thumbnail">
-                <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"> -->
+                <img src="{{object.image.url}}" class="card-img-top" alt="event image" , aria-label="Placeholder: Thumbnail">
                 <div class="card-img-overlay font-weight-bold">
                   <span class="px-2 py-1 bg-white rounded-sm text-dark">{{object.get_price}}</span>
-                  <!-- {% if object.sale_price %}
-                  {% if object.sale_price == 0.00 %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
-                  {% else %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{object.sale_price | intcomma}}</span>
-                  {% endif %}
-                  {% else %}
-                  {% if object.price == 0.00 %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
-                  {% else %}
-                  <span class="px-2 py-1 bg-white rounded-sm text-dark">₦{{object.price | intcomma}}</span>
-                  {% endif %}
-                  {% endif %} -->
                 </div>
               </a>
               <a class="text-decoration-none" href="{{object.get_absolute_url}}">

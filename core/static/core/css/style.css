@@ -1,9 +1,8 @@
-/* body{font-family: 'Montserrat', sans-serif !important;} */
+body{font-family: Montserrat, Poppins, Helvetica, sans-serif !important;}
 #bg-img {
   position: relative;
   background-image: url(../img/background-image-purple.jpg);
   background-color: #fff;
-  /* background-image: url(../img/background-image-purple.jpg);
   height: 100vh;
   background-attachment: fixed;
   background-position: center;

@@ -18,17 +18,6 @@
       
         <div class="col-md-4 pr-md-0 mt-1 mt-md-3 mb-0 mb-md-2">
           <nav class="nav justify-content-between">
-            <!-- <li class="nav-item dropdown mb-2">
-              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
-                aria-haspopup="true" aria-expanded="false">City</button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#"><small>Action</small></a>
-                <a class="dropdown-item" href="#"><small>Another action</small></a>
-                <a class="dropdown-item" href="#"><small>Something else here</small></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><small>Separated link</small></a>
-              </div>
-            </li> -->
             <li class="nav-item mb-2">
               <label class="sr-only">City</label>
               <select name="city" class="form-control form-control-sm border-purple">
@@ -56,28 +45,6 @@
                 {% endfor %}
               </select>
             </li>
-            <!-- <li class="nav-item dropdown mb-2">
-              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
-                aria-haspopup="true" aria-expanded="false">State</button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#"><small>Action</small></a>
-                <a class="dropdown-item" href="#"><small>Another action</small></a>
-                <a class="dropdown-item" href="#"><small>Something else here</small></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><small>Separated link</small></a>
-              </div>
-            </li> -->
-            <!-- <li class="nav-item dropdown">
-              <button class="dropdown-toggle btn btn-sm btn-purple rounded-sm" data-toggle="dropdown" href="#" role="button"
-                aria-haspopup="true" aria-expanded="false">Category</button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#"><small>Action</small></a>
-                <a class="dropdown-item" href="#"><small>Another action</small></a>
-                <a class="dropdown-item" href="#"><small>Something else here</small></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><small>Separated link</small></a>
-              </div>
-            </li> -->
             <li class="nav-item">
               <a href="{% url 'core:cart_detail' %}" class="btn btn-sm shadow-none text-purple" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
             </li>

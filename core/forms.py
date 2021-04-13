@@ -5,8 +5,12 @@ from .models import Event, ContactUs
 
 
 class EventForm(forms.ModelForm):
-    start_time = forms.SplitDateTimeField(label='Start Date and Time', widget=widgets.AdminSplitDateTime())
-    end_time = forms.SplitDateTimeField(label='End Date and Time', widget=widgets.AdminSplitDateTime())
+    start_time = forms.SplitDateTimeField(label='Start Date and Time', widget=widgets.AdminSplitDateTime(attrs={
+        'class': 'form-control'
+    }))
+    end_time = forms.SplitDateTimeField(label='End Date and Time', widget=widgets.AdminSplitDateTime(attrs={
+        'class': 'form-control'
+    }))
 
     class Meta:
         model = Event
@@ -25,14 +29,7 @@ class EventForm(forms.ModelForm):
             'end_time',
             ]
 
-        # labels = {
-        #     'start_time': _('Start Date & Time'),
-        #     'end_time': _('Start Date & Time'),
-        # }
-
         widgets = {
-            # 'start_time': widgets.AdminSplitDateTime(),
-            # 'end_time': widgets.AdminSplitDateTime(),
             'image': widgets.AdminFileWidget(
                 attrs={
                     'class': 'file w-100',
@@ -40,9 +37,6 @@ class EventForm(forms.ModelForm):
                 })
         }
 
-        # field_classes = {
-        #     'slug': MySlugFormField,
-        # }
 
 class ContactUsForm(forms.ModelForm):
  
@@ -58,6 +52,5 @@ class ContactUsForm(forms.ModelForm):
                 'placeholder': "Write your notes or questions here..."
             }),
         }
-
 
     # TODO: Define form fields here

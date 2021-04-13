@@ -27,18 +27,12 @@
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
         <form enctype="multipart/form-data" action="" method="post" class="px-md-4 px-lg-5">
-
-        {% csrf_token %}
-        {{form|crispy}}
-
+          {% csrf_token %}
+          {{form|crispy}}
           <!-- <input id="input-b1" name="input-b1" type="file" class="file w-100" data-browse-on-zone-click="true"> -->
-
           <button type="submit" class="btn btn-purple w-50 my-4">{{title}}</button>
         </form>
       </div>
-      <!-- <div class="col-md-5 offset-md-1 mb-5">
-        
-      </div> -->
     </div>
   </div>
 </main>

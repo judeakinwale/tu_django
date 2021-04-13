@@ -155,26 +155,13 @@ class ContactUsView(CreateView):
         return super().form_valid(form)
 
 
-# class ContactView(FormView):
-#     template_name = 'contact.html'
-#     # form_class = ContactForm
-#     success_url = '/thanks/'
-
-#     def form_valid(self, form):
-#         # This method is called when valid form data has been POSTed.
-#         # It should return an HttpResponse.
-#         form.send_email()
-#         return super().form_valid(form)
-
-
-# From django-shopping-cart
+# For django-shopping-cart
 @login_required(login_url="/login")
 def cart_add(request, id):
     cart = Cart(request)
     product = Event.objects.get(id=id)
     cart.add(product=product)
     return redirect("core:event_list")
-
 
 @login_required(login_url="/login")
 def item_clear(request, id):
@@ -183,14 +170,12 @@ def item_clear(request, id):
     cart.remove(product)
     return redirect("core:cart_detail")
 
-
 @login_required(login_url="/login")
 def item_increment(request, id):
     cart = Cart(request)
     product = Event.objects.get(id=id)
     cart.add(product=product)
     return redirect("core:cart_detail")
-
 
 @login_required(login_url="/login")
 def item_decrement(request, id):
@@ -199,13 +184,11 @@ def item_decrement(request, id):
     cart.decrement(product=product)
     return redirect("core:cart_detail")
 
-
 @login_required(login_url="/login")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
     return redirect("core:cart_detail")
-
 
 @login_required(login_url="/login")
 def cart_detail(request):

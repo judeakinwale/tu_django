@@ -9,14 +9,15 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'core/css/all.css' %}">
-    <!-- For Deployment -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{% static 'core/css/all.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <!-- ICONS -->
     <link rel="stylesheet" href="{% static 'core/fonts/icomoon/style.css' %}">
     <link rel="stylesheet" href="{% static 'core/fonts/flaticon/font/flaticon.css ' %}">
     <!-- FONTS -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     {% block extra_head %}
     {% endblock extra_head %}
@@ -54,7 +55,6 @@
                         <div class="dropdown" style="top: 14%; cursor: pointer;">
                             <a class="dropdown-toggle" data-toggle="dropdown">
                                 <span>
-                                    <!-- <img src="{% static 'core//img/profile.png' %}" alt="profile" width="30" height="30"> -->
                                     <i class="fas fa-user"></i>
                                      Welcome, {{request.user}}
                                 <span>
@@ -82,7 +82,6 @@
     {% endblock %}
 
     <footer class="container-fluid bg-purple">
-
         <div class="row">
             <div class="col-12 col-md pt-3 px-5">
                 <ul class="nav float-lg-left justify-content-center">
@@ -91,23 +90,6 @@
             </div>
             <!-- SOCIAL -->
             <div class="col-12 col-md py-3 px-5 ">
-                <!-- <ul class="nav float-lg-right justify-content-center">
-                    <li class="">
-                        <a href="#">
-                            <img class="" src="{% static 'core/img/twitter-white.png' %}" alt="" height="16px">
-                        </a>
-                    </li>
-                    <li class="px-3">
-                        <a href="#">
-                            <img class="" src="{% static 'core/img/instagram-white.png' %}" alt="" height="16px">
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="" href="#">
-                            <img class="" src="{% static 'core/img/facebook-white.png' %}" alt="" height="16px">
-                        </a>
-                    </li>
-                </ul> -->
                 <ul class="nav justify-content-center justify-content-md-end">
                     <a class="nav-link px-1 text-light" href="#"><span class="icon-facebook pt-2 pr-2 pb-2 pl-0"></span></a>
                     <a class="nav-link px-1 text-light" href="#"><span class="icon-twitter p-2"></span></a>
@@ -119,15 +101,14 @@
             <div class="w-100"></div>
             <!-- COPYRIGHT -->
             <div class="col justify-content-center">
-                <p class="copyright-text text-center text-light">&copy; 2021 TURN UP, RIGHTS RESERVED </p>
+                <p class="copyright-text text-center text-light">Copyright &copy; 2021 Turnup | All rights reserved</p>
             </div>
         </div>
     </footer>
     
     <!-- JAVASCRIPT -->
     <section>
-        
-        <!-- <script src="{% static 'core/js/wow.min.js' %}"></script> -->
+        <script src="{% static 'core/js/wow.min.js' %}"></script>
         <script src="{% static 'core/js/jquery-3.3.1.min.js' %}"></script>
         <script src="{% static 'core/js/popper.min.js' %}"></script>
         <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
@@ -136,6 +117,8 @@
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+        
+        <!-- For Toasts  -->
         <script>
             $(document).ready(function(){
                 $('.toast').toast('show');
