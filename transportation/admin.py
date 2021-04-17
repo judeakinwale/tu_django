@@ -5,4 +5,3 @@ from .models import Transportation, TransportationCategory
 
 admin.site.register(Transportation)
 admin.site.register(TransportationCategory)
-# admin.site.register(Operator)

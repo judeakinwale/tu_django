@@ -16,7 +16,7 @@ class Transportation(models.Model):
 
     # Vehicle details
     capacity = models.IntegerField()
-    category = models.ForeignKey("TransportationCategory", on_delete=models.DO_NOTHING, blank=True, null=True)
+    vehicle_type = models.ForeignKey("TransportationCategory", on_delete=models.DO_NOTHING, blank=True, null=True)
 
     # Vehicle location details
     city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)
@@ -54,25 +54,8 @@ class TransportationCategory(models.Model):
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = "Vehicle Type"
+        verbose_name_plural = "Vehicle Types"
 
     def __str__(self):
         return self.name
-
-
-# class Operator(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     name =  models.CharField(max_length=200, blank=True, null=True)
-#     photo = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
-#     description = models.TextField(blank=True, null=True)
-#     phone = models.CharField(max_length=30)
-#     email = models.CharField(max_length=50)
-
-#     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-#     updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-
-#     is_trusted = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.name
