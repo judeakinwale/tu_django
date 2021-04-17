@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from .forms import TransportationForm, OperatorForm
-from .models import Transportation, TransportationCategory, Operator
+from .forms import TransportationForm
+from .models import Transportation, TransportationCategory
 from core.models import EventCity, EventState
 
 # Create your views here.
@@ -75,7 +75,7 @@ class TransportationCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        form.instance.realtor = Operator.objects.get(user=self.request.user)
+        form.instance.creator = self.request.user
         self.object = form.save()
         return super().form_valid(form)
 

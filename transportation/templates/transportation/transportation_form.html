@@ -22,7 +22,7 @@
     <h4 class="text-purple my-5 text-center text-dark font-weight-bold">{{title}} Transportation Listing</h4>
     <div class="row py-5">
       <div class="col-md-6 bg-white rounded-sm p-4">
-        <form action="" method="post">
+        <form enctype="multipart/form-data" action="" method="post">
           {% csrf_token %}
           {{form|crispy}}
 

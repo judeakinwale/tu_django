@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.admin import widgets
-from .models import Transportation, Operator
+from .models import Transportation
 
 
 class TransportationForm(forms.ModelForm):
@@ -25,8 +25,8 @@ class TransportationForm(forms.ModelForm):
         ]
 
 
-class OperatorForm(forms.ModelForm):
+# class OperatorForm(forms.ModelForm):
 
-    class Meta:
-        model = Operator
-        fields = '__all__'
+#     class Meta:
+#         model = Operator
+#         fields = '__all__'
