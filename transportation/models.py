@@ -36,6 +36,7 @@ class Transportation(models.Model):
     # Filters
     is_published = models.BooleanField(default=True)
     is_booked = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Transportation"

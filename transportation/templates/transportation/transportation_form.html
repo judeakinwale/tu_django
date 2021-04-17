@@ -21,18 +21,129 @@
   <div class="container my-5">
     <h4 class="text-purple my-5 text-center text-dark font-weight-bold">{{title}} Transportation Listing</h4>
     <div class="row py-5">
-      <div class="col-md-6 bg-white rounded-sm p-4">
+      <div class="col-md-8 mx-md-auto col-lg-6 bg-white rounded-sm p-4">
         <form enctype="multipart/form-data" action="" method="post">
           {% csrf_token %}
-          {{form|crispy}}
 
-          <!-- <input id="input-b1" name="input-b1" type="file" class="file w-100" data-browse-on-zone-click="true"> -->
+          <!-- This allows the form to be crispy -->
+          <!-- {{form|crispy}} -->
+
+          {{ form.non_field_errors }}
+          <div class="form-group">
+            {{form.name.errors}}
+            <label class="col-form-label" for="{{form.name.id_for_label}}">Name</label>
+            {{form.name}}
+            {% if form.name.help_text %}
+              <p class="help text-muted"><small>{{ form.name.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.description.errors}}
+            <label class="col-form-label text-muted" for="{{form.description.id_for_label}}">Description</label>
+            {{form.description}}
+            {% if form.description.help_text %}
+              <p class="help text-muted"><small>{{ form.description.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.price.errors}}
+            <label class="col-form-label" for="{{form.price.id_for_label}}">Price per day</label>
+            {{form.price}}
+            {% if form.price.help_text %}
+              <p class="help text-muted"><small>{{ form.price.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.phone.errors}}
+            <label class="col-form-label text-muted" for="{{form.phone.id_for_label}}">Phone No.</label>
+            {{form.phone}}
+            {% if form.phone.help_text %}
+            <p class="help text-muted"><small>{{ form.phone.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.capacity.errors}}
+            <label class="col-form-label" for="{{form.capacity.id_for_label}}">Capacity</label>
+            {{form.capacity}}
+            {% if form.capacity.help_text %}
+              <p class="help text-muted"><small>{{ form.capacity.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.vehicle_type.errors}}
+            <label class="col-form-label" for="{{form.vehicle_type.id_for_label}}">Vehicle Type</label>
+            {{form.vehicle_type}}
+            {% if form.vehicle_type.help_text %}
+            <p class="help text-muted"><small>{{ form.vehicle_type.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.city.errors}}
+            <label class="col-form-label text-muted" for="{{form.city.id_for_label}}">City</label>
+            {{form.city}}
+            {% if form.city.help_text %}
+            <p class="help text-muted"><small>{{ form.city.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.state.errors}}
+            <label class="col-form-label text-muted" for="{{form.state.id_for_label}}">State</label>
+            {{form.state}}
+            {% if form.state.help_text %}
+            <p class="help text-muted"><small>{{ form.state.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.country.errors}}
+            <label class="col-form-label text-muted" for="{{form.country.id_for_label}}">Country</label>
+            {{form.country}}
+            {% if form.country.help_text %}
+            <p class="help text-muted"><small>{{ form.country.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.photo_main.errors}}
+            <label class="col-form-label" for="{{form.photo_main.id_for_label}}">Main Photo</label>
+            {{form.photo_main}}
+            {% if form.photo_main.help_text %}
+            <p class="help text-muted"><small>{{ form.photo_main.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.photo_1.errors}}
+            <label class="col-form-label text-muted" for="{{form.photo_1.id_for_label}}">Photo 2</label>
+            {{form.photo_1}}
+            {% if form.photo_1.help_text %}
+            <p class="help text-muted"><small>{{ form.photo_1.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.photo_2.errors}}
+            <label class="col-form-label text-muted" for="{{form.photo_2.id_for_label}}">Photo 3</label>
+            {{form.photo_2}}
+            {% if form.photo_2.help_text %}
+            <p class="help text-muted"><small>{{ form.photo_2.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.photo_3.errors}}
+            <label class="col-form-label text-muted" for="{{form.photo_3.id_for_label}}">Photo 4</label>
+            {{form.photo_3}}
+            {% if form.photo_3.help_text %}
+            <p class="help text-muted"><small>{{ form.photo_3.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.photo_4.errors}}
+            <label class="col-form-label text-muted" for="{{form.photo_4.id_for_label}}">Photo 5</label>
+            {{form.photo_4}}
+            {% if form.photo_4.help_text %}
+            <p class="help text-muted"><small>{{ form.photo_4.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
 
           <button type="submit" class="btn btn-purple w-50 mt-3">{{title}}</button>
         </form>
-      </div>
-      <div class="col-md-5 offset-md-1 mb-5">
-
       </div>
     </div>
   </div>

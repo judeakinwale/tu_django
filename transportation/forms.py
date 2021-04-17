@@ -13,7 +13,7 @@ class TransportationForm(forms.ModelForm):
             'price',
             'phone',
             'capacity',
-            'category',
+            'vehicle_type',
             'city',
             'state',
             'country',
@@ -24,9 +24,14 @@ class TransportationForm(forms.ModelForm):
             'photo_4',
         ]
 
+        widgets = {
+            'photo_main': widgets.AdminFileWidget(
+                attrs={
+                    'class': 'file w-100',
+                    'data-browse-on-zone-click': 'true',
+                })
+        }
 
-# class OperatorForm(forms.ModelForm):
-
-#     class Meta:
-#         model = Operator
-#         fields = '__all__'
+        help_texts = {
+            'photo_main': 'Upload images with a 4:3 or 16:9 aspect ratio'
+        }
