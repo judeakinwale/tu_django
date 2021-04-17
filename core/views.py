@@ -77,10 +77,10 @@ def search(request):
     context = {
         'query': request.GET['query'],
         'search_list': queryset_list,
-        'categories' : EventCategory.objects.all(),
-        'cities' : EventCity.objects.all(),
-        'states' : EventState.objects.all(),
-        }
+        'cities': EventCity.objects.all(),
+        'states': EventState.objects.all(),
+        'categories': EventCategory.objects.all(),
+    }
     return render(request, template_name, context)
 
 
