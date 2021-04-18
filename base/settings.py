@@ -168,6 +168,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # For django-crispy-forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# For django-inlinecss
+# INLINECSS_CSS_LOADER = "django_inlinecss.css_loaders.StaticfilesFinderCSSLoader"
+
 # For login
 LOGIN_REDIRECT_URL = "/events/"
 
