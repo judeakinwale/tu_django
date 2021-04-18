@@ -12,13 +12,13 @@ class EventAdmin(admin.ModelAdmin):
                 'creator',
                 'name',
                 'description',
-                'image'
+                'image',
                 ]
         }),
         ('Category', {
             'fields': ['category']
         }),
-        ('Ticket Price', {
+        ('Tickets', {
             'fields': [
                 'ticket_price',
                 'ticket_sale_price',
