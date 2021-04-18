@@ -53,8 +53,8 @@ class TransportationAdmin(admin.ModelAdmin):
         'state',
     ]
 
-    list_editable = ['is_published', 'is_featured']
+    list_editable = ['is_published', 'is_featured', 'is_booked']
 
 
-admin.site.register(Transportation)
+admin.site.register(Transportation, TransportationAdmin)
 admin.site.register(TransportationCategory)
