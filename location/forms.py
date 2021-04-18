@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.admin import widgets
-from .models import Listing, Realtor
+from .models import Listing
 
 
 class ListingForm(forms.ModelForm):
@@ -29,10 +29,3 @@ class ListingForm(forms.ModelForm):
             'photo_5',
             'photo_6',
         ]
-
-
-class RealtorForm(forms.ModelForm):
-
-    class Meta:
-        model = Realtor
-        fields = '__all__'

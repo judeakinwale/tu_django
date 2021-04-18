@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from .forms import RealtorForm, ListingForm
-from .models import Listing, Realtor, ListingCategory
+from .forms import ListingForm
+from .models import Listing, ListingCategory
 from core.models import EventCity, EventState
 
 # Create your views here.
@@ -77,7 +77,7 @@ class ListingCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        form.instance.realtor = Realtor.objects.get(user=self.request.user)
+        form.instance.creator = self.request.user
         self.object = form.save()
         return super().form_valid(form)
 
