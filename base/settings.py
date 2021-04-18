@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'crispy_forms', # For django-crispy-forms
+    'django_inlinecss', # For django-inlinecss
     'cart', # For django-shopping-cart
     'paystack.frameworks.django', # For pypaystack
     'storages', # For django-storages, for aws s3 storage
