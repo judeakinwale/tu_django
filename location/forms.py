@@ -29,3 +29,15 @@ class ListingForm(forms.ModelForm):
             'photo_5',
             'photo_6',
         ]
+
+        widgets = {
+            'photo_main': widgets.AdminFileWidget(
+                attrs={
+                    'class': 'file w-100',
+                    'data-browse-on-zone-click': 'true',
+                })
+        }
+
+        help_texts = {
+            'photo_main': 'Upload images with a 4:3 or 16:9 aspect ratio'
+        }

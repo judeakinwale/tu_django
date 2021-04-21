@@ -10,7 +10,7 @@
         <div class="col-md-12">
           <h1 class="display-4">{{object.address}}</h1>
           <p class="lead">
-            <i class="fas fa-map-marker"></i>{{object.city}}, {{object.state}}
+            <i class="fas fa-map-marker"></i> {{object.city}}, {{object.state}}
               {% if object.zipcode %}
                 , {{object.zipcode}}
               {% endif %}
@@ -122,10 +122,11 @@
           </div>
         </div>
         <!-- Description -->
-        {% if listing.description %}
+        {% if object.description %}
         <div class="row mb-5">
           <div class="col-md-12">
-            {{object.description}}
+            <h5 class="pb-3 ">Description</h5>
+            <p class="px-3">{{object.description}}</p>
           </div>
         </div>
         {% endif %}
