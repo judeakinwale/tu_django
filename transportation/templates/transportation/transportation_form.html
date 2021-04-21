@@ -4,24 +4,24 @@
 
 
 {% block extra_head %}
-<!-- <style>
+<style>
   .login-bg {
-    /* background-image: url(img/new/img\ 3\ 1.png); */
-    background-image: url({% static 'core/img/new/img_3_1.png' %});
-    height: 100vh;
+    background-image: url(https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+    /* background-image: url({% static 'core/img/new/img_3_1.png' %}); */
+    height: 100%;
     position: relative;
     background-size: cover;
   }
-</style> -->
+</style>
 {% endblock extra_head %}
 
 
 {% block content %}
 <main>
   <div class="container my-5">
-    <h4 class="text-dark-purple my-5 text-center font-weight-bold">{{title}} Transportation Listing</h4>
+    <h4 class="my-5 text-white text-center font-weight-bold">{{title}} Transportation Listing</h4>
     <div class="row py-5">
-      <div class="col-md-8 mx-auto ml-lg-0 col-lg-6 bg-white rounded-sm p-4">
+      <div class="col-md-8 col-lg-6 mx-auto ml-lg-3 bg-white rounded-sm p-4">
         <form enctype="multipart/form-data" action="" method="post">
           {% csrf_token %}
 
@@ -142,7 +142,7 @@
             {% endif %}
           </div>
 
-          <button type="submit" class="btn btn-purple w-50 mt-3">{{title}}</button>
+          <button type="submit" class="btn btn-purple w-50 my-4">{{title}}</button>
         </form>
       </div>
     </div>
