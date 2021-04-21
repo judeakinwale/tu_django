@@ -8,10 +8,10 @@
   .login-bg {
     /* background-image: url(img/new/img\ 3\ 1.png); */
     background-image: url("{% static 'core/img/new/img_9_bg.png' %}");
-    height: 100vh;
+    height: 200vh;
     position: relative;
     background-size: cover;
-    /* background-repeat: no-repeat; */
+    background-repeat: no-repeat;
     }
 </style>
 {% endblock extra_head %}
@@ -24,26 +24,60 @@
         <h4 class="text-dark-purple font-weight-bold my-5">Register</h4>
         <form action="" method="POST" class="px-md-5">
           {% csrf_token %}
+          
+          <!-- This allows the form to be crispy -->
           {{form|crispy}}
-          {% comment %} <div class="form-group">
-            <label for="username">Name</label>
+
+          <!-- {{ form.non_field_errors }}
+          <div class="form-group">
+            {{form.username.errors}}
+            <label class="col-form-label" for="{{form.username.id_for_label}}">Username</label>
             {{form.username}}
+            {% if form.username.help_text %}
+            <p class="help text-muted"><small>{{ form.username.help_text|safe }}</small></p>
+            {% endif %}
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            {{form.first_name.errors}}
+            <label class="col-form-label text-muted" for="{{form.first_name.id_for_label}}">First Name</label>
+            {{form.first_name}}
+            {% if form.first_name.help_text %}
+            <p class="help text-muted"><small>{{ form.first_name.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.last_name.errors}}
+            <label class="col-form-label text-muted" for="{{form.last_name.id_for_label}}">Last Name</label>
+            {{form.last_name}}
+            {% if form.last_name.help_text %}
+            <p class="help text-muted"><small>{{ form.last_name.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.email.errors}}
+            <label class="col-form-label" for="{{form.email.id_for_label}}">Email</label>
             {{form.email}}
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            {% if form.email.help_text %}
+            <p class="help text-muted"><small>{{ form.email.help_text|safe }}</small></p>
+            {% endif %}
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            {{form.password1.errors}}
+            <label class="col-form-label" for="{{form.password1.id_for_label}}">Password</label>
             {{form.password1}}
-            <small id="passwordHelp" class="form-text text-muted">Password must have at least 8 characters.</small>
+            {% if form.password1.help_text %}
+            <p class="help text-muted"><small>{{ form.password1.help_text|safe }}</small></p>
+            {% endif %}
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            {{form.password2.errors}}
+            <label class="col-form-label" for="{{form.password2.id_for_label}}">Password Confirmation</label>
             {{form.password2}}
-            <small id="passwordHelp" class="form-text text-muted">Enter the same password as before, for verification.</small>
-          </div> {% endcomment %}
+            {% if form.password2.help_text %}
+            <p class="help text-muted"><small>{{ form.password2.help_text|safe }}</small></p>
+            {% endif %}
+          </div> -->
+          
           <button type="submit" class="btn btn-purple w-50 mt-5 ">Register</button>
         </form>
         <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'registration:login' %}">Sign In</a></small></p>

@@ -7,7 +7,7 @@
 <style>
   .login-bg {
     /* background-image: url(img/new/img\ 3\ 1.png); */
-    background-image: url({% static 'core/img/new/img_3_1.png' %});
+    background-image: url("{% static 'core/img/new/img_3_1.png' %}");
     height: 100vh;
     position: relative;
     background-size: cover;
@@ -23,20 +23,28 @@
         <h4 class="text-dark-purple font-weight-bold my-5">Sign In</h4>
         <form action="" method="POST" class="px-md-4 px-lg-5">
           {% csrf_token %}
-          {{form|crispy}}
-          {% comment %} <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+
+          <!-- This allows the form to be crispy -->
+          <!-- {{form|crispy}} -->
+
+          {{ form.non_field_errors }}
+          <div class="form-group">
+            {{form.username.errors}}
+            <label class="col-form-label" for="{{form.username.id_for_label}}">Username</label>
             {{form.username}}
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            {% if form.username.help_text %}
+            <p class="help text-muted"><small>{{ form.username.help_text|safe }}</small></p>
+            {% endif %}
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            {{form.password.errors}}
+            <label class="col-form-label" for="{{form.password.id_for_label}}">Password</label>
             {{form.password}}
+            {% if form.password.help_text %}
+            <p class="help text-muted"><small>{{ form.password.help_text|safe }}</small></p>
+            {% endif %}
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Remember me</label>
-          </div> {% endcomment %}
+          
           <button type="submit" class="btn btn-purple w-50 mt-3 ">Sign In</button>
         </form>
         <p class="mt-5 mb-2"><small>Don't have an account? <a class="" href="{% url 'registration:register' %}">Register</a></small></p>
