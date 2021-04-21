@@ -115,9 +115,13 @@
         <hr>
       </div>
     </div>
-
+    
+    {% if object.description %}
     <h3 class="px-3 pt-5 my-4">About this event</h3>
     <p class="px-3 mt-4">{{event.description}}</p>
+    {% else %}
+    <br>
+    {% endif %}
 
   </div>
 </main>

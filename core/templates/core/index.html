@@ -11,6 +11,20 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+        .location-image {
+          background-image: url({{featured_venue.photo_main.url}});
+          height: 500px;
+          background-position: right;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        .transport-image {
+          background-image: url({{featured_transport.photo_main.url}});
+          height: 500px;
+          background-position: right;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
     </style>
 {% endblock extra_head %}
     
@@ -59,10 +73,12 @@
                     <a href="{{object.get_absolute_url}}">
                       <img src="{{object.image.url}}" class="card-img rounded-xl" alt="{{object.name}}">
                     </a>
-                    <div class="card-img-overlay transparent-dark rounded-xl">
-                      <h5 class="card-title">{{object.name}}</h5>
-                      <p class="card-text text-truncate">{{object.street_address}}</p>
-                    </div>
+                    <a href="{{object.get_absolute_url}}">
+                      <div class="card-img-overlay transparent-dark text-white rounded-xl">
+                        <h5 class="card-title">{{object.name}}</h5>
+                        <p class="card-text text-truncate">{{object.street_address}}</p>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </a>
@@ -84,7 +100,7 @@
           <div class="row px-md-3">
             <div class="col-md-3"></div>
             <!-- jumbotron-image is the featured image -->
-            <div class="col col-md-9 jumbotron-image">
+            <div class="col col-md-9 location-image">
               <div class="row">
                 <!-- EVENT DETAILS -->
                 <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
@@ -114,7 +130,7 @@
         <div class="row px-md-3">
           <div class="col-md-3"></div>
           <!-- jumbotron-image is the featured image -->
-          <div class="col col-md-9 jumbotron-image">
+          <div class="col col-md-9 transport-image">
               <div class="row">
                 <!-- EVENT DETAILS -->
                 <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">

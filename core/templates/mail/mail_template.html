@@ -1,13 +1,20 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% load inlinecss %}
+{% inlinecss "core/css/style_main.css" %}
 <main>
     <div class="container">
         <div class="row text-center">
             Hello {{user_order.ticket_name}}.
+            <div class="col-6 bg-warning">
+                http
+            </div>
+            <div class="col-6 bg-danger">
+                ftp 
+            </div>
             <hr>
             {% for item in order_items %}
             <p class="text-secondary pt-4">Event name:</p>
             <h5>{{item.name}}</h5>
-            <img class="img-fluid" src="{{item.img.url}}" alt="">
+            <img class="img-fluid" src="{{item.image.url}}" alt="" width="500px">
             <hr>
             <div class="pt-3">
                 <span class="pr-2">{{item.street_address}}</span>
@@ -22,3 +29,4 @@
         </div>           
     </div>
 </main>
+{% endinlinecss %}
