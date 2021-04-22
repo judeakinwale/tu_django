@@ -222,7 +222,14 @@ def payment_confirmation(request):
         plain_message = strip_tags(html_message)
         from_email = 'From <judeakinwale@gmail.com>'
         to = [f'{user_order.ticket_email}']
-        send_mail(subject, plain_message, from_email, to, html_message=html_message)
+        send_mail(
+            subject,
+            plain_message,
+            from_email,
+            to,
+            html_message=html_message,
+            fail_silently=True,
+        )
 
         messages.success(request, 'A ticket has been sent to your mail')
 
@@ -230,10 +237,13 @@ def payment_confirmation(request):
         # if total_amount != 0.00:
         #     return redirect("payment:payment_confirmation")
 
+        template_name = 'paystack/success-page.html'
+
     else:
         messages.error(request, 'There was an error in your order')
 
-    template_name = 'paystack/success-page.html'
+        template_name = 'paystack/failed-page.html'
+
     context = {
 
     }

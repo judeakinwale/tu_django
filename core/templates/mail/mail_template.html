@@ -1,37 +1,39 @@
 {% load inlinecss %}
 {% inlinecss "core/css/style_main.css" %}
-<link rel="stylesheet" href="../../static/core/css/style_main.css">
+<!-- <link rel="stylesheet" href="../../static/core/css/style_main.css"> -->
 <main>
     <div class="mail">
-        <h4 class="mail__header">Hello {{user_order.ticket_name}}.</h4>
+        <h4 class="mail__header my-2">Hello {{user_order.ticket_name}}.</h4>
         
         <div class="ticket">
             {% if item.ticket_type %}
-            <div class="ticket__type">
+            <div class="ticket__type my-1">
                 Ticket Type: {{item.ticket_type}}
             </div>
             {% endif %}
             
             {% if item.ticket_extra_info %}
-            <div class="ticket__extra">
-                Ticket Type: {{item.ticket_extra_info}}
+            <div class="ticket__extra my-1">
+                {{item.ticket_extra_info}}
             </div>
             {% endif %}
             <hr>
             {% for item in order_items %}
-            <span class="ticket__title"><p class="ticket__title">Event name:</p></span>
-            <span class="ticket__id"><h5>{{item.ticket_id}}</h5></span>
-            <h4>{{item.name}}</h4>
-            <img class="ticket__image" src="{{item.image.url}}" alt="">
+            <span class="ticket__title my-1"><p class="ticket__title">Event name:</p></span>
+            <span class="ticket__id my-1"><h5>{{item.ticket_id}}</h5></span>
+            <h4 class="my-1">{{item.name}}</h4>
+            <img class="ticket__image my-1" src="{{item.image.url}}" alt="">
             <hr>
-            <div class="ticket__details">
-                <span class="ticket__details--item">{{item.street_address}}</span>
-                <span class="ticket__details--item">{{item.city}}</span>
-                <span class="ticket__details--item">{{item.state}}</span>
+            <div class="ticket__details my-1">
+                <p class="my-1">Location:</p>
+                <span class="ticket__details--item">{{item.street_address}}, </span>
+                <span class="ticket__details--item">{{item.city}}, </span>
+                <span class="ticket__details--item">{{item.state}}, </span>
             </div>
-            <div class="ticket__details">
-                <span class="ticket__details--item">{{item.start_time}}</span>
-                <span class="ticket__details--item">{{item.end_time}}</span>
+            <div class="ticket__details my-1">
+                <p class="my-1">Date and Time:</p>
+                <span class="ticket__details--time">Start: {{item.start_time}}, </span>
+                <span class="ticket__details--time">End: {{item.end_time}}</span>
             </div>
             {% endfor %}
         </div>
