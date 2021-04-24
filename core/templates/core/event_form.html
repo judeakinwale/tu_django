@@ -27,8 +27,120 @@
 
         <form enctype="multipart/form-data" action="" method="post" class="px-md-4 px-lg-5">
           {% csrf_token %}
-          {{form|crispy}}
+
+          <!-- This allows the form to be crispy -->
+          <!-- {{form|crispy}} -->
+          
           <!-- <input id="input-b1" name="input-b1" type="file" class="file w-100" data-browse-on-zone-click="true"> -->
+          
+          {{ form.non_field_errors }}
+          <div class="form-group">
+            {{form.name.errors}}
+            <label class="col-form-label" for="{{form.name.id_for_label}}">Name</label>
+            {{form.name}}
+            {% if form.name.help_text %}
+            <p class="help text-muted"><small>{{ form.name.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.description.errors}}
+            <label class="col-form-label text-muted" for="{{form.description.id_for_label}}">Description</label>
+            {{form.description}}
+            {% if form.description.help_text %}
+            <p class="help text-muted"><small>{{ form.description.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.image.errors}}
+            <label class="col-form-label" for="{{form.image.id_for_label}}">Image</label>
+            {{form.image}}
+            {% if form.image.help_text %}
+            <p class="help text-muted"><small>{{ form.image.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.category.errors}}
+            <label class="col-form-label" for="{{form.category.id_for_label}}">Category</label>
+            {{form.category}}
+            {% if form.category.help_text %}
+            <p class="help text-muted"><small>{{ form.category.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.ticket_price.errors}}
+            <label class="col-form-label" for="{{form.ticket_price.id_for_label}}">Ticket Price</label>
+            {{form.ticket_price}}
+            {% if form.ticket_price.help_text %}
+            <p class="help text-muted"><small>{{ form.ticket_price.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.ticket_sale_price.errors}}
+            <label class="col-form-label text-muted" for="{{form.ticket_sale_price.id_for_label}}">Ticket Sale
+              Price</label>
+            {{form.ticket_sale_price}}
+            {% if form.ticket_sale_price.help_text %}
+            <p class="help text-muted"><small>{{ form.ticket_sale_price.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.ticket_quantity.errors}}
+            <label class="col-form-label" for="{{form.ticket_quantity.id_for_label}}">Ticket Quantity for Sale</label>
+            {{form.ticket_quantity}}
+            {% if form.ticket_quantity.help_text %}
+            <p class="help text-muted"><small>{{ form.ticket_quantity.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.street_address.errors}}
+            <label class="col-form-label" for="{{form.street_address.id_for_label}}">Street Address</label>
+            {{form.street_address}}
+            {% if form.street_address.help_text %}
+            <p class="help text-muted"><small>{{ form.street_address.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.city.errors}}
+            <label class="col-form-label text-muted" for="{{form.city.id_for_label}}">City</label>
+            {{form.city}}
+            {% if form.city.help_text %}
+            <p class="help text-muted"><small>{{ form.city.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.state.errors}}
+            <label class="col-form-label text-muted" for="{{form.state.id_for_label}}">State</label>
+            {{form.state}}
+            {% if form.state.help_text %}
+            <p class="help text-muted"><small>{{ form.state.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.country.errors}}
+            <label class="col-form-label text-muted" for="{{form.country.id_for_label}}">Country</label>
+            {{form.country}}
+            {% if form.country.help_text %}
+            <p class="help text-muted"><small>{{ form.country.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{form.start_time.errors}}
+            <label class="col-form-label" for="{{form.start_time.id_for_label}}">Start Date and Time</label>
+            {{form.start_time}}
+            {% if form.start_time.help_text %}
+            <p class="help text-muted"><small>{{ form.start_time.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          <div class="form-group text-muted">
+            {{form.end_time.errors}}
+            <label class="col-form-label" for="{{form.end_time.id_for_label}}">End Date and Time</label>
+            {{form.end_time}}
+            {% if form.end_time.help_text %}
+            <p class="help text-muted"><small>{{ form.end_time.help_text|safe }}</small></p>
+            {% endif %}
+          </div>
+          
+          
           <button type="submit" class="btn btn-purple w-50 my-4">{{title}}</button>
         </form>
       </div>

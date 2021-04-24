@@ -16,18 +16,19 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = [
             'name',
-            'image',
             'description',
+            'image',
             'category',
             'ticket_price',
             'ticket_sale_price',
+            'ticket_quantity',
             'street_address',
             'city',
             'state',
             'country',
             'start_time',
             'end_time',
-            ]
+        ]
 
         widgets = {
             'image': widgets.AdminFileWidget(
@@ -37,9 +38,13 @@ class EventForm(forms.ModelForm):
                 })
         }
 
+        help_texts = {
+            'image': 'Upload images with a 4:3 or 16:9 aspect ratio'
+        }
+
 
 class ContactUsForm(forms.ModelForm):
- 
+
     class Meta:
         model = ContactUs
         fields = '__all__'
