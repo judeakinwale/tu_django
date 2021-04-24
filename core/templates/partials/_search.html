@@ -16,9 +16,9 @@
           </div>
         </div>
       
-        <div class="col-md-5 pr-md-0 mt-1 mt-md-3 mb-0 mb-md-2">
-          <nav class="nav justify-content-between">
-            <li class="nav-item mb-2">
+        <div class="col-md-5 col-sm-12 pr-md-0 mt-1 mt-md-3 mb-0 mb-md-2">
+          <nav class="nav justify-content-center">
+            <li class="nav-item mb-2 mr-2">
               <label class="sr-only">City</label>
               <select name="city" class="form-control form-control-sm border-purple">
                 <option selected="true" disabled="disabled">City</option>
@@ -27,7 +27,7 @@
                 {% endfor %}
               </select>
             </li>
-            <li class="nav-item mb-2">
+            <li class="nav-item mb-2 mr-2">
               <label class="sr-only">State</label>
               <select name="state" class="form-control form-control-sm border-purple">
                 <option selected="true" disabled="disabled">State</option>
@@ -45,7 +45,7 @@
                 {% endfor %}
               </select>
             </li>
-            <li class="nav-item mb-2">
+            <li class="nav-item mb-2 ml-2">
               <a href="{% url 'core:cart_detail' %}" class="btn btn-sm shadow-none text-purple" style="font-size: 16px;"><i class="fas fa-shopping-cart"></i></a>
             </li>
           </nav>
