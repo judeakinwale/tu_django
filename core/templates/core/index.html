@@ -93,7 +93,7 @@
       <h1 class="text-center text-light" style="padding-top: 20%; padding-bottom: 20%;">There are no events at this time</h1>
     {% endif %}
     
-    {% if featured_venue %}
+    {% comment %} {% if featured_venue %}
       <!-- FEATURED IMAGE AND EVENT DETAILS -->
       <section class="my-5">
         <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
@@ -121,7 +121,7 @@
           </div>
         </div>
       </section>   
-    {% endif %}
+    {% endif %} {% endcomment %}
         
     {% if featured_transport %}
     <!-- FEATURED IMAGE AND EVENT DETAILS -->

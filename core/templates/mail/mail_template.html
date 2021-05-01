@@ -1,42 +1,127 @@
 <link rel="stylesheet" href="../../static/core/css/style_main.css">
-<!-- {% load inlinecss %}
+{% load inlinecss %}
 {% inlinecss "core/css/style_main.css" %}
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket</title>
+</head>
+<body>
+  <main>
     <div class="mail">
-        <h4 class="mail__header my-2">Hello {{user_order.ticket_name}}.</h4>
-        
+      <h4 class="mail__header my-2">Hello, {{user_order.ticket_name}}</h4>
+      
+      {% for item in order_items %}
         <div class="ticket">
+        
+          <div class="ticket__detail">
+            <div class="ticket__detail--row">
+              <h4 class=" ticket__title ticket__title--title">Event name:</h4>
+              <h2 class="ticket__title">{{item.name}}</h2>
+            </div>
+            <div class="ticket__detail--row">
+              <h5 class="ticket__id">{{item.ticket_id}}</h5>
+            </div>
             {% if item.ticket_type %}
-            <div class="ticket__type my-1">
-                Ticket Type: {{item.ticket_type}}
+            <div class="ticket__detail--row details--w50">
+              <h4 class="ticket__type ticket__type--title">Ticket Type: </h4>
+              <p class="ticket__type">{{item.ticket_type}}</p>
             </div>
             {% endif %}
-            
             {% if item.ticket_extra_info %}
-            <div class="ticket__extra my-1">
-                {{item.ticket_extra_info}}
+            <div class="ticket__detail--row details--w50">
+              <h4 class="ticket__extra ticket__extra--title">More Details: </h4>
+              <p class="ticket__extra">{{item.ticket_extra_info}}</p>
             </div>
             {% endif %}
-            <hr>
-            {% for item in order_items %}
-            <span class="ticket__title my-1"><p class="ticket__title">Event name:</p></span>
-            <span class="ticket__id my-1"><h5>{{item.ticket_id}}</h5></span>
-            <h4 class="my-1">{{item.name}}</h4>
-            <img class="ticket__image my-1" src="{{item.image.url}}" alt="">
-            <hr>
-            <div class="ticket__details my-1">
-                <p class="my-1">Location:</p>
-                <span class="ticket__details--item">{{item.street_address}}, </span>
-                <span class="ticket__details--item">{{item.city}}, </span>
-                <span class="ticket__details--item">{{item.state}}, </span>
+            <div class="ticket__detail--row">
+              <h4 class="ticket__location ticket__location--title">Venue</h4>
+              <span class="ticket__location">{{item.street_address}}, </span>
+              <span class="ticket__location">{{item.city}}, </span>
+              <span class="ticket__location">{{item.state}}.</span>
             </div>
-            <div class="ticket__details my-1">
-                <p class="my-1">Date and Time:</p>
-                <span class="ticket__details--time">Start: {{item.start_time}}, </span>
-                <span class="ticket__details--time">End: {{item.end_time}}</span>
+            <div class="ticket__detail--row">
+              <h4 class="ticket__datetime--title">Date and Time</h4>
+              
+              {% if item.start_time.date == item.end_time.date %}
+                <p class="ticket__datetime--start datetime">
+                  <span class="datetime--time">{{item.start_time.time}}</span> &mdash;
+                  <span class="datetime--time">{{item.end_time.time}}</span>
+                  <span class="datetime--date">{{item.start_time.date}}</span>
+                </p>
+              {% else %}
+                <p class="ticket__datetime--start datetime">
+                  <span class="datetime--title">Start:</span>
+                  <span class="datetime--time">{{item.start_time.time}}</span> &mdash;
+                  <span class="datetime--date">{{item.start_time.date}}</span>
+                </p>
+                <p class="ticket__datetime--end datetime">
+                  <span class="datetime--title">End:</span>
+                  <span class="datetime--time">{{item.end_time.time}}</span> &mdash;
+                  <span class="datetime--date">{{item.end_time.date}}</span>
+                </p>
+              {% endif %}
+          
             </div>
-            {% endfor %}
+          </div>
+
+          <div class="ticket__image">
+            <img class="image" src="{{item.image.url}}" alt="Ticket Image">
+          </div>
+          
         </div>
+      {% endfor %}
+
+      <p class="copyright"><small>&copy; 2021 Turnup</small></p>
     </div>
-</main>
-{% endinlinecss %} -->
+  </main>
+</body>
+</html>
+{% endinlinecss %}
+
+
+
+<!-- <main>
+  <div class="mail">
+    <h4 class="mail__header my-2">Hello {{user_order.ticket_name}}.</h4>
+
+    <div class="ticket">
+      {% if item.ticket_type %}
+      <div class="ticket__type ">
+        Ticket Type: {{item.ticket_type}}
+      </div>
+      {% endif %}
+
+      {% if item.ticket_extra_info %}
+      <div class="ticket__extra ">
+        {{item.ticket_extra_info}}
+      </div>
+      {% endif %}
+      <hr>
+      {% for item in order_items %}
+      <span class="ticket__title ">
+        <p class="ticket__title">Event name:</p>
+      </span>
+      <span class="ticket__id ">
+        <h5>{{item.ticket_id}}</h5>
+      </span>
+      <h4 class="">{{item.name}}</h4>
+      <img class="ticket__image " src="{{item.image.url}}" alt="">
+      <hr>
+      <div class="ticket__details ">
+        <p class="">Location:</p>
+        <span class="ticket__details--item">{{item.street_address}}, </span>
+        <span class="ticket__details--item">{{item.city}}, </span>
+        <span class="ticket__details--item">{{item.state}}, </span>
+      </div>
+      <div class="ticket__details ">
+        <p class="">Date and Time:</p>
+        <span class="ticket__details--time">Start: {{item.start_time}}, </span>
+        <span class="ticket__details--time">End: {{item.end_time}}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main> -->
