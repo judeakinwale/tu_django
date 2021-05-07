@@ -137,4 +137,5 @@ class ContactUs(models.Model):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)    
     phone_number = models.CharField(max_length=50)
+    events_purchased = models.ManyToManyField(Event)
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
