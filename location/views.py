@@ -1,10 +1,17 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+    )
 from .forms import ListingForm
 from .models import Listing, ListingCategory
 from core.models import EventCity, EventState
+from core.search_filters import location_filter
 
 # Create your views here.
 
@@ -16,22 +23,25 @@ def search(request):
     if 'query' in request.GET:
         query = request.GET['query']
         if query:
-            queryset_list = queryset_list.filter(name__icontains=query)
+            queryset_list = queryset_list.filter(title__icontains=query)
+            # print(queryset_list)
 
-    # get the id of the filter selected in search
-    # City
-    if 'city' in request.GET:
-        city = request.GET['city']
-        if city:
-            city_id = EventCity.objects.get(name__iexact=city).id
-            queryset_list = queryset_list.filter(city=city_id)
+    # # get the id of the filter selected in search
+    # # City
+    # if 'city' in request.GET:
+    #     city = request.GET['city']
+    #     if city:
+    #         city_id = EventCity.objects.get(name__iexact=city).id
+    #         queryset_list = queryset_list.filter(city=city_id)
 
-    # State
-    if 'state' in request.GET:
-        state = request.GET['state']
-        if state:
-            state_id = EventState.objects.get(name__iexact=state).id
-            queryset_list = queryset_list.filter(state=state_id)
+    # # State
+    # if 'state' in request.GET:
+    #     state = request.GET['state']
+    #     if state:
+    #         state_id = EventState.objects.get(name__iexact=state).id
+    #         queryset_list = queryset_list.filter(state=state_id)
+
+    queryset_list =  location_filter(request=request, queryset=queryset_list)
 
     # Category
     if 'category' in request.GET:
@@ -43,6 +53,7 @@ def search(request):
     template_name = 'core/search_list.html'
     context = {
         'query': request.GET['query'],
+        'object_list': queryset_list,
         'search_list': queryset_list,
         'categories': ListingCategory.objects.all(),
         'cities': EventCity.objects.all(),

@@ -3,7 +3,8 @@ from .models import Listing, ListingCategory
 
 # Register your models here.
 
-# @admin.register(Listing)
+
+@admin.register(Listing)
 class ListingAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Listing Details', {
@@ -43,6 +44,9 @@ class ListingAdmin(admin.ModelAdmin):
                 'photo_6',
             ]
         }),
+        ('Filters', {
+            'fields': ['is_published', 'is_booked', 'is_featured']
+        }),
     )
 
     list_display = [
@@ -69,5 +73,4 @@ class ListingAdmin(admin.ModelAdmin):
     list_editable = ['is_published', 'is_featured', 'is_booked']
 
 
-admin.site.register(Listing, ListingAdmin)
 admin.site.register(ListingCategory)
