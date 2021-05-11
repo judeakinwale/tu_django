@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -11,55 +11,55 @@ from django.views.generic import (
 from .forms import ListingForm
 from .models import Listing, ListingCategory
 from core.models import EventCity, EventState
-from core.search_filters import location_filter
+from core.search_filters import search_with_filters
 
 # Create your views here.
 
 
-def search(request):
-    queryset_list = Listing.objects.order_by('-timestamp')
+search_filter_context = {
+    'categories': ListingCategory.objects.all(),
+    'cities': EventCity.objects.all(),
+    'states': EventState.objects.all(),
+}
 
-    # Keywords
-    if 'query' in request.GET:
-        query = request.GET['query']
-        if query:
-            queryset_list = queryset_list.filter(title__icontains=query)
-            # print(queryset_list)
 
-    # # get the id of the filter selected in search
-    # # City
-    # if 'city' in request.GET:
-    #     city = request.GET['city']
-    #     if city:
-    #         city_id = EventCity.objects.get(name__iexact=city).id
-    #         queryset_list = queryset_list.filter(city=city_id)
+class SearchListView(ListView):
+    model = Listing
+    paginate_by = 12
+    template_name = "core/search_list.html"
 
-    # # State
-    # if 'state' in request.GET:
-    #     state = request.GET['state']
-    #     if state:
-    #         state_id = EventState.objects.get(name__iexact=state).id
-    #         queryset_list = queryset_list.filter(state=state_id)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if 'query' in self.request.GET:
+            query = self.request.GET['query']
+            queryset = Listing.objects.order_by('-timestamp')
+            queryset = queryset.filter(title__icontains=query)
+            queryset = search_with_filters(request=self.request, queryset=queryset)
+        return queryset
 
-    queryset_list =  location_filter(request=request, queryset=queryset_list)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query"] = self.request.GET['query']
+        context["search_list"] = self.get_queryset()
+        context.update(search_filter_context)
+        return context
 
-    # Category
-    if 'category' in request.GET:
-        category = request.GET['category']
-        if category:
-            category_id = ListingCategory.objects.get(name__iexact=category).id
-            queryset_list = queryset_list.filter(category=category_id)
 
-    template_name = 'core/search_list.html'
-    context = {
-        'query': request.GET['query'],
-        'object_list': queryset_list,
-        'search_list': queryset_list,
-        'categories': ListingCategory.objects.all(),
-        'cities': EventCity.objects.all(),
-        'states': EventState.objects.all(),
-    }
-    return render(request, template_name, context)
+# def search(request):
+#     # Keywords
+#     if 'query' in request.GET:
+#         query = request.GET['query']
+#         queryset = Listing.objects.order_by('-timestamp')
+#         queryset = search_with_filters(query=query, request=request, queryset=queryset)
+
+#     template_name = 'core/search_list.html'
+#     context = {
+#         'query': request.GET['query'],
+#         'object_list': queryset,
+#         'search_list': queryset,
+#     }
+#     context.update(search_filter_context)
+#     return render(request, template_name, context)
 
 
 class ListingListView(ListView):
@@ -68,9 +68,7 @@ class ListingListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = ListingCategory.objects.all()
-        context['cities'] = EventCity.objects.all()
-        context['states'] = EventState.objects.all()
+        context.update(search_filter_context)
         return context
 
 

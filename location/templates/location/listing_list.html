@@ -8,55 +8,60 @@
 
 <!-- listings -->
 <main>
-  <div class="container my-5">
-    <div class="row">
-      <div class="card-deck">
-        {% for listing in object_list %}
-        <div class="col-lg-4 col-md-6">
-          <div class="card mx-0 my-5">
-            <a href="{{listing.get_absolute_url}}">
-              <img src="{{listing.photo_main.url}}" class="card-img-top" alt="listing image" ,
-                aria-label="Placeholder: Thumbnail">
-              <div class="card-img-overlay">
-                <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{listing.price | intcomma}}</span>
-              </div>
-            </a>
-            <a class="text-decoration-none" href="{{listing.get_absolute_url}}">
-              <div class="card-body">
-                <div class="text-center">
-                  <h4 class="text-purple">{{listing.address}}</h4>
-                  <p class="text-dark">
-                    <i class="fas fa-map-marker text-secondary"></i> {{listing.city}}, {{listing.state}}
-                    {% if listing.zipcode %}
-                      , {{listing.zipcode}}
-                    {% endif %}
-                  </p>
+  <div class="container mb-5">
+    {% if object_list.exists %}
+      <div class="row">
+        <div class="card-deck">
+          {% for listing in object_list %}
+          <div class="col-lg-4 col-md-6">
+            <div class="card mx-0 my-5 shadow-anim">
+              <a href="{{listing.get_absolute_url}}">
+                <img src="{{listing.photo_main.url}}" class="card-img-top" alt="listing image" ,
+                  aria-label="Placeholder: Thumbnail">
+                <div class="card-img-overlay">
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{listing.price | intcomma}}</span>
                 </div>
-                <hr>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms: {{listing.bedrooms}}
+              </a>
+              <a class="text-decoration-none" href="{{listing.get_absolute_url}}">
+                <div class="card-body">
+                  <div class="text-center">
+                    <h4 class="text-dark-purple">{{listing.title}}</h4>
+                    <h4 class="text-purple">{{listing.address}}</h4>
+                    <p class="text-dark">
+                      <i class="fas fa-map-marker text-secondary mr-1"></i> {{listing.city}}, {{listing.state}}
+                      {% if listing.zipcode %}
+                        , {{listing.zipcode}}
+                      {% endif %}
+                    </p>
                   </div>
-                  <div class="col-6">
-                    <i class="fas fa-bath"></i> Bathrooms: {{listing.bathrooms}}
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">
+                      <i class="fas fa-bed mr-1"></i> <small>Bedrooms: {{listing.bedrooms}}</small>
+                    </div>
+                    <div class="col-6">
+                      <i class="fas fa-bath mr-1"></i> <small>Bathrooms: {{listing.get_bathrooms}}</small>
+                    </div>
+                  </div>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">
+                      <i class="fas fa-th-large mr-1"></i> <small>Sqft: {{listing.lot_size}}</small>
+                    </div>
+                    <div class="col-6">
+                      <i class="fas fa-swimming-pool mr-1"></i> <small>Pools: {{listing.pools}}</small>
+                    </div>
                   </div>
                 </div>
-                <div class="row py-2 text-secondary">
-                  <div class="col-6">
-                    <i class="fas fa-th-large"></i> Sqft: {{listing.lot_size}}
-                  </div>
-                  <div class="col-6">
-                    <i class="fas fa-car"></i> Pools: {{listing.pools}}
-                  </div>
-                </div>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
 
+        </div>
       </div>
-    </div>
+    {% else %}
+      <h1 class="text-center text-dark" style="padding-top: 20%; padding-bottom: 20%;">There are no venues at this time</h1>
+    {% endif %}
 
     <!-- pagination -->
     {% if object_list.is_paginated %}

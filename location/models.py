@@ -49,6 +49,11 @@ class Listing(models.Model):
     def __str__(self):
         return self.title
 
+    def get_bathrooms(self):
+        if self.bathrooms == int(self.bathrooms):
+            self.bathrooms = int(self.bathrooms)
+        return self.bathrooms
+
     def get_absolute_url(self):
         return reverse("location:location_detail", kwargs={"pk": self.pk})
 

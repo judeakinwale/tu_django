@@ -8,9 +8,9 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h1 class="display-4">{{object.address}}</h1>
+          <h1 class="display-4">{{object.title}}</h1>
           <p class="lead">
-            <i class="fas fa-map-marker"></i> {{object.city}}, {{object.state}}
+            <i class="fas fa-map-marker mr-2"></i> {{object.street_address}}, {{object.city}}, {{object.state}}
               {% if object.zipcode %}
                 , {{object.zipcode}}
               {% endif %}
@@ -20,7 +20,7 @@
   </section>
 
   <div class="container">
-    <a href="{% url 'location:location_list' %}" class="btn btn-light mb-4">Back To Listings</a>
+    <a href="{% url 'location:location_list' %}" class="btn btn-light border mb-4">Back To Listings</a>
     <div class="row">
       <div class="col-md-12">
         <!-- Home Main Image -->
@@ -80,19 +80,19 @@
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
-                <i class="fas fa-money-bill-alt"></i> Asking Price:
+                <i class="fas fa-money-bill-alt mr-2"></i> Asking Price:
                 <span class="float-right">${{object.price | intcomma}}</span>
               </li>
               <li class="list-group-item text-secondary">
-                <i class="fas fa-bed"></i> Bedrooms:
+                <i class="fas fa-bed mr-2"></i> Bedrooms:
                 <span class="float-right">{{object.bedrooms}}</span>
               </li>
               <li class="list-group-item text-secondary">
-                <i class="fas fa-bath"></i> Bathrooms:
-                <span class="float-right">{{object.bathrooms}}</span>
+                <i class="fas fa-bath mr-2"></i> Bathrooms:
+                <span class="float-right">{{object.get_bathrooms}}</span>
               </li>
               <li class="list-group-item text-secondary">
-                <i class="fas fa-car"></i> Pools:
+                <i class="fas fa-swimming-pool mr-2"></i> Pools:
                 <span class="float-right">{{object.pools}}</span>
               </li>
             </ul>
@@ -100,21 +100,21 @@
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Square Feet:
+                <i class="fas fa-th-large mr-2"></i> Square Feet:
                 <span class="float-right">3200</span>
               </li>
               {% if object.lot_size %}
               <li class="list-group-item text-secondary">
-                <i class="fas fa-square"></i> Lot Size:
+                <i class="fas fa-square mr-2"></i> Lot Size:
                 <span class="float-right">{{object.lot_size}} Acres</span>
               </li>
               {% endif %}
               <li class="list-group-item text-secondary">
-                <i class="fas fa-calendar"></i> Listing Date:
+                <i class="fas fa-calendar mr-2"></i> Listing Date:
                 <span class="float-right">{{object.list_date | date:"SHORT_DATE_FORMAT"}}</span>
               </li>
               <li class="list-group-item text-secondary">
-                <i class="fas fa-bed"></i> Realtor:
+                <i class="fas fa-user mr-2"></i> Realtor:
                 <span class="float-right">{{object.realtor}}
                 </span>
               </li>
