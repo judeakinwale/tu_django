@@ -1,4 +1,5 @@
 {% load static %}
+
 <header class="shadow-sm">
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <a class="navbar-brand" href="{% url 'core:homepage' %}"><img src="{% static 'core/img/new/logo.png' %}" height="32px" alt="site logo"></a>
@@ -70,6 +71,7 @@
               </div>
             </div>
           </li>
+          
         {% else %}
           {% if "login" in request.path %}
           <li class="nav-item active">

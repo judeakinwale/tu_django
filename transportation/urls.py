@@ -7,6 +7,7 @@ app_name = 'transportation'
 
 urlpatterns = [
     path("", views.TransportationListView.as_view(), name="transportation_list"),
+    path("s/", views.SearchListView.as_view(), name="transportation_search"),
     path("create/", views.TransportationCreateView.as_view(), name="transportation_create"),
     path("<pk>/", views.TransportationDetailView.as_view(), name="transportation_detail"),
     path("<pk>/update/", views.TransportationUpdateView.as_view(), name="transportation_update"),

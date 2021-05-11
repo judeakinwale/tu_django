@@ -1,9 +1,22 @@
 {% load static %}
 
-<!-- search -->
+<!-- search nav bar -->
 <section class="sticky-top bg-white mt-1">
   <div class="container">
-    <form class="" action="{% url 'core:search' %}" method="GET" role="search">
+    <form 
+      class="" 
+      action="
+      {% if '/l/' in request.path %}
+       {% url 'location:location_search' %}
+      {% elif '/t/' in request.path %}
+       {% url 'transportation:transportation_search' %}
+      {% else %}
+        {% url 'core:search' %}
+      {% endif %}
+      "
+      method="GET"
+      role="search"
+    >
       <div class="row">
       
         <div class="col-md-7 pl-md-0 mt-1 mt-md-3 mb-1 mb-md-2">

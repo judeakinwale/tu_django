@@ -8,48 +8,129 @@
 
 <!--search results -->
 <main>
-  <div class="container my-5">
+  <div class="container mb-5">
     {% if object_list.exists %}
-      <!-- events -->
+      <!-- search result list -->
       <div class="row">
         <div class="card-deck">
-          {% for event in search_list %}
+          {% for item in object_list %}
           <div class="col-lg-4 col-md-6">
-            <div class="card mx-0 my-5">
-              <a href="{{event.get_absolute_url}}">
-                <img src="{{event.image.url}}" class="card-img-top" alt="event image", aria-label="Placeholder: Thumbnail">
+
+            <!-- this code is displayed if a search is done in the location app -->
+            {% if '/l/' in request.path %}
+            <div class="card mx-0 my-5 shadow-anim">
+              <a href="{{item.get_absolute_url}}">
+                <img src="{{item.photo_main.url}}" class="card-img-top" alt="item image" ,
+                  aria-label="Placeholder: Thumbnail">
                 <div class="card-img-overlay">
-                  {% if event.sale_price %}
-                    {% if event.sale_price == 0.00 %}
-                    <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
-                    {% else %}
-                    <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{event.sale_price | intcomma}}</span>
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{item.price | intcomma}}</span>
+                </div>
+              </a>
+              <a class="text-decoration-none" href="{{item.get_absolute_url}}">
+                <div class="card-body">
+                  <div class="text-center">
+                    <h4 class="text-dark-purple">{{item.title}}</h4>
+                    <h4 class="text-purple">{{item.address}}</h4>
+                    <p class="text-dark">
+                      <i class="fas fa-map-marker text-secondary"></i> {{item.city}}, {{item.state}}
+                      {% if item.zipcode %}
+                      , {{item.zipcode}}
+                      {% endif %}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">
+                      <i class="fas fa-bed"></i> Bedrooms: {{item.bedrooms}}
+                    </div>
+                    <div class="col-6">
+                      <i class="fas fa-bath"></i> Bathrooms: {{item.bathrooms}}
+                    </div>
+                  </div>
+                  <div class="row py-2 text-secondary">
+                    <div class="col-6">
+                      <i class="fas fa-th-large"></i> Sqft: {{item.lot_size}}
+                    </div>
+                    <div class="col-6">
+                      <i class="fas fa-car"></i> Pools: {{item.pools}}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- this code is displayed if a search is done in the transportation app -->
+            {% elif '/t/' in request.path %}
+            <div class="card mx-0 my-5 shadow-anim">
+              <a href="{{item.get_absolute_url}}">
+                <img src="{{item.photo_main.url}}" class="card-img-top" alt="item image" ,
+                  aria-label="Placeholder: Thumbnail">
+                <div class="card-img-overlay">
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{item.price | intcomma}}</span>
+                </div>
+              </a>
+              <a class="text-decoration-none" href="{{item.get_absolute_url}}">
+                <div class="card-body">
+                  <div class="text-center">
+                    <h4 class="text-purple">{{item.name}}</h4>
+                    <p class="text-dark">
+                      <i class="fas fa-map-marker text-secondary"></i> {{item.city}}, {{item.state}}
+                    </p>
+                  </div>
+                  <hr>
+                  <div class="row py-2 text-secondary text-center">
+                    <div class="col-12">
+                      <i class="fas"></i> Capacity: {{item.capacity}} Seats
+                    </div>
+                    {% if item.is_booked == True %}
+                    <div class="col-12 text-danger">
+                      <i class="fas"></i> UNAVAILABLE
+                    </div>
                     {% endif %}
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- this code is displayed if a search is done in the event app -->
+            {% else %}
+            <div class="card mx-0 my-5 shadow-anim">
+              <a href="{{item.get_absolute_url}}">
+                <img src="{{item.image.url}}" class="card-img-top" alt="item image" ,
+                  aria-label="Placeholder: Thumbnail">
+                <div class="card-img-overlay">
+                  {% if item.sale_price %}
+                  {% if item.sale_price == 0.00 %}
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
                   {% else %}
-                    {% if event.price == 0.00 %}
-                    <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
-                    {% else %}
-                    <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{event.price | intcomma}}</span>
-                    {% endif %}
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{item.sale_price | intcomma}}</span>
+                  {% endif %}
+                  {% else %}
+                  {% if item.price == 0.00 %}
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">Free</span>
+                  {% else %}
+                  <span class="px-2 py-1 bg-white rounded-sm text-dark">N {{item.price | intcomma}}</span>
+                  {% endif %}
                   {% endif %}
                 </div>
               </a>
-              <a class="text-decoration-none" href="{{event.get_absolute_url}}">
+              <a class="text-decoration-none" href="{{item.get_absolute_url}}">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-3 col-md-4 col-lg-3 px-2">
-                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark text-uppercase">{{event.start_time|date:"M"}}</h6>
+                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark text-uppercase">
+                        {{item.start_time|date:"M"}}</h6>
                     </div>
                     <div class="col-9 col-sm-8 col-lg-9 px-2">
-                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark">{{event.name}}</h6>
+                      <h6 class="card-title mb-1 font-weight-bold text-center text-dark">{{item.name}}</h6>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-3 col-md-4 col-lg-3 px-2">
-                      <p class="card-text mb-1 text-center text-dark">{{event.start_time|date:"d"}}</p>
+                      <p class="card-text mb-1 text-center text-dark">{{item.start_time|date:"d"}}</p>
                     </div>
                     <div class="col-9 col-sm-8 col-lg-9 px-2">
-                      <p class="card-text mb-1 pl-2 text-center text-dark text-truncate">{{event.location}}</p>
+                      <p class="card-text mb-1 pl-2 text-center text-dark text-truncate">{{item.location}}</p>
                     </div>
                   </div>
                 </div>
@@ -60,6 +141,8 @@
               </div>
               {% endif %}
             </div>
+            {% endif %}
+            
           </div>
           {% endfor %}
         </div>
@@ -68,7 +151,18 @@
       <h1 class="text-center text-dark" style="padding-top: 20%; padding-bottom: 20%;">
         There are no results for your search. 
         <br>
-        Click <a href="{% url 'core:event_list' %}">here</a> to <a href="{% url 'core:event_list' %}">view events</a> </h1>
+        Click 
+        {% if '/l/' in request.path %}
+        <a href="{% url 'location:location_list' %}">here</a> to 
+        <a href="{% url 'location:location_list' %}">view venues</a>
+        {% elif '/t/' in request.path %}
+        <a href="{% url 'transportation:transportation_list' %}">here</a> to 
+        <a href="{% url 'transportation:transportation_list' %}">view transportation</a>
+        {% else %}
+        <a href="{% url 'core:event_list' %}">here</a> to 
+        <a href="{% url 'core:event_list' %}">view events</a>
+        {% endif %}
+      </h1>
     {% endif %}
 
     <!-- pagination -->

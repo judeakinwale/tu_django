@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 109
+
+exclude = 
+    migrations,
+    __pycache__,
+    ; urls.py,
+    manage.py,
+    settings.py,
+    ; No tests are implemented yet
+    tests.py,
