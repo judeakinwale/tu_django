@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+# from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.utils.translation import gettext as _
 from core.models import EventCity, EventState
@@ -8,7 +9,7 @@ from core.models import EventCity, EventState
 
 
 class Listing(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=300)  # Usually the same as the street address
     description = models.TextField(blank=True, null=True)

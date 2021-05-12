@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+# from django.contrib.auth import get_user_model()
+# from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from django.utils import timezone
 
@@ -7,7 +9,7 @@ from django.utils import timezone
 
 
 class Event(models.Model):
-    creator =  models.ForeignKey(User, on_delete=models.CASCADE)
+    creator =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="images/%Y/%m/%d/", blank=True, null=True)
@@ -33,8 +35,8 @@ class Event(models.Model):
     start_time = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
 
-    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-    updated = models.DateTimeField(auto_now=False, auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     is_published = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
@@ -135,7 +137,7 @@ class ContactUs(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)    
     phone_number = models.CharField(max_length=50)
     events_purchased = models.ManyToManyField(Event)
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)

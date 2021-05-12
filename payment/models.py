@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User
+from django.conf import settings
+# from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
@@ -8,7 +9,7 @@ from core.models import Event
 # Create your models here.
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_phone = models.IntegerField(blank=True, null=True)
     cart_id = models.CharField(max_length=50)
     total_price = models.FloatField()
@@ -21,7 +22,7 @@ class Order(models.Model):
         return f"{user} : {cart_id}"
 
 class BillingAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=120)
     apartment_address = models.CharField(max_length=120, blank=True, null=True)
     state = models.CharField(max_length=120, blank=True, null=True)
@@ -37,7 +38,7 @@ class BillingAddress(models.Model):
 
 
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     session_id = models.CharField(max_length=150)
     charge_id = models.CharField(max_length=100)
     amount_due = models.FloatField()
@@ -55,7 +56,7 @@ class CustomerInfo(models.Model):
 
 
 class UserOrder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     ticket_id = models.CharField(max_length=50, blank=True, null=True)
     ticket_name = models.CharField(max_length=250, blank=True, null=True)
     ticket_email = models.CharField(max_length=500, blank=True, null=True)
@@ -70,7 +71,7 @@ class UserOrder(models.Model):
 
 
 class PaymentConfirmation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     sender = models.CharField(max_length=200, blank=True, null=True)
     user_order = models.ForeignKey(UserOrder, on_delete=models.CASCADE, blank=True, null=True)
     reference = models.CharField(max_length=200, blank=True, null=True)
@@ -83,7 +84,7 @@ class PaymentConfirmation(models.Model):
 
 
 class CreatorPayment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # Tickets sold at payment
     tickets_sold = models.IntegerField()

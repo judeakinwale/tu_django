@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+# from django.contrib.auth.models import User
 from django.shortcuts import reverse
 from datetime import datetime
 from core.models import EventState, EventCity
@@ -8,7 +9,7 @@ from core.models import EventState, EventCity
 
 
 class Transportation(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(verbose_name="Price per day", max_digits=10, decimal_places=2)
@@ -30,8 +31,8 @@ class Transportation(models.Model):
     photo_3 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
     photo_4 = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
 
-    timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-    updated = models.DateTimeField(auto_now=False, auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     # Filters
     is_published = models.BooleanField(default=True)
