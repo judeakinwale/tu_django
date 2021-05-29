@@ -249,7 +249,8 @@ def payment_confirmation(request):
 from datetime import date, datetime, timedelta
 
 
-def event_creator_attendee_list_email(request):
+def event_creator_attendee_list_email():
+# def event_creator_attendee_list_email(request):
     week_before = (date.today()-timedelta(days=7)).isoformat()
     week_after = (date.today()+timedelta(days=7)).isoformat()
     product = Event.objects.filter(start_time__contains=week_after)
@@ -267,10 +268,12 @@ def event_creator_attendee_list_email(request):
             #     print(order_item.ticket_email)
             subject = 'Attendee List'
             html_message = render_to_string(
-                'mail/attendee_list.html', {
+                'mail/attendee_list_email.html',
+                {
                     # 'context': 'Templating and context works',
                     # 'order_items': order_items,
-                    'user': request.user.username,
+                    # 'user': request.user.username,
+                    'user': creator,
                     'object_list': user_order,
                 })
             plain_message = strip_tags(html_message)
@@ -285,12 +288,13 @@ def event_creator_attendee_list_email(request):
                 fail_silently=True,
             )
 
-        messages.success(request, 'Attendee list has been sent to your mail')
+        # messages.success(request, 'Attendee list has been sent to your mail')
 
     else:
-        messages.error(request, 'There are no applicable events')
+        # messages.error(request, 'There are no applicable events')
+        pass
     # print(product)
-    # template_name = 'payment/attendee_list_email.html'
+    # template_name = 'mail/attendee_list_email.html'
     # context = {}
     # return redirect('registration:account')
     # return redirect(request.META['HTTP_REFERER'])
