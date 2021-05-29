@@ -1,14 +1,15 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, TemplateView, View
+from django.shortcuts import render, redirect
+# from django.views.generic import ListView, DetailView, TemplateView, View
 from .forms import NewUserForm
 from core.models import Event
-from cart.cart import Cart
-from payment.models import Payment
+# from cart.cart import Cart
+# from payment.models import Payment
 
 # Create your views here.
+
 
 def register(request):
     if request.method == "POST":
@@ -27,6 +28,7 @@ def register(request):
     form = NewUserForm
     return render(request, "registration/register.html", {"form": form})
 
+
 def logout_request(request):
     logout(request)
     messages.info(request, "You've logged out")
@@ -34,7 +36,7 @@ def logout_request(request):
 
 
 def login_request(request):
-    if request.method =="POST":
+    if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -53,7 +55,7 @@ def login_request(request):
         form = AuthenticationForm()
         # messages.error(request, "Unable to login")
 
-    return render(request, "registration/login.html", {"form":form})
+    return render(request, "registration/login.html", {"form": form})
 
 
 def user_account(request):
@@ -63,6 +65,7 @@ def user_account(request):
         'object_list': user_events,
     }
     return render(request, template_name, context)
+
 
 def delete_all_user_events(request):
     user_events = Event.objects.filter(creator=request.user)

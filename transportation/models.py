@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 # from django.contrib.auth.models import User
 from django.shortcuts import reverse
-from datetime import datetime
+# from datetime import datetime
 from core.models import EventState, EventCity
 
 # Create your models here.
@@ -17,7 +17,12 @@ class Transportation(models.Model):
 
     # Vehicle details
     capacity = models.IntegerField()
-    vehicle_type = models.ForeignKey("TransportationCategory", on_delete=models.DO_NOTHING, blank=True, null=True)
+    vehicle_type = models.ForeignKey(
+        "TransportationCategory",
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        null=True
+        )
 
     # Vehicle location details
     city = models.ForeignKey(EventCity, on_delete=models.SET_NULL, blank=True, null=True)

@@ -9,3 +9,4 @@ exclude =
     settings.py,
     ; No tests are implemented yet
     tests.py,
+    store,

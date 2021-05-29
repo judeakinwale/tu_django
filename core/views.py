@@ -1,23 +1,24 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
+# from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils import timezone
+# from django.utils import timezone
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, UpdateView
-from django.views.generic.edit import FormView
+# from django.views.generic.edit import FormView
 from .forms import EventForm, ContactUsForm
 from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs
 from transportation.models import Transportation as trsp
 from location.models import Listing as loc
 from cart.cart import Cart
-from registration.forms import NewUserForm
+# from registration.forms import NewUserForm
 
 # Create your views here.
+
 
 class HomeView(TemplateView):
     """
@@ -114,7 +115,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         context['title'] = 'Create'
         return context
 
-    def form_valid (self, form):
+    def form_valid(self, form):
         # if the form is valid, create and assign a value to the
         # user and slug fields in the EventForm modelform
         form.instance.creator = self.request.user
@@ -145,7 +146,7 @@ class ContactUsView(CreateView):
     success_url = reverse_lazy('registration:account')
 
     def form_valid(self, form):
-        subject  = f"Contact from {form.instance.first_name} {form.instance.last_name}"
+        subject = f"Contact from {form.instance.first_name} {form.instance.last_name}"
         message = form.instance.message
         sender = form.instance.email
         recipient_list = ['judeakinwale@gmail.com']
@@ -163,12 +164,14 @@ def cart_add(request, id):
     cart.add(product=product)
     return redirect("core:event_list")
 
+
 @login_required(login_url="/login")
 def item_clear(request, id):
     cart = Cart(request)
     product = Event.objects.get(id=id)
     cart.remove(product)
     return redirect("core:cart_detail")
+
 
 @login_required(login_url="/login")
 def item_increment(request, id):
@@ -177,6 +180,7 @@ def item_increment(request, id):
     cart.add(product=product)
     return redirect("core:cart_detail")
 
+
 @login_required(login_url="/login")
 def item_decrement(request, id):
     cart = Cart(request)
@@ -184,15 +188,18 @@ def item_decrement(request, id):
     cart.decrement(product=product)
     return redirect("core:cart_detail")
 
+
 @login_required(login_url="/login")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
     return redirect("core:cart_detail")
 
+
 @login_required(login_url="/login")
 def cart_detail(request):
     return render(request, 'cart/cart_detail.html')
+
 
 def my_custom_page_not_found_view(request, *args, **kwargs):
     return render(request, 'core/404.html')

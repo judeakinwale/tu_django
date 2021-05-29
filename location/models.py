@@ -38,7 +38,6 @@ class Listing(models.Model):
     state = models.ForeignKey(EventState, on_delete=models.SET_NULL, blank=True, null=True)
     country = models.CharField(max_length=200)
     zipcode = models.CharField(max_length=100, blank=True, null=True)
-
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 

@@ -1,12 +1,13 @@
 from django.conf import settings
 # from django.contrib.auth.models import User
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
 from datetime import datetime
-from cart.context_processor import cart_total_amount
+# from cart.context_processor import cart_total_amount
 from core.models import Event
 
 # Create your models here.
+
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -19,7 +20,8 @@ class Order(models.Model):
     is_ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{user} : {cart_id}"
+        return f"{self.user} : {self.cart_id}"
+
 
 class BillingAddress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -101,4 +103,4 @@ class CreatorPayment(models.Model):
     #     return reverse("CreatorPayment_detail", kwargs={"pk": self.pk})
 
     def tickets_to_be_paid_for(self):
-        return self.tickets_sold - tickets_paid_for
+        return self.tickets_sold - self.tickets_paid_for

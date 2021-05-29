@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.views.generic import ListView, DetailView, TemplateView, View, FormView
+# from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
-from .models import Payment, BillingAddress, Order, UserOrder, PaymentConfirmation
+from .models import UserOrder, PaymentConfirmation  # , Payment, BillingAddress, Order
 from core.models import Event
 from location.models import Listing
 from transportation.models import Transportation
@@ -17,15 +17,15 @@ from cart.context_processor import cart_total_amount
 from django.dispatch import receiver
 from paystack.api.signals import payment_verified, event_signal
 
-
 # Create your views here.
+
 
 def customer_info(request):
     if request.method == "POST":
         customer_form = CustomerInfoForm(request.POST)
         if customer_form.is_valid():
             customer_form.save()
-            return render(request, 'payment/payment.html', {'email':"human@jjj.co"})
+            return render(request, 'payment/payment.html', {'email': "human@jjj.co"})
         else:
             return HttpResponse('Invalid input try again!!!')
     else:
@@ -46,10 +46,10 @@ def checkout(request):
         cart_keys = cart_dict.keys()
 
         # Get the first key in session['cart']
-        cart_key = next(iter(cart_dict))
+        # cart_key = next(iter(cart_dict))
 
         # Get the value of the first key
-        cart_query = cart_dict[cart_key]
+        # cart_query = cart_dict[cart_key]
 
         # TODO: Use cart query
 
@@ -112,10 +112,10 @@ def direct_checkout(request, target, id):
         cart_keys = cart_dict.keys()
 
         # Get the first key in session['cart']
-        cart_key = next(iter(cart_dict))
+        # cart_key = next(iter(cart_dict))
 
         # Get the value of the first key
-        cart_query = cart_dict[cart_key]
+        # cart_query = cart_dict[cart_key]
 
         # TODO: Use cart query
 
@@ -154,8 +154,6 @@ def direct_checkout(request, target, id):
 
         return redirect("payment:checkout")
 
-
-
     total_amount = cart_total_amount(request)["cart_total_amount"]
     template_name = "payment/direct_checkout.html"
     context = {'object': query, 'total': total_amount}
@@ -164,7 +162,7 @@ def direct_checkout(request, target, id):
 
 # Paystack Signals
 @receiver(payment_verified)
-def on_payment_verified(sender, ref,amount, *args, **kwargs):
+def on_payment_verified(sender, ref, amount, *args, **kwargs):
     """
     ref: paystack reference sent back.
     amount: amount in Naira.
@@ -176,8 +174,6 @@ def on_payment_verified(sender, ref,amount, *args, **kwargs):
     confirmation.reference = ref
     confirmation.amount = amount
     confirmation.save()
-
-
 
 
 @receiver(event_signal)
@@ -233,7 +229,7 @@ def payment_confirmation(request):
 
         messages.success(request, 'A ticket has been sent to your mail')
 
-        total_amount = cart_total_amount(request)["cart_total_amount"]
+        # total_amount = cart_total_amount(request)["cart_total_amount"]
         # if total_amount != 0.00:
         #     return redirect("payment:payment_confirmation")
 

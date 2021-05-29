@@ -19,7 +19,7 @@ def location_filter(request, queryset):
             # Get the id of the city selected in search
             city_id = EventCity.objects.get(name__iexact=city).id
             queryset = queryset.filter(city=city_id)
-            print (request.path)
+            print(request.path)
 
     if 'state' in request.GET:
         state = request.GET['state']
@@ -40,7 +40,7 @@ def category_filter(request, queryset):
             # Confirm the current app and Get the id of the category selected in search
             if '/l/' in request.path:  # For location (venue)
                 category_id = ListingCategory.objects.get(name__iexact=category).id
-                Print('/l/')
+                print('/l/')
             elif '/t/' in request.path:  # For transportation
                 category_id = TransportationCategory.objects.get(name__iexact=category).id
             else:  # For events

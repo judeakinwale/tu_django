@@ -1,16 +1,20 @@
 from django import forms
 from django.contrib.admin import widgets
-from django.utils.translation import gettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
 from .models import Event, ContactUs
 
 
 class EventForm(forms.ModelForm):
-    start_time = forms.SplitDateTimeField(label='Start Date and Time', widget=widgets.AdminSplitDateTime(attrs={
-        'class': 'form-control'
-    }))
-    end_time = forms.SplitDateTimeField(label='End Date and Time', widget=widgets.AdminSplitDateTime(attrs={
-        'class': 'form-control'
-    }))
+    start_time = forms.SplitDateTimeField(label='Start Date and Time', widget=widgets.AdminSplitDateTime(
+        attrs={
+            'class': 'form-control'
+            }
+    ))
+    end_time = forms.SplitDateTimeField(label='End Date and Time', widget=widgets.AdminSplitDateTime(
+        attrs={
+            'class': 'form-control'
+        }
+    ))
 
     class Meta:
         model = Event
@@ -53,7 +57,7 @@ class ContactUsForm(forms.ModelForm):
             'email': widgets.AdminEmailInputWidget(attrs={
                 'placeholder': 'user@example.com'
             }),
-            'message' : widgets.AdminTextareaWidget(attrs={
+            'message': widgets.AdminTextareaWidget(attrs={
                 'placeholder': "Write your notes or questions here..."
             }),
         }

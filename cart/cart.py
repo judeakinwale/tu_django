@@ -1,10 +1,10 @@
-from decimal import Decimal
+# from decimal import Decimal
 from django.conf import settings
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+from django.shortcuts import redirect  # , render
 
-from datetime import datetime
-from time import gmtime, strftime
+# from datetime import datetime
+# from time import gmtime, strftime
 
 
 class Cart(object):
@@ -54,7 +54,7 @@ class Cart(object):
                     newItem = False
                     self.save()
                     break
-            if newItem == True:
+            if newItem is True:
 
                 self.cart[product.id] = {
                     'userid': self.request,

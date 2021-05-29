@@ -3,18 +3,19 @@ from django.conf import settings
 # from django.contrib.auth import get_user_model()
 # from django.contrib.auth.models import User
 from django.shortcuts import reverse
-from django.utils import timezone
+# from django.utils import timezone
 
 # Create your models here.
 
 
 class Event(models.Model):
-    creator =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to="images/%Y/%m/%d/", blank=True, null=True)
 
-    # Create a default category (like Uncategorized or Unknown) as the first category. Deleting it will cause errors
+    # Create a default category (like Uncategorized or Unknown) as the first category.
+    # Deleting it will cause errors
     category = models.ForeignKey("EventCategory", default=1, on_delete=models.SET_DEFAULT)
 
     # Ticket details
@@ -86,7 +87,7 @@ class EventCategory(models.Model):
 
 class EventCity(models.Model):
     name = models.CharField(max_length=250, unique=True)
-    state =  models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
+    state = models.ForeignKey("EventState", on_delete=models.SET_NULL, blank=True, null=True)
     summary = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -137,7 +138,7 @@ class ContactUs(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=50)
     events_purchased = models.ManyToManyField(Event)
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)

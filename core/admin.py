@@ -4,7 +4,7 @@ from .models import Event, EventCategory, EventCity, EventState, FAQ, ContactUs,
 # Register your models here.
 
 
-# @admin.register()
+@admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Event Details', {
@@ -71,7 +71,7 @@ class EventAdmin(admin.ModelAdmin):
 admin.site.register(EventCategory)
 admin.site.register(EventCity)
 admin.site.register(EventState)
-admin.site.register(Event, EventAdmin)
+# admin.site.register(Event, EventAdmin)
 admin.site.register(FAQ)
 admin.site.register(ContactUs)
 admin.site.register(Profile)

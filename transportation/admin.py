@@ -3,7 +3,8 @@ from .models import Transportation, TransportationCategory
 
 # Register your models here.
 
-# @admin.register(Transportation)
+
+@admin.register(Transportation)
 class TransportationAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Vehicle details', {
@@ -13,7 +14,7 @@ class TransportationAdmin(admin.ModelAdmin):
                 'description',
                 'vehicle_type',
                 'capacity',
-            ]    
+            ]
         }),
         ('Images', {
             'fields': [
@@ -56,5 +57,5 @@ class TransportationAdmin(admin.ModelAdmin):
     list_editable = ['is_published', 'is_featured', 'is_booked']
 
 
-admin.site.register(Transportation, TransportationAdmin)
+# admin.site.register(Transportation, TransportationAdmin)
 admin.site.register(TransportationCategory)
