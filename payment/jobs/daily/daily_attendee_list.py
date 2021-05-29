@@ -9,4 +9,3 @@ class Job(DailyJob):
         # executing empty sample job
         from payment import views
         views.event_creator_attendee_list_email()
-        

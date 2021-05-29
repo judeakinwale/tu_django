@@ -16,6 +16,7 @@ from cart.context_processor import cart_total_amount
 # For pypaystack
 from django.dispatch import receiver
 from paystack.api.signals import payment_verified, event_signal
+from datetime import date, timedelta
 
 # Create your views here.
 
@@ -35,6 +36,7 @@ def customer_info(request):
 
 @login_required(login_url="/login")
 def checkout(request):
+    context = {}
     if UserOrder.objects.filter(user=request.user, is_ordered=False):
         user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
     else:
@@ -72,19 +74,30 @@ def checkout(request):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
-        # if request.method == "GET":
-        #     user_order.ticket_name = request.GET['user_name']
-        #     user_order.ticket_email = request.GET['user_email']
-        #     user_order.save()
+        if request.method == "GET":
+
+            # user_order.ticket_name = request.GET['user_name']
+            full_name = f"{request.user.first_name} {request.user.last_name}"
+            user_order.ticket_name = request.GET.get('user_name', full_name)
+
+            # user_order.ticket_email = request.GET['user_email']
+            email_address = request.user.email
+            user_order.ticket_email = request.GET.get('user_email', email_address)
+
+            user_order.save()
+            context_2 = {'user_order': user_order}
+            context.update(context_2)
 
     total_amount = cart_total_amount(request)["cart_total_amount"]
     template_name = "payment/checkout.html"
-    context = {'total': total_amount, 'email': request.user.email}
+    context_3 = {'total': total_amount, 'email': request.user.email}
+    context.update(context_3)
     return render(request, template_name, context)
 
 
 @login_required(login_url="/login")
 def direct_checkout(request, target, id):
+    context = {}
     # Confirm which app the checkout is coming from
     if target == 'location':
         query = Listing.objects.get(id=id)
@@ -147,16 +160,26 @@ def direct_checkout(request, target, id):
             user_order.order_items.add(Event.objects.get(id=key))
         user_order.save()
 
-        # if request.method == "GET":
-        #     user_order.ticket_name = request.GET['user_name']
-        #     user_order.ticket_email = request.GET['user_email']
-        #     user_order.save()
+        if request.method == "GET":
+
+            # user_order.ticket_name = request.GET['user_name']
+            full_name = f"{request.user.first_name} {request.user.last_name}"
+            user_order.ticket_name = request.GET.get('user_name', full_name)
+
+            # user_order.ticket_email = request.GET['user_email']
+            email_address = request.user.email
+            user_order.ticket_email = request.GET.get('user_email', email_address)
+
+            user_order.save()
+            context_2 = {'user_order': user_order}
+            context.update(context_2)
 
         return redirect("payment:checkout")
 
     total_amount = cart_total_amount(request)["cart_total_amount"]
     template_name = "payment/direct_checkout.html"
-    context = {'object': query, 'total': total_amount}
+    context_3 = {'object': query, 'total': total_amount}
+    context.update(context_3)
     return render(request, template_name, context)
 
 
@@ -246,12 +269,9 @@ def payment_confirmation(request):
     return render(request, template_name, context)
 
 
-from datetime import date, datetime, timedelta
-
-
-def event_creator_attendee_list_email():
 # def event_creator_attendee_list_email(request):
-    week_before = (date.today()-timedelta(days=7)).isoformat()
+def event_creator_attendee_list_email():
+    # week_before = (date.today()-timedelta(days=7)).isoformat()
     week_after = (date.today()+timedelta(days=7)).isoformat()
     product = Event.objects.filter(start_time__contains=week_after)
 
