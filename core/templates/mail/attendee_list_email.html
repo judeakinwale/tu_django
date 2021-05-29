@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="../../static/core/css/style_main.css">
+{% load inlinecss %}
+{% inlinecss "core/css/style_main.css" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ticket</title>
+</head>
+<body>
+  <main>
+    <div class="mail">
+      <h4 class="mail__header my-2">Hello, {{user_order.ticket_name}}</h4>
+      
+      <div class="table">
+        <table class="table__content">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ticket Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr> -->
+            
+            {% for item in object_list %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{item.ticket_id}}</td>
+              <td>{{item.ticket_name}}</td>
+              <td>{{item.ticket_email}}</td>
+            </tr>
+            {% endfor %}
+              
+            <!-- <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody> -->
+      </table>
+      </div>
+
+      <p class="copyright"><small>&copy; 2021 Turnup</small></p>
+    </div>
+  </main>
+</body>
+</html>
+{% endinlinecss %}

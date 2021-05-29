@@ -208,7 +208,7 @@ def payment_confirmation(request):
 
         subject = 'Ticket Testing'
         html_message = render_to_string(
-            'mail/mail_template.html',
+            'mail/ticket.html',
             {
                 'context': 'Templating and context works',
                 'order_items': order_items,
@@ -244,3 +244,54 @@ def payment_confirmation(request):
 
     }
     return render(request, template_name, context)
+
+
+from datetime import date, datetime, timedelta
+
+
+def event_creator_attendee_list_email(request):
+    week_before = (date.today()-timedelta(days=7)).isoformat()
+    week_after = (date.today()+timedelta(days=7)).isoformat()
+    product = Event.objects.filter(start_time__contains=week_after)
+
+    if product.exists():
+        for item in product:
+            creator = item.creator
+            user_order = UserOrder.objects.filter(is_ordered=True, order_items=item)
+            # for order_item in user_order:
+            #     print(creator.email)
+            #     print(order_item)
+            #     print(order_item.user)
+            #     print(order_item.ticket_id)
+            #     print(order_item.ticket_name)
+            #     print(order_item.ticket_email)
+            subject = 'Attendee List'
+            html_message = render_to_string(
+                'mail/attendee_list.html', {
+                    # 'context': 'Templating and context works',
+                    # 'order_items': order_items,
+                    'user': request.user.username,
+                    'object_list': user_order,
+                })
+            plain_message = strip_tags(html_message)
+            from_email = 'From <judeakinwale@gmail.com>'
+            to = [f'{creator.email}']
+            send_mail(
+                subject,
+                plain_message,
+                from_email,
+                to,
+                html_message=html_message,
+                fail_silently=True,
+            )
+
+        messages.success(request, 'Attendee list has been sent to your mail')
+
+    else:
+        messages.error(request, 'There are no applicable events')
+    # print(product)
+    # template_name = 'payment/attendee_list_email.html'
+    # context = {}
+    # return redirect('registration:account')
+    # return redirect(request.META['HTTP_REFERER'])
+    # return render(request, template_name, context)
