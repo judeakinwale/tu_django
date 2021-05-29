@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'django_extensions',
     'crispy_forms', # For django-crispy-forms
     'django_inlinecss', # For django-inlinecss
     'cart', # For django-shopping-cart
