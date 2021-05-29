@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.html import strip_tags
 # from django.views.generic import ListView, DetailView, TemplateView, View, FormView
 from .forms import CustomerInfoForm
@@ -16,7 +17,8 @@ from cart.context_processor import cart_total_amount
 # For pypaystack
 from django.dispatch import receiver
 from paystack.api.signals import payment_verified, event_signal
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+import pytz
 
 # Create your views here.
 
@@ -271,12 +273,14 @@ def payment_confirmation(request):
 
 # def event_creator_attendee_list_email(request):
 def event_creator_attendee_list_email():
+    today = datetime.now(tz=timezone.utc)
     # week_before = (date.today()-timedelta(days=7)).isoformat()
-    week_after = (date.today()+timedelta(days=7)).isoformat()
-    product = Event.objects.filter(start_time__contains=week_after)
+    # week_after = (date.today()+timedelta(days=7)).isoformat()
+    week_after = (today+timedelta(days=7)).isoformat()
+    events = Event.objects.filter(start_time__contains=week_after)
 
-    if product.exists():
-        for item in product:
+    if events.exists():
+        for item in events:
             creator = item.creator
             user_order = UserOrder.objects.filter(is_ordered=True, order_items=item)
             # for order_item in user_order:
@@ -313,9 +317,21 @@ def event_creator_attendee_list_email():
     else:
         # messages.error(request, 'There are no applicable events')
         pass
-    # print(product)
+    # print(events)
     # template_name = 'mail/attendee_list_email.html'
     # context = {}
     # return redirect('registration:account')
     # return redirect(request.META['HTTP_REFERER'])
     # return render(request, template_name, context)
+
+
+def delete_outdated_events():
+    today = datetime.now(tz=timezone.utc)
+    # tomorrow = (date.today()+timedelta(days=1)).isoformat()
+    tomorrow = (today+timedelta(days=1)).isoformat()
+    events = Event.objects.filter(start_time__lte=tomorrow)
+    # print(events)
+    if events.exists():
+        for item in events:
+            print(item)
+            # item.delete()
