@@ -9,12 +9,12 @@ urlpatterns = [
     path("", views.HomeView.as_view(), name="homepage"),
     path("s/", views.search, name="search"),
     path("e/", views.EventListView.as_view(), name="event_list"),
-    path("e/<slug>/", views.EventDetailView.as_view(), name="event_detail"),
     path("faq/", views.FAQListView.as_view(), name="faq"),
+    path('contact-us/', views.ContactUsView.as_view(), name='contact_us'),
     path("e/create/", views.EventCreateView.as_view(), name="create_event"),
+    path("e/<slug>/", views.EventDetailView.as_view(), name="event_detail"),
     path("e/update/<slug>/", views.EventUpdateView.as_view(), name="update_event"),
     path("e/delete/<slug>/", views.EventDeleteView.as_view(), name="delete_event"),
-    path('contact-us/', views.ContactUsView.as_view(), name='contact_us'),
 
     # For django-shopping-cart
     path('cart/add/<int:id>/', views.cart_add, name='cart_add'),
