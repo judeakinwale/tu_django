@@ -134,6 +134,9 @@ body{font-family: Montserrat, Poppins, Helvetica, sans-serif !important;}
 .logo {
   width: 32px;
 }
+.card-limit {
+  max-height: 500px !important;
+}
 .copyright-text {
   font-size: 10px;
 }
