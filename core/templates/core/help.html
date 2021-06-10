@@ -5,6 +5,7 @@
 <main>
   <div class="container my-5">
     <h4 class="text-purple my-5 text-center font-weight-bold">Frequently Asked Questions</h4>
+    {% if object_list.exists %}
     <div class="row py-5">
       <div class="col-md-5">
         <div class="accordion" id="accordionExample">
@@ -34,6 +35,9 @@
         <img src="{% static 'core/img/new/img 6.png' %}" class="img-fluid" alt="">
       </div>
     </div>
+    {% else %}
+    <h1 class="text-center text-dark" style="padding-top: 15%; padding-bottom: 20%;">Sorry, Check back later</h1>
+    {% endif %}
   </div>
 </main>
 {% endblock content %}

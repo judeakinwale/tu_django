@@ -178,7 +178,11 @@ body{font-family: Montserrat, Poppins, Helvetica, sans-serif !important;}
 .height-92{
   height: 92vh !important;
 }
-
+.section-seperator {
+  background-color: #560186;
+  height: 100px;
+  text-align: center;
+}
 
 @media (min-width: 576px) {
 }

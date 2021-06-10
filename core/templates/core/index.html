@@ -90,11 +90,26 @@
       {% endif %}
 
     {% else %}
+      <!-- <div class="row d-block my-4 section-seperator">
+        <section class="col pt-2">
+          <h3 class="text-light pt-4">Check out venues</h3>
+        </section>
+      </div> -->
       <h1 class="text-center text-light" style="padding-top: 20%; padding-bottom: 20%;">There are no events at this time</h1>
+      <!-- <div class="row d-block my-4 section-seperator">
+        <section class="col pt-2">
+          <h3 class="text-light pt-4">Check out transportation</h3>
+        </section>
+      </div> -->
     {% endif %}
     
-    {% comment %} {% if featured_venue %}
-      <!-- FEATURED IMAGE AND EVENT DETAILS -->
+    {% if featured_venue %}
+      <!-- FEATURED IMAGE AND VENUE DETAILS -->
+      <div id=featured_venue class="row d-block my-4 section-seperator">
+        <section class="col pt-2">
+          <h3 class="text-light pt-4">Check out venues</h3>
+        </section>
+      </div>
       <section class="my-5">
         <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
           <div class="row px-md-3">
@@ -121,10 +136,15 @@
           </div>
         </div>
       </section>   
-    {% endif %} {% endcomment %}
+    {% endif %}
         
     {% if featured_transport %}
     <!-- FEATURED IMAGE AND EVENT DETAILS -->
+    <div id=featured_transport class="row d-block my-4 section-seperator">
+      <section class="col pt-2">
+        <h3 class="text-light pt-4">Check out transportation</h3>
+      </section>
+    </div>
     <section class="my-5">
       <div class="jumbotron jumbotron-fluid pb-0 pt-3 bg-transparent overflow-hidden">
         <div class="row px-md-3">
