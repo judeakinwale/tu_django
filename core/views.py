@@ -28,8 +28,8 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         featured_events = Event.objects.filter(is_featured=True).order_by('-timestamp')
-        featured_transport = trsp.objects.filter(is_published=True, is_booked=False).first
-        featured_venue = loc.objects.filter(is_published=True, is_booked=False)
+        featured_transport = trsp.objects.filter(is_published=True, is_booked=False).first()
+        featured_venue = loc.objects.filter(is_published=True, is_booked=False).first()
         first_item = featured_events.first()
         second_to_fourth_item = featured_events[1:4]
         context = super().get_context_data(**kwargs)
