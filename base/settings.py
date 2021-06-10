@@ -50,8 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
 
-    'django_extensions',
+    # django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'django_extensions', # For django-extensions
     'crispy_forms', # For django-crispy-forms
     'django_inlinecss', # For django-inlinecss
     'cart', # For django-shopping-cart
@@ -110,7 +116,7 @@ WSGI_APPLICATION = 'base.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'turnup',
+        'NAME': 'turnup_dev',
         'USER': 'jude',
         'PASSWORD': '0000',
         'HOST': '127.0.0.1',
@@ -136,6 +142,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# django-alluth
+# https://django-allauth.readthedocs.io/en/latest/
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 
 # Internationalization

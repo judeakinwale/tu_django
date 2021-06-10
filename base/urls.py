@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path("", include('core.urls')),
     path("", include('registration.urls')),
     path("", include('django.contrib.auth.urls')),
@@ -28,7 +29,10 @@ urlpatterns = [
     path("t/", include('transportation.urls')),
 
     # From pypaystack
-    path("paystack/", include(('paystack.frameworks.django.urls', 'paystack'), namespace='paystack')),
+    path(
+        "paystack/",
+        include(('paystack.frameworks.django.urls', 'paystack'),
+                namespace='paystack')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
