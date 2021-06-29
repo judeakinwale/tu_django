@@ -230,3 +230,6 @@ DEFAULT_FILE_STORAGE = 'base.storage_backends.MediaStorage'  # <-- here is where
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# For django-allauth
+SITE_ID = 1
