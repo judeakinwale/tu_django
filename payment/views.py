@@ -1,3 +1,4 @@
+from django import conf
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -17,8 +18,11 @@ from cart.context_processor import cart_total_amount
 # For pypaystack
 from django.dispatch import receiver
 from paystack.api.signals import payment_verified, event_signal
+
 from datetime import date, datetime, timedelta
 import pytz
+# handling send_mail exceptions
+from smtplib import SMTPException, SMTPAuthenticationError
 
 # Create your views here.
 
@@ -196,9 +200,13 @@ def on_payment_verified(sender, ref, amount, *args, **kwargs):
     confirmation.sender = sender
     confirmation.raw_request = sender
     # confirmation.user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
+    # confirmation.user_order = UserOrder.objects.filter(PaymentConfirmation = confirmation)
+    confirmation.order_reference = kwargs['order']
+    confirmation.signal_object = kwargs['signal']
     confirmation.reference = ref
     confirmation.amount = amount
     confirmation.save()
+    print(f"\n ...... \n args: {args} \n kwargs: {kwargs} \n order: {kwargs['order']} \n signal: {kwargs['signal']} \n ......")
 
 
 @receiver(event_signal)
@@ -213,6 +221,7 @@ def on_event_received(sender, event, data, **kwargs):
     confirmation.data = data
     confirmation.save()
 
+    print(f"\n ...... \n data: {data} \n kwargs: {kwargs} \n ......")
     return redirect("payment:payment_confirmation")
 
 
@@ -221,38 +230,59 @@ def payment_confirmation(request):
     confirm payment and send tickets by mail
     """
     user_order = UserOrder.objects.filter(user=request.user, is_ordered=False).first()
-    print(user_order)
+    # get_user_order = UserOrder.objects.get(user=request.user, is_ordered=False)
+    # print(f"User order: {user_order} \nGet user order: {get_user_order}")
     if user_order:
         user_order.is_ordered = True
         Cart(request).clear()
         order_items = user_order.order_items.all()
         if request.method == "GET":
-            user_order.ticket_name = request.GET['user_name']
-            user_order.ticket_email = request.GET['user_email']
+            if not (user_order.ticket_name and user_order.ticket_email):
+                # user_order.ticket_name = request.GET['user_name']
+                full_name = f"{request.user.first_name} {request.user.last_name}"
+                user_order.ticket_name = request.GET.get('user_name', full_name)
+
+                # user_order.ticket_email = request.GET['user_email']
+                email_address = request.user.email
+                user_order.ticket_email = request.GET.get('user_email', email_address)
         user_order.save()
 
-        subject = 'Ticket Testing'
-        html_message = render_to_string(
-            'mail/ticket.html',
-            {
-                'context': 'Templating and context works',
-                'order_items': order_items,
-                'user': request.user.username,
-                'user_order': user_order,
-            })
-        plain_message = strip_tags(html_message)
-        from_email = 'From <judeakinwale@gmail.com>'
-        to = [f'{user_order.ticket_email}']
-        send_mail(
-            subject,
-            plain_message,
-            from_email,
-            to,
-            html_message=html_message,
-            fail_silently=True,
-        )
+        for item in order_items:
+            subject = f"Ticket - {item.name}"
+            html_message = render_to_string(
+                'mail/ticket.html',
+                {
+                    'context': 'Templating and context works',
+                    'item': item,
+                    'user': request.user.username,
+                    'user_order': user_order,
+                })
+            plain_message = strip_tags(html_message)
+            from_email = 'From <judeakinwale@gmail.com>'
+            to = [f'{user_order.ticket_email}']
 
-        messages.success(request, 'A ticket has been sent to your mail')
+            try:
+                send_mail(
+                    subject,
+                    plain_message,
+                    from_email,
+                    to,
+                    html_message=html_message,
+                    # fail_silently=True,
+                )
+                user_order.is_ticket_sent = True
+                user_order.save()
+                messages.success(request, 'A ticket has been sent to your mail')
+
+            except SMTPAuthenticationError:
+                print("Incorrect authentication details for SMTP")
+                messages.error(request, 'There was an error sending the ticket. Please try again')
+
+            except SMTPException:
+                messages.error(request, 'There was an error sending the ticket. Please try again')
+
+            except:
+                messages.error(request, 'There was an error sending the ticket. Please try again')
 
         # total_amount = cart_total_amount(request)["cart_total_amount"]
         # if total_amount != 0.00:
@@ -309,7 +339,7 @@ def event_creator_attendee_list_email():
                 from_email,
                 to,
                 html_message=html_message,
-                fail_silently=True,
+                # fail_silently=True,
             )
 
         # messages.success(request, 'Attendee list has been sent to your mail')
@@ -328,8 +358,9 @@ def event_creator_attendee_list_email():
 def delete_outdated_events():
     today = datetime.now(tz=timezone.utc)
     # tomorrow = (date.today()+timedelta(days=1)).isoformat()
-    tomorrow = (today+timedelta(days=1)).isoformat()
-    events = Event.objects.filter(start_time__lte=tomorrow)
+    # tomorrow = (today+timedelta(days=1)).isoformat()
+    yesterday = (today+timedelta(days=1)).isoformat()
+    events = Event.objects.filter(start_time__lte=yesterday)
     # print(events)
     if events.exists():
         for item in events:

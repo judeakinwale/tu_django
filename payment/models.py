@@ -68,6 +68,7 @@ class UserOrder(models.Model):
     order_item_qty = models.CharField(max_length=200, blank=True, null=True)
     amount_due = models.FloatField(blank=True, null=True)
     is_ordered = models.BooleanField(default=False)
+    is_ticket_sent = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
@@ -77,6 +78,8 @@ class PaymentConfirmation(models.Model):
     sender = models.CharField(max_length=200, blank=True, null=True)
     user_order = models.ForeignKey(UserOrder, on_delete=models.CASCADE, blank=True, null=True)
     reference = models.CharField(max_length=200, blank=True, null=True)
+    order_reference = models.CharField(max_length=250, blank=True, null=True)
+    signal_object = models.CharField(max_length=250, blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)
     raw_request = models.TextField(blank=True, null=True)
     event = models.CharField(max_length=200, blank=True, null=True)
