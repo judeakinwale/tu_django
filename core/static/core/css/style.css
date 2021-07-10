@@ -180,7 +180,7 @@ body{font-family: Montserrat, Poppins, Helvetica, sans-serif !important;}
 }
 .section-seperator {
   background-color: #560186;
-  height: 100px;
+  min-height: 100px;
   text-align: center;
 }
 

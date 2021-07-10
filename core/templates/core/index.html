@@ -120,7 +120,7 @@
                 <!-- EVENT DETAILS -->
                 <div class="col-auto ml-n25p mt-15p py-2 mt-5 mt-md-0 transparent-dark">
                   <h1 class="display-4 font-weight-bold">
-                    <a href="{{featured_venue.get_absolute_url}}" class="nav-link text-light">{{featured_venue.name|upper}}</a>
+                    <a href="{{featured_venue.get_absolute_url}}" class="nav-link text-light">{{featured_venue.title|upper}}</a>
                   </h1>
                   <h3 class="lead">
                     <a href="{{featured_venue.get_absolute_url}}" class="nav-link text-light">{{featured_venue.street_address}}</a>
@@ -141,7 +141,7 @@
     {% if featured_transport %}
     <!-- FEATURED IMAGE AND EVENT DETAILS -->
     <div id=featured_transport class="row d-block my-4 section-seperator">
-      <section class="col pt-2">
+      <section class="col pt-2 pb-3 pb-sm-0">
         <h3 class="text-light pt-4">Check out transportation</h3>
       </section>
     </div>
