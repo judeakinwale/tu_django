@@ -262,7 +262,7 @@ def payment_confirmation(request):
                     'user_order': user_order,
                 })
             plain_message = strip_tags(html_message)
-            from_email = 'From <judeakinwale@gmail.com>'
+            from_email = 'From TurnUp <turnupisavibe@gmail.com>'
             to = [f'{user_order.ticket_email}']
 
             try:
@@ -335,7 +335,7 @@ def event_creator_attendee_list_email():
                     'object_list': user_order,
                 })
             plain_message = strip_tags(html_message)
-            from_email = 'From <judeakinwale@gmail.com>'
+            from_email = 'From TurnUp <turnupisavibe@gmail.com>'
             to = [f'{creator.email}']
             send_mail(
                 subject,
