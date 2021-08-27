@@ -84,7 +84,8 @@ def checkout(request):
 
             # user_order.ticket_name = request.GET['user_name']
             full_name = f"{request.user.first_name} {request.user.last_name}"
-            user_order.ticket_name = request.GET.get('user_name', full_name)
+            # user_order.ticket_name = request.GET.get('user_name', full_name)
+            # user_order.ticket_name = request.GET['user_name'] or full_name
 
             # user_order.ticket_email = request.GET['user_email']
             email_address = request.user.email
@@ -170,7 +171,8 @@ def direct_checkout(request, target, id):
 
             # user_order.ticket_name = request.GET['user_name']
             full_name = f"{request.user.first_name} {request.user.last_name}"
-            user_order.ticket_name = request.GET.get('user_name', full_name)
+            # user_order.ticket_name = request.GET.get('user_name', full_name)
+            # user_order.ticket_name = request.GET['user_name'] or full_name
 
             # user_order.ticket_email = request.GET['user_email']
             email_address = request.user.email
@@ -240,11 +242,13 @@ def payment_confirmation(request):
             if not (user_order.ticket_name and user_order.ticket_email):
                 # user_order.ticket_name = request.GET['user_name']
                 full_name = f"{request.user.first_name} {request.user.last_name}"
-                user_order.ticket_name = request.GET.get('user_name', full_name)
+                # user_order.ticket_name = request.GET.get('user_name', full_name)
+                user_order.ticket_name = request.GET['user_name'] or full_name
 
                 # user_order.ticket_email = request.GET['user_email']
                 email_address = request.user.email
-                user_order.ticket_email = request.GET.get('user_email', email_address)
+                # user_order.ticket_email = request.GET.get('user_email', email_address)
+                user_order.ticket_email = request.GET['user_email'] or full_name
         user_order.save()
 
         for item in order_items:
